@@ -14,8 +14,10 @@ public class PlayerInputController : MonoBehaviour
     }
 
     public void Init()
-    {        
+    {
+        inputAction.Player.Enable();
         inputAction.Player.Move.performed += OnMovePerformed;
+        inputAction.Player.Jump.performed += OnJumpPerformed;
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)

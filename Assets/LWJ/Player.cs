@@ -15,9 +15,10 @@ public class Player : MonoBehaviour
         {
             Debug.Log("inputController is not ref");
         }
-
+        inputController.Init();
         inputController.OnMoveInput += playerMove.SetDirection;
         inputController.OnJumpInput += playerMove.Jump;
+        playerMove.Init();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,6 +30,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        playerMove.MoveUpdate();
     }
 }

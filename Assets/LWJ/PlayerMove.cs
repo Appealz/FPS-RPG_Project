@@ -12,8 +12,6 @@ public class PlayerMove : MonoBehaviour,IMovement
     private Vector3 MoveDir;
     private Rigidbody rb;
     
-        
-    
     private void Awake()
     {
         if(!TryGetComponent<Rigidbody>(out rb))
@@ -29,12 +27,14 @@ public class PlayerMove : MonoBehaviour,IMovement
 
     public void Move()
     {
-        rb.linearVelocity = MoveDir * moveSpeed;
+        Vector3 newVelocity = MoveDir * moveSpeed;
+        newVelocity.y = rb.linearVelocity.y;
+        rb.linearVelocity = newVelocity;
     }
 
     public void Jump()
     {
-        rb.AddForce(Vector3.up, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     public void SetDirection(Vector2 dir)
