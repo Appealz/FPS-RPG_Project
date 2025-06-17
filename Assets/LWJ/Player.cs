@@ -4,6 +4,7 @@ public class Player : MonoBehaviour
 {
     PlayerMove playerMove;
     PlayerInputController inputController;
+    CameraController cameraController;
 
     private void Awake()
     {
@@ -15,9 +16,15 @@ public class Player : MonoBehaviour
         {
             Debug.Log("inputController is not ref");
         }
+        if(!TryGetComponent<CameraController>(out cameraController))
+        {
+            Debug.Log("camera is not ref");
+        }
+
         inputController.Init();
         inputController.OnMoveInput += playerMove.SetDirection;
         inputController.OnJumpInput += playerMove.Jump;
+        inputController.OnLookInput += cameraController.UpdateRotate;
         playerMove.Init();
     }
 

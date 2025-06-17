@@ -8,6 +8,7 @@ public class PlayerInputController : MonoBehaviour
     public event Action<Vector2> OnMoveInput;
     public event Action OnJumpInput;
     public event Action OnAttackInput;
+    public event Action<Vector2> OnLookInput;
     private void Awake()
     {
         inputAction = new PlayerInputAction();
@@ -18,6 +19,8 @@ public class PlayerInputController : MonoBehaviour
         inputAction.Player.Enable();
         inputAction.Player.Move.performed += OnMovePerformed;
         inputAction.Player.Jump.performed += OnJumpPerformed;
+        inputAction.Player.Look.performed += OnLookPerformed;
+        
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -29,5 +32,11 @@ public class PlayerInputController : MonoBehaviour
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
         OnJumpInput.Invoke();
+    }
+
+    private void OnLookPerformed(InputAction.CallbackContext context)
+    {
+        Vector2 lookDelta = context.ReadValue<Vector2>();
+        OnLookInput?.Invoke(lookDelta);
     }
 }

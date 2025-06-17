@@ -3,25 +3,50 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform cameraRoot;
-    public float sensitivity = 1.5f;
+    [SerializeField]
+    private float rotateCamXAxisSpeed = 5f;
+    [SerializeField]
+    private float rotateCamYAxisSpeed = 3f;
 
-    private Vector2 lookInput;
-    private float xRotation;
+    private float limitMinX = -80f;
+    private float limitMaxX = 50f;
+    private float eulerAngleX;
+    private float eulerAngleY;
+        
 
-    private void Update()
+    //private void Update()
+    //{
+    //    Vector2 mouseDelta = lookInput * sensitivity;
+
+    //    xRotation -= mouseDelta.y;
+    //    xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+    //    cameraRoot.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+    //    transform.Rotate(Vector3.up * mouseDelta.x);
+    //}
+
+    public void UpdateRotate(Vector2 mouseRotate)
     {
-        Vector2 mouseDelta = lookInput * sensitivity;
+        eulerAngleX += mouseRotate.x * rotateCamXAxisSpeed;
+        eulerAngleY -= mouseRotate.y * rotateCamYAxisSpeed;
 
-        xRotation -= mouseDelta.y;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        eulerAngleX = ClampAngle(eulerAngleX, limitMinX, limitMaxX);
 
-        cameraRoot.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseDelta.x);
+        transform.rotation = Quaternion.Euler(eulerAngleY, eulerAngleX, 0f);
     }
 
-    public void OnLook(InputAction.CallbackContext context)
+    private float ClampAngle(float angle, float min, float max)
     {
-        lookInput = context.ReadValue<Vector2>();
+        if (angle < -360f)
+            angle += 360;
+        if (angle > 360f)
+            angle -= 360f;
+
+        return Mathf.Clamp(angle, min, max);
     }
+
+    //public void OnLook(InputAction.CallbackContext context)
+    //{
+    //    lookInput = context.ReadValue<Vector2>();
+    //}
 }
