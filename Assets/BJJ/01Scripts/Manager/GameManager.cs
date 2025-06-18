@@ -48,9 +48,9 @@ public class GameManager : DestroySingleton<GameManager>
             OnGameUpdate?.Invoke();
     }
 
-    private void PauseHandler()
+    private void PauseHandler(bool value)
     {
-        isPause = true;
+        isPause = value;
     }
 
     private void GameEndHandler()

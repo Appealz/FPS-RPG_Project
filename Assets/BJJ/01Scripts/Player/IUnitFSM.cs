@@ -4,7 +4,6 @@ public enum StateType
 { 
     Idle,
     Move,
-    Jump,
     Use,
     Reload,
     Swap,
@@ -53,28 +52,6 @@ public class MoveState : IState
     public void ExitState()
     {
         movement.SetEnable(false);
-    }
-}
-
-public class JumpState : IState
-{
-    // 점프 인터페이스 만들어서 플레이어 무브먼트에 붙이는 구조로 가야할거같네요
-    // 혹은 이동 인터페이스에 점프용 매서드를 열어주세요
-    IMovement movement;
-    
-    public JumpState(IMovement moveComponent)
-    {
-        movement = moveComponent;
-    }
-
-    public void EnterState()
-    {
-        // todo jump인터페이스 만들어지면 추가
-    }
-
-    public void ExitState()
-    {
-        // todo jump인터페이스 만들어지면 추가
     }
 }
 

@@ -23,7 +23,7 @@ public class PlayerFSM : MonoBehaviour, IUnitFSM
     };
 
     private readonly HashSet<StateType> moveStateSet = new()
-    { StateType.Idle, StateType.Move, StateType.Jump};
+    { StateType.Idle, StateType.Move};
     private readonly HashSet<StateType> attackStateSet = new()
     { StateType.Idle, StateType.Use, StateType.Reload, StateType.Swap, StateType.Skill };
 
@@ -47,7 +47,9 @@ public class PlayerFSM : MonoBehaviour, IUnitFSM
         }
     }
 }
-// 서브 FSM을 만들어서 이통합 컨트롤러에 넣고
-// 여기서 받아서 서브에게 넘겨주는 구조로 등록
-// 상태 변화는 여기서 매서드 enum하나 더 만들어서
-// GameObjgect sender , StateGroup group, StateType type
+// 이동을 할때
+// 입력 -> 이동 상태 전환 -> 이동
+// 이 입력과 이동 상태의 전환 이 사이의 통신 구조
+// 일반적으로 이러한 부분들은 플래그로 관리하잖아요?
+// 근데 이 플래그들은 상태 객체에서 변경하도록 구조를 설계했어요
+// 
