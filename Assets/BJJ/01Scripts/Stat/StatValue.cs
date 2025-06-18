@@ -31,7 +31,7 @@ public class StatValue
 
     public void SetBase(float newValue) => baseValue = newValue;
 
-    public void AddValue(float modifier, bool isMulti = false)
+    public void AddModifier(float modifier, bool isMulti = false)
     {
         if(isMulti)
             multiModifiers.Add(modifier);
