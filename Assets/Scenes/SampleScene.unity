@@ -310,8 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ff569ab23cca24eb41af849f735a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateCamXAxisSpeed: 0.5
-  rotateCamYAxisSpeed: 0.3
+  sensitivity: 1
 --- !u!1 &350990564
 GameObject:
   m_ObjectHideFlags: 0

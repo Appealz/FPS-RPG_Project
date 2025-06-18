@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    PlayerMove playerMove;
+    IMovement playerMove;
     PlayerInputController inputController;
     CameraController cameraController;
 
     private void Awake()
     {
-        if(!TryGetComponent<PlayerMove>(out playerMove))
+        if(!TryGetComponent<IMovement>(out playerMove))
         {
             Debug.Log("playerMove is not ref");
         }
@@ -23,8 +23,12 @@ public class Player : MonoBehaviour
 
         inputController.Init();
         inputController.OnMoveInput += playerMove.SetDirection;
-        inputController.OnJumpInput += playerMove.Jump;
+        if(playerMove is IJump jump)
+        {
+            inputController.OnJumpInput += jump.Jump;
+        }        
         inputController.OnLookInput += cameraController.UpdateRotate;
+
         playerMove.Init();
     }
 

@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,14 +19,28 @@ public class PlayerInputController : MonoBehaviour
     {
         inputAction.Player.Enable();
         inputAction.Player.Move.performed += OnMovePerformed;
+        inputAction.Player.Move.canceled += OnMoveCanceled;
         inputAction.Player.Jump.performed += OnJumpPerformed;
-        inputAction.Player.Look.performed += OnLookPerformed;
-        
+        inputAction.Player.Look.performed += OnLookPerformed;        
+    }
+
+    private void OnDisable()
+    {
+        inputAction.Player.Disable();
+        inputAction.Player.Move.performed -= OnMovePerformed;
+        inputAction.Player.Jump.performed -= OnJumpPerformed;
+        inputAction.Player.Look.performed -= OnLookPerformed;
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
     {
         Vector2 inputDir = context.ReadValue<Vector2>();        
+        OnMoveInput?.Invoke(inputDir);
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        Vector2 inputDir = Vector2.zero;
         OnMoveInput?.Invoke(inputDir);
     }
 

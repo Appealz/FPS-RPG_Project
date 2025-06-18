@@ -4,35 +4,36 @@ using UnityEngine.InputSystem;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private float rotateCamXAxisSpeed = 5f;
-    [SerializeField]
-    private float rotateCamYAxisSpeed = 3f;
+    private float sensitivity = 0.1f;
+    
+    private float horizontalSpeed;
+    
+    private float verticalSpeed;
 
-    private float limitMinX = -80f;
-    private float limitMaxX = 50f;
-    private float eulerAngleX;
-    private float eulerAngleY;
-        
+    private float verticalMin = -80f;
+    private float verticalMax = 50f;
+    private float verticalAngle;
+    private float horizontalAngle;
 
-    //private void Update()
-    //{
-    //    Vector2 mouseDelta = lookInput * sensitivity;
 
-    //    xRotation -= mouseDelta.y;
-    //    xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-    //    cameraRoot.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-    //    transform.Rotate(Vector3.up * mouseDelta.x);
-    //}
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        horizontalSpeed = 5f * sensitivity;
+        verticalSpeed = 3f * sensitivity;
+    }
 
     public void UpdateRotate(Vector2 mouseRotate)
     {
-        eulerAngleX += mouseRotate.x * rotateCamXAxisSpeed;
-        eulerAngleY -= mouseRotate.y * rotateCamYAxisSpeed;
+        horizontalSpeed = 5f * sensitivity;
+        verticalSpeed = 3f * sensitivity;
+        horizontalAngle += mouseRotate.x * horizontalSpeed;
+        verticalAngle -= mouseRotate.y * verticalSpeed;
 
-        eulerAngleX = ClampAngle(eulerAngleX, limitMinX, limitMaxX);
+        verticalAngle = ClampAngle(verticalAngle, verticalMin, verticalMax);
 
-        transform.rotation = Quaternion.Euler(eulerAngleY, eulerAngleX, 0f);
+        transform.rotation = Quaternion.Euler(verticalAngle, horizontalAngle, 0f);
     }
 
     private float ClampAngle(float angle, float min, float max)
@@ -44,9 +45,4 @@ public class CameraController : MonoBehaviour
 
         return Mathf.Clamp(angle, min, max);
     }
-
-    //public void OnLook(InputAction.CallbackContext context)
-    //{
-    //    lookInput = context.ReadValue<Vector2>();
-    //}
 }

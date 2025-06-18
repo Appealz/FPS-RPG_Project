@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour,IMovement
+public class PlayerMove : MonoBehaviour,IMovement, IJump
 {
     private bool isMove;
 
@@ -38,8 +38,8 @@ public class PlayerMove : MonoBehaviour,IMovement
     }
 
     public void SetDirection(Vector2 dir)
-    {
-        MoveDir = new Vector3(dir.x, 0f, dir.y);
+    {        
+        MoveDir = transform.forward * dir.y + transform.right * dir.x;
     }
 
     public void MoveUpdate()
