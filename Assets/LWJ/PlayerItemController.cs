@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerItemController : MonoBehaviour
+public class PlayerItemController : MonoBehaviour,IItemCtrl
 {
     IItem currentItem;
 
@@ -15,7 +15,10 @@ public class PlayerItemController : MonoBehaviour
     {
         
     }
+    public void Init()
+    {
 
+    }
     public void Equip(IItem newItem)
     {
         currentItem = newItem;
@@ -23,12 +26,16 @@ public class PlayerItemController : MonoBehaviour
 
     public void UseCurrentItem()
     {
-
+        currentItem.Use();
     }
 
     public void ReloadWeapon()
     {
         // 현재 착용 아이템이 IWeapon일 경우만 작동.
+        if(currentItem is IRangeWeapon rangeWeapon)
+        {
+            rangeWeapon.Reload();
+        }
     }
 
     public void Drop()
@@ -40,4 +47,6 @@ public class PlayerItemController : MonoBehaviour
         // 권총, 칼은 버리기 x
         
     }
+
+
 }

@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     PlayerInputController inputController;
     CameraController cameraController;
     IUnitFSM playerFSM;
-
+    IItemCtrl itemCtrl;
     private void Awake()
     {
         if(!TryGetComponent<IMovement>(out playerMove))
@@ -25,6 +25,12 @@ public class Player : MonoBehaviour
         {
             Debug.Log("playerFSM is not ref");
         }
+        if(!TryGetComponent<IItemCtrl>(out itemCtrl))
+        {
+            Debug.Log("itemCtrl is not ref");
+        }
+        itemCtrl.Init();
+
         playerFSM.ResistState(StateType.Idle, new IdleState());
         playerFSM.ResistState(StateType.Move, new MoveState(playerMove));        
 

@@ -23,15 +23,18 @@ public class PlayerInputController : MonoBehaviour
         inputAction.Player.Move.performed += OnMovePerformed;
         inputAction.Player.Move.canceled += OnMoveCanceled;
         inputAction.Player.Jump.performed += OnJumpPerformed;
-        inputAction.Player.Look.performed += OnLookPerformed;        
+        inputAction.Player.Look.performed += OnLookPerformed;
+        inputAction.Player.EquipItem.performed += OnEquipItem;
     }
 
     private void OnDisable()
     {
         inputAction.Player.Disable();
         inputAction.Player.Move.performed -= OnMovePerformed;
+        inputAction.Player.Move.canceled -= OnMoveCanceled;
         inputAction.Player.Jump.performed -= OnJumpPerformed;
         inputAction.Player.Look.performed -= OnLookPerformed;
+        inputAction.Player.EquipItem.performed -= OnEquipItem;
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -49,7 +52,7 @@ public class PlayerInputController : MonoBehaviour
     }
 
     private void OnJumpPerformed(InputAction.CallbackContext context)
-    {
+    {        
         OnJumpInput.Invoke();        
     }
 
@@ -57,5 +60,11 @@ public class PlayerInputController : MonoBehaviour
     {
         Vector2 lookDelta = context.ReadValue<Vector2>();
         OnLookInput?.Invoke(lookDelta);
+    }
+
+    private void OnEquipItem(InputAction.CallbackContext context)
+    {
+        int index = context.action.GetBindingIndexForControl(context.control);
+        Debug.Log($"{index}");
     }
 }
