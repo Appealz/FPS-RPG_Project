@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
     IMovement playerMove;
     PlayerInputController inputController;
     CameraController cameraController;
+    IUnitFSM playerFSM;
 
     private void Awake()
     {
@@ -20,8 +21,15 @@ public class Player : MonoBehaviour
         {
             Debug.Log("camera is not ref");
         }
+        if(!TryGetComponent<IUnitFSM>(out playerFSM))
+        {
+            Debug.Log("playerFSM is not ref");
+        }
+        playerFSM.ResistState(StateType.Idle, new IdleState());
+        playerFSM.ResistState(StateType.Move, new MoveState(playerMove));        
 
         inputController.Init();
+        inputController.OnStateChangeEvent += playerFSM.SetState;
         inputController.OnMoveInput += playerMove.SetDirection;
         if(playerMove is IJump jump)
         {

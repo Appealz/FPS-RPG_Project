@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour,IMovement, IJump
 {
     private bool isMove;
+    private int jumpCount;
 
     [SerializeField]
     private float moveSpeed;
@@ -23,10 +24,11 @@ public class PlayerMove : MonoBehaviour,IMovement, IJump
     public void Init()
     {
         isMove = true;
+        jumpCount = 1;
     }
 
     public void Move()
-    {
+    {        
         Vector3 newVelocity = MoveDir * moveSpeed;
         newVelocity.y = rb.linearVelocity.y;
         rb.linearVelocity = newVelocity;
@@ -34,6 +36,9 @@ public class PlayerMove : MonoBehaviour,IMovement, IJump
 
     public void Jump()
     {
+        //if (jumpCount == 0)
+        //    return;        
+        //jumpCount--;
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
@@ -54,4 +59,5 @@ public class PlayerMove : MonoBehaviour,IMovement, IJump
         isMove = isOn;
     }
 
+    
 }

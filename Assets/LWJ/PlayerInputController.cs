@@ -10,6 +10,8 @@ public class PlayerInputController : MonoBehaviour
     public event Action OnJumpInput;
     public event Action OnAttackInput;
     public event Action<Vector2> OnLookInput;
+
+    public event Action<StateGroup, StateType> OnStateChangeEvent;
     private void Awake()
     {
         inputAction = new PlayerInputAction();
@@ -36,17 +38,19 @@ public class PlayerInputController : MonoBehaviour
     {
         Vector2 inputDir = context.ReadValue<Vector2>();        
         OnMoveInput?.Invoke(inputDir);
+        OnStateChangeEvent?.Invoke(StateGroup.Move, StateType.Move);
     }
 
     private void OnMoveCanceled(InputAction.CallbackContext context)
     {
-        Vector2 inputDir = Vector2.zero;
-        OnMoveInput?.Invoke(inputDir);
+        //Vector2 inputDir = Vector2.zero;
+        //OnMoveInput?.Invoke(inputDir);
+        OnStateChangeEvent?.Invoke(StateGroup.Move, StateType.Idle);
     }
 
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        OnJumpInput.Invoke();
+        OnJumpInput.Invoke();        
     }
 
     private void OnLookPerformed(InputAction.CallbackContext context)
