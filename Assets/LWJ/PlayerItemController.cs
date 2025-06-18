@@ -1,8 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerItemController : MonoBehaviour,IItemCtrl
 {
-    IItem currentItem;
+    private IItem currentItem;
+    private float itemUseRate;
+    private bool isItemUseReady;
+    private bool isUse;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,7 +21,8 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     }
     public void Init()
     {
-
+        isItemUseReady = true;
+        isUse = true;
     }
     public void Equip(IItem newItem)
     {
@@ -26,6 +31,8 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
 
     public void UseCurrentItem()
     {
+        if (!isUse || !isItemUseReady || currentItem == null)
+            return;
         currentItem.Use();
     }
 
@@ -45,8 +52,18 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         // 다음 인덱스의 아이템이 없는경우
         // 이전 인덱스의 아이템 착용
         // 권총, 칼은 버리기 x
-        
     }
 
+    public void SetEnable(bool isOn)
+    {
+        isUse = isOn;
+    }
 
+    // 코루틴으로 임시 구현
+    // todo : 유니태스크 사용 예정
+    private IEnumerator ItemUseRateTime()
+    {
+        yield return new WaitForSeconds(itemUseRate);
+        isItemUseReady = true;
+    }
 }

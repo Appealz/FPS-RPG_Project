@@ -7,4 +7,5 @@ public interface IItemCtrl
     void UseCurrentItem();
     void ReloadWeapon();
     void Drop();
+    void SetEnable(bool isOn);
 }

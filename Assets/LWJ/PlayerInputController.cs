@@ -25,6 +25,7 @@ public class PlayerInputController : MonoBehaviour
         inputAction.Player.Jump.performed += OnJumpPerformed;
         inputAction.Player.Look.performed += OnLookPerformed;
         inputAction.Player.EquipItem.performed += OnEquipItem;
+        inputAction.Player.Attack.performed += OnAttackPerformed;
     }
 
     private void OnDisable()
@@ -35,6 +36,7 @@ public class PlayerInputController : MonoBehaviour
         inputAction.Player.Jump.performed -= OnJumpPerformed;
         inputAction.Player.Look.performed -= OnLookPerformed;
         inputAction.Player.EquipItem.performed -= OnEquipItem;
+        inputAction.Player.Attack.performed -= OnAttackPerformed;
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -53,7 +55,7 @@ public class PlayerInputController : MonoBehaviour
 
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {        
-        OnJumpInput.Invoke();        
+        OnJumpInput.Invoke();
     }
 
     private void OnLookPerformed(InputAction.CallbackContext context)
@@ -66,5 +68,10 @@ public class PlayerInputController : MonoBehaviour
     {
         int index = context.action.GetBindingIndexForControl(context.control);
         Debug.Log($"{index}");
+    }
+
+    private void OnAttackPerformed(InputAction.CallbackContext context)
+    {
+        //OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Use);
     }
 }

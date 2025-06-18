@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
         inputController.OnLookInput += cameraController.UpdateRotate;
 
         playerMove.Init();
+        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -56,5 +57,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         playerMove.MoveUpdate();
+        itemCtrl.UseCurrentItem();
     }
 }
