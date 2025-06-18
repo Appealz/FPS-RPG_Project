@@ -13,8 +13,8 @@ public enum StateType
 
 public interface IUnitFSM
 {
-    void ResistState(StateType type, State state);
-    void SetState(StateType type);
+    void ResistState(StateType type, IState state);
+    void SetState(StateGroup group, StateType type);
 }
 
 public interface IState
@@ -23,15 +23,20 @@ public interface IState
     void ExitState();
 }
 
-public abstract class State : IState
+public class IdleState : IState
 {
+    public void EnterState()
+    {
+        
+    }
 
-    public abstract void EnterState();
-
-    public abstract void ExitState();
+    public void ExitState()
+    {
+        
+    }
 }
 
-public class MoveState : State
+public class MoveState : IState
 {
     private IMovement movement;
 
@@ -40,18 +45,18 @@ public class MoveState : State
         movement = moveComponent;
     }
 
-    public override void EnterState()
+    public void EnterState()
     {
         movement.SetEnable(true);
     }
 
-    public override void ExitState()
+    public void ExitState()
     {
         movement.SetEnable(false);
     }
 }
 
-public class JumpState : State
+public class JumpState : IState
 {
     // 점프 인터페이스 만들어서 플레이어 무브먼트에 붙이는 구조로 가야할거같네요
     // 혹은 이동 인터페이스에 점프용 매서드를 열어주세요
@@ -62,62 +67,62 @@ public class JumpState : State
         movement = moveComponent;
     }
 
-    public override void EnterState()
+    public void EnterState()
     {
         // todo jump인터페이스 만들어지면 추가
     }
 
-    public override void ExitState()
+    public void ExitState()
     {
         // todo jump인터페이스 만들어지면 추가
     }
 }
 
-public class UseState : State
+public class UseState : IState
 {
     // todo Use
 
-    public override void EnterState()
+    public void EnterState()
     {
         // todo Use 컨트롤러 추가 후 매서드
     }
 
-    public override void ExitState()
+    public void ExitState()
     {
         // todo Use 컨트롤러 추가 후 매서드
     }
 }
 
-public class ReloadState : State
+public class ReloadState : IState
 {
     // todo Use 컨트롤러 추가 후 추가
 
-    public override void EnterState()
+    public void EnterState()
     {
         
     }
 
-    public override void ExitState()
+    public void ExitState()
     {
         
     }
 }
 
-public class SwapState : State
+public class SwapState : IState
 {
     // 플레이어 인밴토리? (보유 무기 리스트) 컨트롤러 완성되면
-    public override void EnterState()
+    public void EnterState()
     {
         throw new System.NotImplementedException();
     }
 
-    public override void ExitState()
+    public void ExitState()
     {
         throw new System.NotImplementedException();
     }
 }
 
-public class SkillState : State
+public class SkillState : IState
 {
     IPlayerSkill skillCtrl;
 
@@ -126,12 +131,12 @@ public class SkillState : State
         this.skillCtrl = skillCtrl;
     }
 
-    public override void EnterState()
+    public void EnterState()
     {
         skillCtrl.SetEnable(true);
     }
 
-    public override void ExitState()
+    public void ExitState()
     {
         skillCtrl.SetEnable(false);
     }
