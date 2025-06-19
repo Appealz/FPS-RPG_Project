@@ -13,8 +13,8 @@ public interface IPlayerSkill
 
 public abstract class ClassSkill
 {
-    private ClassSkillData skillData;
-    private float curCoolDown;
+    protected ClassSkillData skillData;
+    protected float curCoolDown;
 
     public ClassSkill(ClassSkillData data)
     {
