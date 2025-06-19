@@ -6,7 +6,7 @@ public class PlayerDataManager : MonoBehaviour
     public StatManager statManager { get; private set; }
     public PlayerInventory inventory { get; private set; }
 
-    // todo 인게임 재화 클래스 구현
+    public CurrencyManager currencyManager { get; private set; }
 
     /// <summary>
     /// todo 플레이어 스텟 데이터를 받아서 statManager에게 넘길 예정
@@ -25,6 +25,8 @@ public class PlayerDataManager : MonoBehaviour
             Debug.Log("PlayerDataManager.cs - InitPlayerData() - PlayerInventory");
         }else inventory = inven;
 
-
+        currencyManager = new CurrencyManager();
     }
+
+    // todo 이벤트 버스 구현 후 이벤트 버스로 이벤트를 받는 핸들러 구현 필요
 }

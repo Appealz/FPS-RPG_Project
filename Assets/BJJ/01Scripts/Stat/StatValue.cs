@@ -46,4 +46,9 @@ public class StatValue
         else
             addModifiers.Remove(modifier);
     }
+
+    public bool HasChange(float prev)
+    {
+        return Mathf.Approximately(Value, prev);
+    }
 }
