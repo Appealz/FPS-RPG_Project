@@ -57,16 +57,21 @@ public class MoveState : IState
 
 public class UseState : IState
 {
-    // todo Use
+    private IItemCtrl itemCtrl;
+
+    public UseState(IItemCtrl itemCtrl)
+    {
+        this.itemCtrl = itemCtrl;
+    }
 
     public void EnterState()
     {
-        // todo Use 컨트롤러 추가 후 매서드
+        itemCtrl.SetEnable(true);
     }
 
     public void ExitState()
     {
-        // todo Use 컨트롤러 추가 후 매서드
+        itemCtrl.SetEnable(true);
     }
 }
 
