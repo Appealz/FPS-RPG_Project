@@ -19,6 +19,16 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     {
         
     }
+    private void OnEnable()
+    {
+        EventBus_Item.Subscribe(Equip_Handle);
+    }
+
+    private void OnDisable()
+    {
+        EventBus_Item.UnSubscribe(Equip_Handle);
+    }
+
     public void Init()
     {
         isItemUseReady = true;
@@ -70,7 +80,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     public void Equip_Handle(ItemChangedEvent newEvent)
     {
         if (newEvent.eventType != ItemEventType.equip || newEvent.sender != gameObject)
-        { return; }
-
+            return;
+        Equip(newEvent.changeItem);
     }
 }

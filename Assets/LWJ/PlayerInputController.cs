@@ -11,6 +11,7 @@ public class PlayerInputController : MonoBehaviour
     public event Action OnAttackInput;
     public event Action<Vector2> OnLookInput;
     public event Action<int> OnEquipInput;
+    
 
     public event Action<StateGroup, StateType> OnStateChangeEvent;
 
@@ -76,6 +77,11 @@ public class PlayerInputController : MonoBehaviour
 
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
-        //OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Use);
+        OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Use);
+    }
+
+    private void OnReloadPerformed(InputAction.CallbackContext context)
+    {
+
     }
 }

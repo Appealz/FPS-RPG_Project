@@ -26,8 +26,10 @@ public class PlayerInventory
     // 1,2,3,4,5 키와 바인딩
     public void EquipItem(int index)
     {
+        if (index >= items.Count || index > 0)
+            return;
         Debug.Log($"{index}아이템 장착");
-        // 이벤트로 PlayerItemController에 Equip(items[index]) 호출;
+        // todo: 이벤트로 PlayerItemController에 Equip(items[index]) 호출;
         EventBus_Item.Publish(new ItemChangedEvent(items[index], owner, ItemEventType.equip));
     }
 
@@ -56,15 +58,15 @@ public class PlayerInventory
 
 public static class EventBus_Item
 {
-    public static void Subscribe<ItemChangedEvent>(Action<ItemChangedEvent> newMethod)
+    public static void Subscribe(Action<ItemChangedEvent> newMethod)
     {
         EventBus.Subscribe(newMethod);
     }
-    public static void UnSubscribe<ItemChangedEvent>(Action<ItemChangedEvent> newMethod)
+    public static void UnSubscribe(Action<ItemChangedEvent> newMethod)
     {
         EventBus.UnSubscribe(newMethod);
     }
-    public static void Publish<ItemChangedEvent>(ItemChangedEvent type)
+    public static void Publish(ItemChangedEvent type)
     {
         EventBus.Publish(type);
     }
@@ -79,13 +81,13 @@ public enum ItemEventType
 }
 public class ItemChangedEvent
 {
-    public IItem equipItem;
+    public IItem changeItem;
     public GameObject sender;
     public ItemEventType eventType;
 
-    public ItemChangedEvent(IItem newEquipItem, GameObject newSender, ItemEventType newEventType)
+    public ItemChangedEvent(IItem newItem, GameObject newSender, ItemEventType newEventType)
     {
-        equipItem = newEquipItem;
+        changeItem = newItem;
         sender = newSender;
         eventType = newEventType;
     }
