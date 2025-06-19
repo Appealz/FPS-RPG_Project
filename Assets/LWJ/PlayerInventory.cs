@@ -1,22 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory
 {
+    private GameObject owner;
     private List<IItem> items = new List<IItem>();
     private IItem currentItem;
     private int currentIndex;
 
-    public void Init(List<IItem> newItemList)
+    public PlayerInventory(GameObject newOwner, List<IItem> newItemList)
     {
+        owner = newOwner;
         items = newItemList;
     }
 
     // 1,2,3,4,5 키와 바인딩
     public void EquipItem(int index)
     {        
-        currentIndex = index;
-        currentItem = items[currentIndex];
+        //currentIndex = index;
+        //currentItem = items[currentIndex];
+        Debug.Log($"{index}아이템 장착");
         // 이벤트로 PlayerItemController에 Equip(items[index]) 호출;
     }
 

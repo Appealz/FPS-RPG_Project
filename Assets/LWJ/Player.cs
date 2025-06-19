@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,6 +8,7 @@ public class Player : MonoBehaviour
     CameraController cameraController;
     IUnitFSM playerFSM;
     IItemCtrl itemCtrl;
+    PlayerDataManager dataManager;
     private void Awake()
     {
         if(!TryGetComponent<IMovement>(out playerMove))
@@ -20,6 +22,10 @@ public class Player : MonoBehaviour
         if(!TryGetComponent<CameraController>(out cameraController))
         {
             Debug.Log("camera is not ref");
+        }
+        if(!TryGetComponent<PlayerDataManager>(out dataManager))
+        {
+            Debug.Log("dataManager is not ref");
         }
         if(!TryGetComponent<IUnitFSM>(out playerFSM))
         {
@@ -42,6 +48,7 @@ public class Player : MonoBehaviour
             inputController.OnJumpInput += jump.Jump;
         }        
         inputController.OnLookInput += cameraController.UpdateRotate;
+        inputController.OnEquipInput += dataManager.inventory.EquipItem;
 
         playerMove.Init();
         

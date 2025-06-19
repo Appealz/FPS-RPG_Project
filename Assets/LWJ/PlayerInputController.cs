@@ -10,8 +10,10 @@ public class PlayerInputController : MonoBehaviour
     public event Action OnJumpInput;
     public event Action OnAttackInput;
     public event Action<Vector2> OnLookInput;
+    public event Action<int> OnEquipInput;
 
     public event Action<StateGroup, StateType> OnStateChangeEvent;
+
     private void Awake()
     {
         inputAction = new PlayerInputAction();
