@@ -20,10 +20,7 @@ public class PlayerDataManager : MonoBehaviour
             {StatType.MoveSpeed, new StatValue(1) },
             {StatType.AttackDamage, new StatValue(0) }
         });
-        if(!TryGetComponent<PlayerInventory>(out var inven))
-        {
-            Debug.Log("PlayerDataManager.cs - InitPlayerData() - PlayerInventory");
-        }else inventory = inven;
+        inventory = new PlayerInventory(gameObject, null);
 
         currencyManager = new CurrencyManager(gameObject);
     }

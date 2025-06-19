@@ -13,5 +13,19 @@ public interface IPlayerSkill
 
 public abstract class ClassSkill
 {
+    private ClassSkillData skillData;
+    public ClassSkill(ClassSkillData data)
+    {
+        skillData = data;
+    }
+
     public abstract void UseSkill();
+}
+
+public abstract class ClassSkillData : ScriptableObject
+{
+    public int ID;
+    public float CoolDown;
+
+    public abstract ClassSkill GetSkill();
 }
