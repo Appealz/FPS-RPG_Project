@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class PlayerDataManager : MonoBehaviour
 {
     public StatManager statManager { get; private set; }
@@ -23,7 +25,48 @@ public class PlayerDataManager : MonoBehaviour
         inventory = new PlayerInventory(gameObject, null);
 
         currencyManager = new CurrencyManager(gameObject);
+
+        //EventBus_Item.Subscribe<ItemChangedEvent>(AddItemHandler);
+        //EventBus_Item.Subscribe<ItemChangedEvent>(RemoveItemHandler);
+        EventBus_Stat.Subscribe(AddStatHandler);
+        EventBus_Stat.Subscribe(RemoveStatHandler);
+    }
+
+    private void OnDisable()
+    {
+        //EventBus_Item.UnSubscribe<ItemChangedEvent>(AddItemHandler);
+        //EventBus_Item.UnSubscribe<ItemChangedEvent>(RemoveItemHandler);
+        EventBus_Stat.Unsubscribe(AddStatHandler);
+        EventBus_Stat.Unsubscribe(RemoveStatHandler);
     }
 
     // todo 이벤트 버스 구현 후 이벤트 버스로 이벤트를 받는 핸들러 구현 필요
+
+    private void AddItemHandler(ItemChangedEvent newItemEvent)
+    {
+        if (newItemEvent.sender != gameObject || newItemEvent.eventType != ItemEventType.add) return;
+
+        //inventory.AddItem(newItemEvent.equipItem);
+    }
+
+    private void RemoveItemHandler(ItemChangedEvent newItemEvent)
+    {
+        if (newItemEvent.sender != gameObject || newItemEvent.eventType != ItemEventType.add) return;
+
+        //inventory.RemoveItem(newItemEvent.equipItem);
+    }
+
+    private void AddStatHandler(StatModifier modifier)
+    {
+        if (modifier.sender != gameObject || modifier.EventType != StatEventType.Add) return;
+
+        statManager.AddModifier(modifier.ChangedStatType, modifier.ChangeValue, modifier.isMulti);
+    }
+
+    private void RemoveStatHandler(StatModifier modifier)
+    {
+        if (modifier.sender != gameObject || modifier.EventType != StatEventType.Remove) return;
+
+        statManager.RemoveModifier(modifier.ChangedStatType, modifier.ChangeValue, modifier.isMulti);
+    }
 }

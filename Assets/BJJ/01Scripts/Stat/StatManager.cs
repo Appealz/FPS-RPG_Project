@@ -10,6 +10,30 @@ public enum StatType
     AttackSpeed,
 }
 
+public enum StatEventType
+{
+    Add,
+    Remove
+}
+
+public class StatModifier
+{
+    public GameObject sender;
+    public StatEventType EventType;
+    public StatType ChangedStatType;
+    public float ChangeValue;
+    public bool isMulti;
+
+    public StatModifier(GameObject newSender,StatEventType eventType,StatType changedStatType, float changeValue, bool isMulti = false)
+    {
+        sender = newSender;
+        EventType = eventType;
+        ChangedStatType = changedStatType;
+        ChangeValue = changeValue;
+        this.isMulti = isMulti;
+    }
+}
+
 public class StatManager
 {
     private GameObject owner;
