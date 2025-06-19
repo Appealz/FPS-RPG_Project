@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
         }
         itemCtrl.Init();
 
+        
         playerFSM.ResistState(StateType.Idle, new IdleState());
         playerFSM.ResistState(StateType.Move, new MoveState(playerMove));
 

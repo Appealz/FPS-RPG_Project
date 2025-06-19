@@ -78,6 +78,7 @@ public class PlayerInputController : MonoBehaviour
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
         OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Use);
+        Debug.Log("공격 키 입력");
     }
 
     private void OnReloadPerformed(InputAction.CallbackContext context)
