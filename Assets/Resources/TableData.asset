@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f83e5a137b330604db7aeb652eaf2bcb, type: 3}
+  m_Name: TableData
+  m_EditorClassIdentifier: 
+  WeaponData:
+  - id: 1001
+    name: rifle01
+    damagePerShot: 25
+    fireRate: 0.2
+    ammoPerReload: 30
+    maxAmmo: 120
+    range: 50
+    weight: 5.5
+    price: 500
+    weaponLevel: 1
+  ArmorData:
+  - id: 2001
+    name: lightweight vest
+    durability: 150
+    weight: 50
+    damageReduction: 0.2
+    price: 500
+  HealkitData:
+  - id: 3001
+    name: normalHealkit
+    healAmount: 25
+    price: 0
+  UnitBaseStatsData:
+  - id: 4001
+    name: monster01
+    maxHp: 100
+    moveSpeed: 5
+    damage: 5
+    description: 
+  - id: 5001
+    name: rilfer
+    maxHp: 0
+    moveSpeed: 0
+    damage: 0
+    description: 
+  - id: 5002
+    name: shotguner
+    maxHp: 0
+    moveSpeed: 0
+    damage: 0
+    description: 
+  - id: 5003
+    name: engineer
+    maxHp: 0
+    moveSpeed: 0
+    damage: 0
+    description: 
+  - id: 5004
+    name: survivor
+    maxHp: 0
+    moveSpeed: 0
+    damage: 0
+    description: 
+  MonsterStatsData:
+  - id: 4001
+    attackSpeed: 3
+    range: 2
+  PerkData:
+  - id: 50011
+    name: perk01
+    description: a
+  - id: 50012
+    name: perk02
+    description: b
+  - id: 50013
+    name: perk03
+    description: c
+  - id: 50014
+    name: perk04
+    description: d
+  - id: 50015
+    name: perk05
+    description: e
+  - id: 50016
+    name: perk06
+    description: f
+  - id: 50017
+    name: perk07
+    description: g
+  - id: 50018
+    name: perk08
+    description: h
+  - id: 50021
+    name: perk01
+    description: 
+  - id: 50022
+    name: perk02
+    description: 
+  - id: 50023
+    name: perk03
+    description: 
+  - id: 50024
+    name: perk04
+    description: 
+  - id: 50025
+    name: perk05
+    description: 
+  - id: 50026
+    name: perk06
+    description: 
+  - id: 50027
+    name: perk07
+    description: 
+  - id: 50028
+    name: perk08
+    description: 

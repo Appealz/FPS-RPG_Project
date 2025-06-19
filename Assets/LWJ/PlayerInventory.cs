@@ -7,10 +7,17 @@ public class PlayerInventory : MonoBehaviour
     private IItem currentItem;
     private int currentIndex;
 
-    public void EquipItem(int index)
+    public void Init(List<IItem> newItemList)
     {
+        items = newItemList;
+    }
+
+    // 1,2,3,4,5 키와 바인딩
+    public void EquipItem(int index)
+    {        
         currentIndex = index;
         currentItem = items[currentIndex];
+        // 이벤트로 PlayerItemController에 Equip(items[index]) 호출;
     }
 
     public void AddItem(IItem newItem)

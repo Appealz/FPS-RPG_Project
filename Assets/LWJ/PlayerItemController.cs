@@ -29,6 +29,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         currentItem = newItem;
     }
 
+    // 마우스와 바인딩
     public void UseCurrentItem()
     {
         if (!isUse || !isItemUseReady || currentItem == null)
@@ -36,6 +37,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         currentItem.Use();
     }
 
+    // 장전 키와 바인딩
     public void ReloadWeapon()
     {
         // 현재 착용 아이템이 IWeapon일 경우만 작동.
@@ -45,13 +47,11 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         }
     }
 
+    // 버리기 키와 바인딩
     public void Drop()
     {
-        // 리스트에서 현재 아이템 버리고
-        // 다음 인덱스의 아이템을 꺼내오거나
-        // 다음 인덱스의 아이템이 없는경우
-        // 이전 인덱스의 아이템 착용
-        // 권총, 칼은 버리기 x
+        // 드랍 키 발생
+        // 
     }
 
     public void SetEnable(bool isOn)
