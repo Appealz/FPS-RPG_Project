@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("dataManager is not ref");
         }
+        dataManager.InitPlayerData();
         if(!TryGetComponent<IUnitFSM>(out playerFSM))
         {
             Debug.Log("playerFSM is not ref");
@@ -38,8 +39,9 @@ public class Player : MonoBehaviour
         itemCtrl.Init();
 
         playerFSM.ResistState(StateType.Idle, new IdleState());
-        playerFSM.ResistState(StateType.Move, new MoveState(playerMove));        
+        playerFSM.ResistState(StateType.Move, new MoveState(playerMove));
 
+        #region _KeyBinding_
         inputController.Init();
         inputController.OnStateChangeEvent += playerFSM.SetState;
         inputController.OnMoveInput += playerMove.SetDirection;
@@ -49,9 +51,9 @@ public class Player : MonoBehaviour
         }        
         inputController.OnLookInput += cameraController.UpdateRotate;
         inputController.OnEquipInput += dataManager.inventory.EquipItem;
+        #endregion
 
-        playerMove.Init();
-        
+        playerMove.Init();        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

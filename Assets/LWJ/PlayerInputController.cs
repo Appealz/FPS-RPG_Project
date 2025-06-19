@@ -69,7 +69,9 @@ public class PlayerInputController : MonoBehaviour
     private void OnEquipItem(InputAction.CallbackContext context)
     {
         int index = context.action.GetBindingIndexForControl(context.control);
-        Debug.Log($"{index}");
+        OnEquipInput?.Invoke(index);
+        OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Swap);
+        //Debug.Log($"{index}");
     }
 
     private void OnAttackPerformed(InputAction.CallbackContext context)

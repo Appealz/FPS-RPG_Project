@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInventory
@@ -11,16 +13,22 @@ public class PlayerInventory
     public PlayerInventory(GameObject newOwner, List<IItem> newItemList)
     {
         owner = newOwner;
-        items = newItemList;
+        if (newItemList == null)
+        {
+            items = new List<IItem>();
+        }
+        else
+        {
+            items = newItemList;
+        }
     }
 
     // 1,2,3,4,5 키와 바인딩
     public void EquipItem(int index)
-    {        
-        //currentIndex = index;
-        //currentItem = items[currentIndex];
+    {
         Debug.Log($"{index}아이템 장착");
         // 이벤트로 PlayerItemController에 Equip(items[index]) 호출;
+        EventBus_Item.Publish(new ItemChangedEvent(items[index], owner, ItemEventType.equip));
     }
 
     public void AddItem(IItem newItem)
@@ -43,5 +51,42 @@ public class PlayerInventory
         // 다음 인덱스의 아이템이 없는경우
         // 이전 인덱스의 아이템 착용
         // 권총, 칼은 버리기 x
+    }
+}
+
+public static class EventBus_Item
+{
+    public static void Subscribe<ItemChangedEvent>(Action<ItemChangedEvent> newMethod)
+    {
+        EventBus.Subscribe(newMethod);
+    }
+    public static void UnSubscribe<ItemChangedEvent>(Action<ItemChangedEvent> newMethod)
+    {
+        EventBus.UnSubscribe(newMethod);
+    }
+    public static void Publish<ItemChangedEvent>(ItemChangedEvent type)
+    {
+        EventBus.Publish(type);
+    }
+}
+
+
+public enum ItemEventType
+{
+    equip,
+    remove,
+    add,
+}
+public class ItemChangedEvent
+{
+    public IItem equipItem;
+    public GameObject sender;
+    public ItemEventType eventType;
+
+    public ItemChangedEvent(IItem newEquipItem, GameObject newSender, ItemEventType newEventType)
+    {
+        equipItem = newEquipItem;
+        sender = newSender;
+        eventType = newEventType;
     }
 }

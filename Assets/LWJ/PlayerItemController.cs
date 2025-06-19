@@ -66,4 +66,11 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         yield return new WaitForSeconds(itemUseRate);
         isItemUseReady = true;
     }
+
+    public void Equip_Handle(ItemChangedEvent newEvent)
+    {
+        if (newEvent.eventType != ItemEventType.equip || newEvent.sender != gameObject)
+        { return; }
+
+    }
 }
