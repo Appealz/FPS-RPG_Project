@@ -12,6 +12,7 @@ public enum StatType
 
 public class StatManager
 {
+    private GameObject owner;
     private Dictionary<StatType, StatValue> statMap = new Dictionary<StatType, StatValue>();
     private Dictionary<StatType, float> prevMap = new Dictionary<StatType, float>();
 
@@ -22,13 +23,19 @@ public class StatManager
 
     private List<Buff> activeBuffList;
 
-    public StatManager(Dictionary<StatType, StatValue> statMap, List<Buff> setPerks = null)
+    public StatManager(GameObject newOwner, Dictionary<StatType, StatValue> statMap, List<Buff> setPerks = null)
     {
+        owner = newOwner;
         this.statMap = statMap;
 
         curHP = statMap[StatType.HP].Value;
         armorManager = new ArmorManager();
         activeBuffList = setPerks ?? new List<Buff>();
+
+        foreach(var buff in activeBuffList)
+        {
+            buff.OnApply();
+        }
 
         foreach (var stat in this.statMap)
         {
@@ -47,6 +54,7 @@ public class StatManager
 
             if (activeBuffList[i].isExpired)
             {
+                isChange = true;
                 activeBuffList[i].OnRemove();
                 activeBuffList.RemoveAt(i);
             }
@@ -96,6 +104,12 @@ public class StatManager
         }
 
         // todo UIÃ³¸®
+    }
+
+    public void AddBuff(Buff newBuff)
+    {
+        newBuff.OnApply();
+        activeBuffList.Add(newBuff);
     }
 
     private float GetStat(StatType type)

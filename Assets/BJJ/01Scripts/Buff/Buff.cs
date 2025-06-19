@@ -25,6 +25,11 @@ public abstract class Buff
         IsStackable = isStackable;
     }
 
+    public void SetTarget(GameObject newTarget)
+    {
+        Target = newTarget;
+    }
+
     public abstract void OnApply();
     public virtual void OnRemove() { }
 

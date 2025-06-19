@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class CurrencyManager
 {
+    private GameObject owner;
     private int gold;
 
-    public CurrencyManager()
+    public CurrencyManager(GameObject newOwner)
     {
         gold = 0;
+        owner = newOwner;
     }
 
     public void AddGold(int inputGold) => gold += inputGold;

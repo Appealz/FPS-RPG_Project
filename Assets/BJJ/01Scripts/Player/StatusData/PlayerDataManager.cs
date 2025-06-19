@@ -14,7 +14,7 @@ public class PlayerDataManager : MonoBehaviour
     public void InitPlayerData()
     {
         // 추후 컨텍스트 매니저를 통해 스텟 데이터를 받아오면 그걸 기반으로 초기화
-        statManager = new StatManager(new Dictionary<StatType, StatValue>
+        statManager = new StatManager(gameObject,new Dictionary<StatType, StatValue>
         {
             {StatType.HP, new StatValue(100) },
             {StatType.MoveSpeed, new StatValue(1) },
@@ -25,7 +25,7 @@ public class PlayerDataManager : MonoBehaviour
             Debug.Log("PlayerDataManager.cs - InitPlayerData() - PlayerInventory");
         }else inventory = inven;
 
-        currencyManager = new CurrencyManager();
+        currencyManager = new CurrencyManager(gameObject);
     }
 
     // todo 이벤트 버스 구현 후 이벤트 버스로 이벤트를 받는 핸들러 구현 필요
