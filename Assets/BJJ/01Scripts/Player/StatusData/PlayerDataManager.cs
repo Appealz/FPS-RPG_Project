@@ -26,16 +26,16 @@ public class PlayerDataManager : MonoBehaviour
 
         currencyManager = new CurrencyManager(gameObject);
 
-        //EventBus_Item.Subscribe<ItemChangedEvent>(AddItemHandler);
-        //EventBus_Item.Subscribe<ItemChangedEvent>(RemoveItemHandler);
+        EventBus_Item.Subscribe(AddItemHandler);
+        EventBus_Item.Subscribe(RemoveItemHandler);
         EventBus_Stat.Subscribe(AddStatHandler);
         EventBus_Stat.Subscribe(RemoveStatHandler);
     }
 
     private void OnDisable()
     {
-        //EventBus_Item.UnSubscribe<ItemChangedEvent>(AddItemHandler);
-        //EventBus_Item.UnSubscribe<ItemChangedEvent>(RemoveItemHandler);
+        EventBus_Item.UnSubscribe(AddItemHandler);
+        EventBus_Item.UnSubscribe(RemoveItemHandler);
         EventBus_Stat.Unsubscribe(AddStatHandler);
         EventBus_Stat.Unsubscribe(RemoveStatHandler);
     }
@@ -46,14 +46,14 @@ public class PlayerDataManager : MonoBehaviour
     {
         if (newItemEvent.sender != gameObject || newItemEvent.eventType != ItemEventType.add) return;
 
-        //inventory.AddItem(newItemEvent.equipItem);
+        inventory.AddItem(newItemEvent.changeItem);
     }
 
     private void RemoveItemHandler(ItemChangedEvent newItemEvent)
     {
         if (newItemEvent.sender != gameObject || newItemEvent.eventType != ItemEventType.add) return;
 
-        //inventory.RemoveItem(newItemEvent.equipItem);
+        inventory.RemoveItem(newItemEvent.changeItem);
     }
 
     private void AddStatHandler(StatModifier modifier)

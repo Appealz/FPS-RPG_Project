@@ -5,9 +5,9 @@ public class PlayerSkillCtrl : MonoBehaviour, IPlayerSkill
     private ClassSkill curSkill;
     private bool isUseSkill;
 
-    public void InitSkillCtrl(ClassSkill newSkill)
+    public void InitSkillCtrl(ClassSkillData data)
     {
-        curSkill = newSkill;
+        curSkill = data.GetSkill(gameObject);
         isUseSkill = false;
     }
 

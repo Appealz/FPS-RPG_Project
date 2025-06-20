@@ -6,8 +6,8 @@ public class RifleSkillData : ClassSkillData, IRifleSkill
     [SerializeField] private int skillDamage;
     public int Damage => skillDamage;
 
-    public override ClassSkill GetSkill()
+    public override ClassSkill GetSkill(GameObject newOwner)
     {
-        return null;
+        return new RifleSkillLogic(newOwner,this);
     }
 }

@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class RifleSkillLogic : ClassSkill
+public class ShotgunSkillLogic : ClassSkill
 {
-    private IRifleSkill rifleSkillData;
+    private IShotgunSkill shotgunSkillData;
 
-    public RifleSkillLogic(GameObject newOwner, ClassSkillData data) : base(newOwner, data)
+    public ShotgunSkillLogic(GameObject newOwner, ClassSkillData data) : base(newOwner, data)
     {
-        rifleSkillData = GetInterface<IRifleSkill>();
+        shotgunSkillData = GetInterface<ShotgunSkillData>();
     }
 
     public override void UseSkill()
@@ -20,6 +20,6 @@ public class RifleSkillLogic : ClassSkill
         curCoolDown = skillData.CoolDown;
         StartCooldown();
         // 추후 애니메이션 이벤트에 기반하여 스킬 작동 예정
-        Debug.Log("Test Code - Rifle");
+        Debug.Log("Test Code - Shotgun");
     }
 }
