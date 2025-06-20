@@ -9,6 +9,11 @@ public class Player : MonoBehaviour
     IUnitFSM playerFSM;
     IItemCtrl itemCtrl;
     PlayerDataManager dataManager;
+    IPlayerSkill playerSkill;
+
+    [SerializeField]
+    ClassSkillData skillData;
+
     private void Awake()
     {
         if(!TryGetComponent<IMovement>(out playerMove))
@@ -36,11 +41,19 @@ public class Player : MonoBehaviour
         {
             Debug.Log("itemCtrl is not ref");
         }
+        if(!TryGetComponent<IPlayerSkill>(out playerSkill))
+        {
+
+        }
+        playerSkill.InitSkillCtrl(skillData);
+
         itemCtrl.Init();
 
         
         playerFSM.ResistState(StateType.Idle, new IdleState());
         playerFSM.ResistState(StateType.Move, new MoveState(playerMove));
+        playerFSM.ResistState(StateType.Use, new UseState(itemCtrl));
+        playerFSM.ResistState(StateType.Skill, new SkillState(playerSkill));
 
         #region _KeyBinding_
         inputController.Init();
@@ -52,7 +65,7 @@ public class Player : MonoBehaviour
         }        
         inputController.OnLookInput += cameraController.UpdateRotate;
         inputController.OnEquipInput += dataManager.inventory.EquipItem;
-        //inputController.OnAttackInput += itemCtrl.UseCurrentItem;
+        inputController.OnAttackInput += itemCtrl.UseCurrentItem;
         #endregion
 
         playerMove.Init();        

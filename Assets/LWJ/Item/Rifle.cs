@@ -11,7 +11,7 @@ public class Rifle : MonoBehaviour, IRangeWeapon
     // private ItemData itemData    
     public void InitData()
     {
-
+        
     }
 
     public void Use() => Fire();

@@ -8,10 +8,9 @@ public class PlayerInputController : MonoBehaviour
     PlayerInputAction inputAction;
     public event Action<Vector2> OnMoveInput;
     public event Action OnJumpInput;
-    //public event Action OnAttackInput;
+    public event Action OnAttackInput;
     public event Action<Vector2> OnLookInput;
-    public event Action<int> OnEquipInput;
-    
+    public event Action<int> OnEquipInput;    
 
     public event Action<StateGroup, StateType> OnStateChangeEvent;
 
@@ -29,6 +28,7 @@ public class PlayerInputController : MonoBehaviour
         inputAction.Player.Look.performed += OnLookPerformed;
         inputAction.Player.EquipItem.performed += OnEquipItem;
         inputAction.Player.Attack.performed += OnAttackPerformed;
+        inputAction.Player.Skill.performed += OnSkillPerformed;
     }
 
     private void OnDisable()
@@ -40,6 +40,7 @@ public class PlayerInputController : MonoBehaviour
         inputAction.Player.Look.performed -= OnLookPerformed;
         inputAction.Player.EquipItem.performed -= OnEquipItem;
         inputAction.Player.Attack.performed -= OnAttackPerformed;
+        inputAction.Player.Skill.performed -= OnSkillPerformed;
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -84,5 +85,10 @@ public class PlayerInputController : MonoBehaviour
     private void OnReloadPerformed(InputAction.CallbackContext context)
     {
 
+    }
+
+    private void OnSkillPerformed(InputAction.CallbackContext context)
+    {
+        OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Skill);
     }
 }

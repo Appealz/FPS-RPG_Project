@@ -6,4 +6,5 @@ public interface IItem
     void InitData();
     void Use();
     bool useable { get; }
+    
 }
