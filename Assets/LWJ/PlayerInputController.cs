@@ -8,7 +8,7 @@ public class PlayerInputController : MonoBehaviour
     PlayerInputAction inputAction;
     public event Action<Vector2> OnMoveInput;
     public event Action OnJumpInput;
-    public event Action OnAttackInput;
+    //public event Action OnAttackInput;
     public event Action<Vector2> OnLookInput;
     public event Action<int> OnEquipInput;
     

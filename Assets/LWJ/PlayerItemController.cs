@@ -7,6 +7,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     private float itemUseRate;
     private bool isItemUseReady;
     private bool isUse;
+    private bool isReload;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,7 +40,8 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         currentItem = newItem;
     }
 
-    // 마우스와 바인딩
+    // 플레이어에서 상시 호출
+    // Use상태 돌입시 실행.
     public void UseCurrentItem()
     {
         if (!isUse || !isItemUseReady || currentItem == null)
@@ -47,9 +49,12 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         currentItem.Use();
     }
 
-    // 장전 키와 바인딩
+    // 플레이어에서 상시 호출
+    // Reload상태 돌입시 실행.
     public void ReloadWeapon()
     {
+        if(!isReload)
+            return;
         // 현재 착용 아이템이 IWeapon일 경우만 작동.
         if(currentItem is IRangeWeapon rangeWeapon)
         {
@@ -68,6 +73,11 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     {
         isUse = isOn;
     }
+    public void SetReloadEnable(bool isOn)
+    {
+        isReload = isOn;    
+    }
+
 
     // 코루틴으로 임시 구현
     // todo : 유니태스크 사용 예정
@@ -83,4 +93,6 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
             return;
         Equip(newEvent.changeItem);
     }
+
+
 }

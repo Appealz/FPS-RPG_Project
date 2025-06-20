@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Revolver : MonoBehaviour, IRangeWeapon
 {
+    public bool useable => throw new System.NotImplementedException();
+
     // todo : 아이템 데이터 주입
     // private ItemData itemData    
     public void InitData()

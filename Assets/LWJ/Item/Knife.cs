@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Knife : MonoBehaviour, IMeleeWeapon
 {
+    public bool useable => throw new System.NotImplementedException();
+
     public void InitData()
     {
         

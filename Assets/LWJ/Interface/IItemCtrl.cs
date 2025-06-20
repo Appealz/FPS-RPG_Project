@@ -8,4 +8,5 @@ public interface IItemCtrl
     void ReloadWeapon();
     void Drop();
     void SetEnable(bool isOn);
+    void SetReloadEnable(bool isOn);
 }

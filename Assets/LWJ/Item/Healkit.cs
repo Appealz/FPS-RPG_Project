@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Healkit : MonoBehaviour, IHealkit
 {
+    public bool useable => throw new System.NotImplementedException();
+
     public void InitData()
     {
         
