@@ -82,5 +82,6 @@ public class Player : MonoBehaviour
     {
         playerMove.MoveUpdate();
         itemCtrl.UseCurrentItem();
+        playerSkill.UpdateSkillCtrl();
     }
 }
