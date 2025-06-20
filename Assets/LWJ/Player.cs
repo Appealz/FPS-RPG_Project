@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
         }        
         inputController.OnLookInput += cameraController.UpdateRotate;
         inputController.OnEquipInput += dataManager.inventory.EquipItem;
-        inputController.OnAttackInput += itemCtrl.UseCurrentItem;
+        //inputController.OnAttackInput += itemCtrl.UseCurrentItem;
         #endregion
 
         playerMove.Init();        
