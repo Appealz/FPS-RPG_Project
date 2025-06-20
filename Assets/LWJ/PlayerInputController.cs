@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +29,7 @@ public class PlayerInputController : MonoBehaviour
         inputAction.Player.Look.performed += OnLookPerformed;
         inputAction.Player.EquipItem.performed += OnEquipItem;
         inputAction.Player.Attack.performed += OnAttackPerformed;
+        inputAction.Player.Attack.canceled += OnAttackCanceled;
         inputAction.Player.Skill.performed += OnSkillPerformed;
     }
 
@@ -40,6 +42,7 @@ public class PlayerInputController : MonoBehaviour
         inputAction.Player.Look.performed -= OnLookPerformed;
         inputAction.Player.EquipItem.performed -= OnEquipItem;
         inputAction.Player.Attack.performed -= OnAttackPerformed;
+        inputAction.Player.Attack.canceled -= OnAttackCanceled;
         inputAction.Player.Skill.performed -= OnSkillPerformed;
     }
 
@@ -81,7 +84,11 @@ public class PlayerInputController : MonoBehaviour
         OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Use);
         Debug.Log("공격 키 입력");
     }
-
+    private void OnAttackCanceled(InputAction.CallbackContext context)
+    {
+        OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Idle);
+        Debug.Log("공격 종료");
+    }
     private void OnReloadPerformed(InputAction.CallbackContext context)
     {
 

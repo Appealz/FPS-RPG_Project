@@ -71,7 +71,7 @@ public class UseState : IState
 
     public void ExitState()
     {
-        itemCtrl.SetEnable(true);
+        itemCtrl.SetEnable(false);
     }
 }
 

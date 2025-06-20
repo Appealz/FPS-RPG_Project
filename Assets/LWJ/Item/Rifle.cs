@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Rifle : MonoBehaviour, IRangeWeapon
 {
+    // 아이템자체가 발동가능한지 여부.
     public bool useable => currentAmmo > 0 || !isAttacking;
     private bool isAttacking;
     private int currentAmmo;
@@ -34,17 +35,7 @@ public class Rifle : MonoBehaviour, IRangeWeapon
         // todo : currentAmmo 탄창수만큼 리셋 
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 
 
 }
