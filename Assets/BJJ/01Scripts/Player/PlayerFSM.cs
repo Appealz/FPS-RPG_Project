@@ -27,6 +27,16 @@ public class PlayerFSM : MonoBehaviour, IUnitFSM
     private readonly HashSet<StateType> attackStateSet = new()
     { StateType.Idle, StateType.Use, StateType.Reload, StateType.Swap, StateType.Skill };
 
+    private bool isAttackable = true;
+
+    /// <summary>
+    /// 인터페이스로 만들 필요가 있겠네요
+    /// </summary>
+    public void InitFSM()
+    {
+        isAttackable = true;
+    }
+
     public void ResistState(StateType type, IState state)
     {
         if (moveStateSet.Contains(type))
@@ -37,6 +47,11 @@ public class PlayerFSM : MonoBehaviour, IUnitFSM
 
     public void SetState(StateGroup group, StateType type)
     {
+        if(group == StateGroup.Attack)
+        {
+            if (!isAttackable) return;
+        }
+
         if(stateMap.TryGetValue(group, out var stateList))
         {
             if (curStateMap[group] != null)

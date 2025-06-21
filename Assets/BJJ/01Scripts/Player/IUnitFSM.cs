@@ -75,21 +75,6 @@ public class UseState : IState
     }
 }
 
-public class ReloadState : IState
-{
-    // todo Use 컨트롤러 추가 후 추가
-
-    public void EnterState()
-    {
-        
-    }
-
-    public void ExitState()
-    {
-        
-    }
-}
-
 public class SwapState : IState
 {
     // 플레이어 인밴토리? (보유 무기 리스트) 컨트롤러 완성되면

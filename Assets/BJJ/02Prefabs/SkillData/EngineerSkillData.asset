@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf5afaaa61b01748b3db32a6a2c1c99, type: 3}
   m_Name: EngineerSkillData
   m_EditorClassIdentifier: 
-  ID: 0
-  CoolDown: 0
-  Description: 
-  sentryMaxHP: 0
-  sentryAttackDamage: 0
-  sentryAttackSpeed: 0
-  sentryDuration: 0
+  ID: 4
+  CoolDown: 30
+  Description: "\uD3EC\uD0D1\uC0DD\uC131"
+  sentryMaxHP: 100
+  sentryAttackDamage: 5
+  sentryAttackSpeed: 0.3
+  sentryDuration: 20

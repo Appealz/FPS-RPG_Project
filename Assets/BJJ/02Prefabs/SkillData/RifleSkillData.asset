@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9548e666c43db8a48a4921548ac12d40, type: 3}
   m_Name: RifleSkillData
   m_EditorClassIdentifier: 
-  ID: 0
-  CoolDown: 0
-  Description: 
-  skillDamage: 0
+  ID: 1
+  CoolDown: 10
+  Description: "\uC218\uB958\uD0C4 \uD22C\uCC99"
+  skillDamage: 80

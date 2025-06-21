@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4926f55eb1cd3744f9efe74db9e07686, type: 3}
   m_Name: ShotgunSkillData
   m_EditorClassIdentifier: 
-  ID: 0
-  CoolDown: 0
-  Description: 
-  reduceAttackSpeed: 0
-  duration: 0
+  ID: 2
+  CoolDown: 12
+  Description: "\uACF5\uACA9\uC18D\uB3C4\uAC00 \uC99D\uAC00\uD569\uB2C8\uB2E4"
+  reduceAttackSpeed: 0.3
+  duration: 6
