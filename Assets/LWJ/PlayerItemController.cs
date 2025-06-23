@@ -88,5 +88,19 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         Equip(newEvent.changeItem);
     }
 
+    public void InputUse()
+    {
+        if(currentItem == null) return;
+
+        if(currentItem is IWeapon weapon)
+        {
+            UseCurrentItem();
+        }
+        else
+        {
+
+        }
+    }
+
 
 }

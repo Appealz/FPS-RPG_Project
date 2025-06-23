@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         if(playerMove is IJump jump)
         {
             inputController.OnJumpInput += jump.Jump;
-        }        
+        }
         inputController.OnLookInput += cameraController.UpdateRotate;
         inputController.OnEquipInput += dataManager.inventory.EquipItem;
         inputController.OnAttackInput += itemCtrl.UseCurrentItem;

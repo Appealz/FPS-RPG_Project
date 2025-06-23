@@ -9,7 +9,7 @@ public class Rifle : MonoBehaviour, IRangeWeapon
     private int currentMagazine;
 
     // todo : 아이템 데이터 주입
-    // private ItemData itemData    
+    // private ItemData itemData
     public void InitData()
     {
         
@@ -32,10 +32,15 @@ public class Rifle : MonoBehaviour, IRangeWeapon
         if (currentMagazine == 0)
             return;
         currentMagazine--;
-        // todo : currentAmmo 탄창수만큼 리셋 
+        
+        // 애니메이션 이벤트를 이벤트버스로
     }
 
-   
+    // todo : currentAmmo 탄창수만큼 리셋 
+
+
+
+
 
 
 }
