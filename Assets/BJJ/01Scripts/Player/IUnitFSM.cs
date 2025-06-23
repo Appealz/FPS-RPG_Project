@@ -7,7 +7,8 @@ public enum StateType
     Use,
     Reload,
     Swap,
-    Skill
+    Skill,
+    Attack
 }
 
 public interface IUnitFSM
@@ -106,5 +107,21 @@ public class SkillState : IState
     public void ExitState()
     {
         skillCtrl.SetEnable(false);
+    }
+}
+
+/// <summary>
+/// 공격 기능 구현후 수정
+/// </summary>
+public class AttackState : IState
+{
+    public void EnterState()
+    {
+        
+    }
+
+    public void ExitState()
+    {
+        
     }
 }

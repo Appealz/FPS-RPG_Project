@@ -136,7 +136,7 @@ public class StatManager
         activeBuffList.Add(newBuff);
     }
 
-    private float GetStat(StatType type)
+    public float GetStat(StatType type)
     {
         if(statMap.TryGetValue(type, out var stat))
         {
@@ -147,7 +147,7 @@ public class StatManager
         return -1;
     }
 
-    private int GetStatInt(StatType type)
+    public int GetStatInt(StatType type)
     {
         return Mathf.RoundToInt(GetStat(type));
     }
