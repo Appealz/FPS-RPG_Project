@@ -1,9 +1,29 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+public enum EnemyUpdateType
+{ 
+    Regist,
+    Unregist
+}
+
+public struct EnemyUpdateEvent
+{
+    public EnemyUpdateType type;
+    public IEnemyManager enemy;
+
+    public EnemyUpdateEvent(EnemyUpdateType type, IEnemyManager enemy)
+    {
+        this.type = type;
+        this.enemy = enemy;
+    }
+}
 
 [RequireComponent(typeof(EnemySpawnManager))]
 public class EnemyTotalManager : DestroySingleton<EnemyTotalManager>
 {
     private EnemySpawnManager spawnManager;
+    private List<IEnemyManager> enemies;
 
     protected override void DoAwake()
     {
@@ -14,18 +34,38 @@ public class EnemyTotalManager : DestroySingleton<EnemyTotalManager>
     public void InitEnemyManager()
     {
         spawnManager.InitSpawnManager();
+        enemies = new List<IEnemyManager>();
 
         GameManager.OnGameUpdate += EnemyUpdate;
+        EventBus_EnemyManager.Subscribe(EnemyListUpdateHandler);
     }
 
     private void OnDisable()
     {
         GameManager.OnGameUpdate -= EnemyUpdate;
+        EventBus_EnemyManager.UnSubscribe(EnemyListUpdateHandler);
     }
 
     private void EnemyUpdate()
     {
-        // 여기서 적들의 업데이트 처리
-        // 근데 리스트로 관리해야하는가 델리게이트로 관리하는가 정해야할듯?
+        for(int i = enemies.Count - 1; i >= 0; i--)
+        {
+            enemies[i].CustomUpdate();
+        }
+    }
+
+    private void EnemyListUpdateHandler(EnemyUpdateEvent evt)
+    {
+        switch (evt.type)
+        {
+            case EnemyUpdateType.Regist:
+                if(!enemies.Contains(evt.enemy))
+                    enemies.Add(evt.enemy);
+                break;
+            case EnemyUpdateType.Unregist:
+                if(enemies.Contains(evt.enemy))
+                    enemies.Remove(evt.enemy);
+                break;
+        }
     }
 }

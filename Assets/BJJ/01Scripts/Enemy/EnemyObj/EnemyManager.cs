@@ -1,7 +1,13 @@
 using UnityEngine;
 
+public interface IEnemyManager
+{
+    void InitEnemy();
+    void CustomUpdate();
+}
+
 [RequireComponent(typeof(EnemyContext))]
-public class EnemyManager : MonoBehaviour, IPoolLabel
+public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager
 {
     private Pool ownerPool;
     private StatManager statManager;
@@ -9,6 +15,8 @@ public class EnemyManager : MonoBehaviour, IPoolLabel
     private EnemyContext enemyContext;
     private IUnitFSM unitFSM;
     private IMovement movement;
+    private IEnemyAttack attackCtrl;
+    // todo 몬스터 애니메이터 이벤트
     
     public void Create(Pool onwerPool)
     {
@@ -23,21 +31,24 @@ public class EnemyManager : MonoBehaviour, IPoolLabel
         statManager = new StatManager(gameObject, null, null);
 
         if(!TryGetComponent<EnemyContext>(out enemyContext))
-            Debug.Log($"{gameObject} EnemyManager.cs - InitEnemy() - EnemyContext NonReference");
+            Debug.Log($"{gameObject.name} EnemyManager.cs - InitEnemy() - EnemyContext NonReference");
+
+        if (!TryGetComponent<IEnemyAttack>(out attackCtrl))
+            Debug.Log($"{gameObject.name} EnemyManager.cs - InitEnemy() - EnemyContext NonReference");
+        else attackCtrl.InitAttack();
 
         if (!TryGetComponent<IMovement>(out movement))
-            Debug.Log($"{gameObject} EnemyManager.cs - InitEnemy() - IUnitFSM NonReference");
+            Debug.Log($"{gameObject.name} EnemyManager.cs - InitEnemy() - IUnitFSM NonReference");
         else
             movement.Init();
 
         if (!TryGetComponent<IUnitFSM>(out unitFSM))
-            Debug.Log($"{gameObject} EnemyManager.cs - InitEnemy() - IUnitFSM NonReference");
+            Debug.Log($"{gameObject.name} EnemyManager.cs - InitEnemy() - IUnitFSM NonReference");
         else
         {
             unitFSM.ResistState(StateType.Idle, new IdleState());
             unitFSM.ResistState(StateType.Move, new MoveState(movement));
-            unitFSM.ResistState(StateType.Attack, new AttackState());
-            // todo 공격 및 생성 상태
+            unitFSM.ResistState(StateType.Attack, new AttackState(attackCtrl));
         }
 
         if(!TryGetComponent<IEnemyAI>(out enemyAI))
@@ -48,22 +59,21 @@ public class EnemyManager : MonoBehaviour, IPoolLabel
         }
 
         EventBus_Stat.Subscribe(OnStatChange);
+        EventBus_UnitDieEvent.Subscribe(DieEventHandler);
     }
 
-    private void CustomUpdate()
+    public void CustomUpdate()
     {
         enemyAI.AIUpdate();
         movement.MoveUpdate();
+        attackCtrl.AttackUpdate();
     }
 
     public void ReturnToPool()
     {
-        ownerPool.ReturnToPool(gameObject);
-    }
-
-    private void OnDisable()
-    {
         EventBus_Stat.Unsubscribe(OnStatChange);
+        EventBus_UnitDieEvent.UnSubscribe(DieEventHandler);
+        ownerPool.ReturnToPool(gameObject);
     }
 
     private void OnStatChange(StatModifier modifier)
@@ -81,5 +91,13 @@ public class EnemyManager : MonoBehaviour, IPoolLabel
         }
 
         enemyContext.StatUpdate(statManager);
+    }
+
+    private void DieEventHandler(UnitDieEvent dieEvent)
+    {
+        if (dieEvent.sender != gameObject) return;
+
+        EventBus_EnemyManager.Publish(new EnemyUpdateEvent(EnemyUpdateType.Unregist, this));
+        ReturnToPool();
     }
 }

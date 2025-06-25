@@ -115,13 +115,20 @@ public class SkillState : IState
 /// </summary>
 public class AttackState : IState
 {
+    private IEnemyAttack attackCtrl;
+
+    public AttackState(IEnemyAttack attackCtrl)
+    {
+        this.attackCtrl = attackCtrl;
+    }
+
     public void EnterState()
     {
-        
+        attackCtrl.SetEnable(true);
     }
 
     public void ExitState()
     {
-        
+        attackCtrl.SetEnable(true);
     }
 }
