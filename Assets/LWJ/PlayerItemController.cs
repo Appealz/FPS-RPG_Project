@@ -31,6 +31,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     public void Equip(IItem newItem)
     {
         currentItem = newItem;
+        EventBus_ItemClip.Publish(new ItemClipChangedEvent(newItem));
     }
 
     // 플레이어에서 상시 호출

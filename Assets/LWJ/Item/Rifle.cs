@@ -4,6 +4,13 @@ public class Rifle : MonoBehaviour, IRangeWeapon
 {
     // 아이템자체가 발동가능한지 여부.
     public bool useable => currentAmmo > 0 || !isAttacking;
+
+    public AnimationClip useClip => throw new System.NotImplementedException();
+
+    public AnimationClip dropClip => throw new System.NotImplementedException();
+
+    public AnimationClip reloadClip => throw new System.NotImplementedException();
+
     private bool isAttacking;
     private int currentAmmo;
     private int currentMagazine;

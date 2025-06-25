@@ -4,6 +4,12 @@ public class Healkit : MonoBehaviour, IHealkit
 {
     public bool useable => throw new System.NotImplementedException();
 
+    public AnimationClip useClip => throw new System.NotImplementedException();
+
+    public AnimationClip dropClip => throw new System.NotImplementedException();
+
+    public AnimationClip reloadClip => throw new System.NotImplementedException();
+
     public void InitData()
     {
         

@@ -4,6 +4,12 @@ public class Revolver : MonoBehaviour, IRangeWeapon
 {
     public bool useable => throw new System.NotImplementedException();
 
+    public AnimationClip useClip => throw new System.NotImplementedException();
+
+    public AnimationClip dropClip => throw new System.NotImplementedException();
+
+    public AnimationClip reloadClip => throw new System.NotImplementedException();
+
     // todo : 아이템 데이터 주입
     // private ItemData itemData    
     public void InitData()

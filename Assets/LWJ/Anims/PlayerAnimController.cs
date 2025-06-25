@@ -26,6 +26,16 @@ public class PlayerAnimController : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        EventBus_ItemClip.Subscribe(ApplyClipHandler);
+    }
+
+    private void OnDisable()
+    {
+        EventBus_ItemClip.UnSubscribe(ApplyClipHandler);
+    }
+
     public void UseAnim()
     {
         animator.SetTrigger(use);
@@ -41,7 +51,7 @@ public class PlayerAnimController : MonoBehaviour
         animator.SetTrigger(drop);
     }
 
-    public void ApplyClips(AnimationClip useClip, AnimationClip reloadClip = null, AnimationClip dropClip = null)
+    private void ApplyClips(AnimationClip useClip, AnimationClip reloadClip = null, AnimationClip dropClip = null)
     {
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         if(useClip != null)
@@ -72,9 +82,9 @@ public class PlayerAnimController : MonoBehaviour
         animator.runtimeAnimatorController = overrideController;
     }
 
-    public void ApplyClipHandler(ItemCilpChangedEvent newItemClip)
+    public void ApplyClipHandler(ItemClipChangedEvent newItemClip)
     {
-        
+        ApplyClips(newItemClip.useClip, newItemClip.reloadClip, newItemClip.dropClip);
     }
 }
 
@@ -82,30 +92,32 @@ public class PlayerAnimController : MonoBehaviour
 
 public static class EventBus_ItemClip
 {
-    public static void Subscribe(Action<ItemCilpChangedEvent> newMethod)
+    public static void Subscribe(Action<ItemClipChangedEvent> newMethod)
     {
         EventBus.Subscribe(newMethod);
     }
-    public static void UnSubscribe(Action<ItemCilpChangedEvent> newMethod)
+    public static void UnSubscribe(Action<ItemClipChangedEvent> newMethod)
     {
         EventBus.UnSubscribe(newMethod);
     }
-    public static void Publish(ItemCilpChangedEvent type)
+    public static void Publish(ItemClipChangedEvent type)
     {
         EventBus.Publish(type);
     }
 }
 
 
-public class ItemCilpChangedEvent
+public class ItemClipChangedEvent
 {
     public AnimationClip useClip;
     public AnimationClip dropClip;
     public AnimationClip reloadClip;
     
 
-    public ItemCilpChangedEvent(IItem changeItem)
-    {        
-        
+    public ItemClipChangedEvent(IItem changeItem)
+    {
+        useClip = changeItem.useClip;
+        dropClip = changeItem.dropClip;
+        reloadClip = changeItem.reloadClip;
     }
 }

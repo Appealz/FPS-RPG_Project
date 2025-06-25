@@ -6,5 +6,10 @@ public interface IItem
     void InitData();
     void Use();
     bool useable { get; }
+
+    AnimationClip useClip { get; }
+    AnimationClip dropClip { get; }
+    AnimationClip reloadClip { get; }
+    
     
 }
