@@ -8,3 +8,8 @@ public interface IMovement
     void SetDirection(Vector2 dir);
     void Init();
 }
+
+public interface ISetDirection
+{
+    void SetDirection(Vector2 dir);
+}

@@ -86,10 +86,55 @@ public class PlayerAnimController : MonoBehaviour
     {
         ApplyClips(newItemClip.useClip, newItemClip.reloadClip, newItemClip.dropClip);
     }
+
+    public void PlayUseAnim(ItemAnimEvent animEvent)
+    {
+        if (animEvent.sender != gameObject)
+            return;
+        if(animEvent.animType == ItemAnimType.Use)
+        {
+            UseAnim();
+        }
+    }
 }
 
+#region _AnimEvent_
+public static class Event_ItemAnim
+{
+    public static void Subscribe(Action<ItemAnimEvent> newMethod)
+    {
+        EventBus.Subscribe(newMethod);
+    }
+    public static void UnSubscribe(Action<ItemAnimEvent> newMethod)
+    {
+        EventBus.UnSubscribe(newMethod);
+    }
+    public static void Publish(ItemAnimEvent type)
+    {
+        EventBus.Publish(type);
+    }
+}
 
+public enum ItemAnimType
+{
+    Use,
+    Reload,
+    Drop,
+}
+public class ItemAnimEvent
+{
+    public ItemAnimType animType;
+    public GameObject sender;
 
+    public ItemAnimEvent(GameObject Sender, ItemAnimType newAnimType)
+    {
+        sender = Sender;
+        animType = newAnimType;
+    }
+}
+#endregion
+
+#region _AnimClipSet_
 public static class EventBus_ItemClip
 {
     public static void Subscribe(Action<ItemClipChangedEvent> newMethod)
@@ -121,3 +166,4 @@ public class ItemClipChangedEvent
         reloadClip = changeItem.reloadClip;
     }
 }
+#endregion

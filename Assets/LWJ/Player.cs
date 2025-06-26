@@ -57,8 +57,11 @@ public class Player : MonoBehaviour
 
         #region _KeyBinding_
         inputController.Init();
-        inputController.OnStateChangeEvent += playerFSM.SetState;
-        inputController.OnMoveInput += playerMove.SetDirection;
+        inputController.OnStateChangeEvent += playerFSM.SetState;        
+        if(playerMove is ISetDirection direction)
+        {
+            inputController.OnMoveInput += direction.SetDirection;
+        }
         if(playerMove is IJump jump)
         {
             inputController.OnJumpInput += jump.Jump;

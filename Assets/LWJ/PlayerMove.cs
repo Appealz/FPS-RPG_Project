@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour,IMovement, IJump
+public class PlayerMove : MonoBehaviour,IMovement, IJump, ISetDirection
 {
     private bool isMove;
     private int jumpCount;
