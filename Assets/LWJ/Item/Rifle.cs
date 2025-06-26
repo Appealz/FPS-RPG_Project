@@ -43,6 +43,11 @@ public class Rifle : MonoBehaviour, IRangeWeapon
         // 애니메이션 이벤트를 이벤트버스로
     }
 
+    public void InitWeaponData(WeaponData newData)
+    {
+        throw new System.NotImplementedException();
+    }
+
     // todo : currentAmmo 탄창수만큼 리셋 
 
 

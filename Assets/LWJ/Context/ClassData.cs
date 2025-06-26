@@ -9,5 +9,5 @@ public class ClassData
     public float attackStats;
     public float moveSpeedStats;
     public List<int> unlockedPerks;      // 해금된 특전 ID
-    public List<IItem> equippedItemIds;    // 마지막 장착 아이템 ID 리스트 (ex: 무기, 방어구, 스킬 등)
+    public List<int> equippedItemIds;    // 마지막 장착 아이템 ID 리스트 (ex: 무기, 방어구, 스킬 등)
 }

@@ -55,6 +55,7 @@ public class MonsterStats_Entity
     public float attackSpeed;
     public float range;
 }
+
 //[Serializable]
 //public class ClassStatsData_Entity
 //{

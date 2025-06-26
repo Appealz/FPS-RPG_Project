@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class PlayGameContext 
 {    
-    ClassData playClassData;    
-    int playLevel;
+    public ClassData playClassData;    
+    public int playLevel;
 
     /// <summary>
     /// 직업 데이터, 재화, 플레이레벨
@@ -13,7 +13,7 @@ public class PlayGameContext
     /// <param name="newPlayLevel"></param>
     public PlayGameContext(ClassData classData, int newPlayLevel)
     {
-        playClassData = classData;        
+        playClassData = classData;
         this.playLevel = newPlayLevel;
     }
 }

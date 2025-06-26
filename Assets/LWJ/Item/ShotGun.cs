@@ -40,4 +40,9 @@ public class ShotGun : MonoBehaviour, IRangeWeapon
     {
 
     }
+
+    public void InitWeaponData(WeaponData newData)
+    {
+        throw new System.NotImplementedException();
+    }
 }

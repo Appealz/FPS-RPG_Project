@@ -15,6 +15,11 @@ public class Knife : MonoBehaviour, IMeleeWeapon
         
     }
 
+    public void InitWeaponData(WeaponData newData)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void Use() => Slash();
     
 

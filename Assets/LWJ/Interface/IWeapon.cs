@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IWeapon : IItem
 {
-    
+    void InitWeaponData(WeaponData newData);
 }
 
 public interface IMeleeWeapon : IWeapon
