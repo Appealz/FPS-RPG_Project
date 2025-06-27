@@ -129,6 +129,6 @@ public class AttackState : IState
 
     public void ExitState()
     {
-        attackCtrl.SetEnable(true);
+        attackCtrl.SetEnable(false);
     }
 }

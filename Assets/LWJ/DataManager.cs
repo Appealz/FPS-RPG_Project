@@ -14,6 +14,8 @@ public class DataManager : DontDestroySingleton<DataManager>
     private Dictionary<int, AchievementsData_Entity> achievementsData = new();
     private Dictionary<int, LevelEXPData_Entity> levelExpData = new();
     //private Dictionary<int, ClassStatsData_Entity> classStatsData = new();
+    private Dictionary<int, EnemyData> enemyData = new();   
+
 
     protected override void DoAwake()
     {
@@ -54,6 +56,25 @@ public class DataManager : DontDestroySingleton<DataManager>
             // foreach (var row in originalData.ClassStatsData)
             //     classStatsData.Add(row.id, row);
 
+            foreach (var monsterData in monsterStatsData)
+            {
+                int monsterID = monsterData.Key;
+
+                if (unitBaseStatsData.TryGetValue(monsterID, out var unitStats))
+                {   
+                    if(monsterID != unitStats.id)
+                    {
+                        Debug.Log("monster ID 불일치");
+                        continue;
+                    }
+                    enemyData.Add(monsterID, new EnemyData(monsterData.Value, unitStats));
+                }
+                else
+                {
+                    Debug.LogWarning($"[EnemyData 누락] id {monsterID}에 해당하는 UnitBaseStatsData가 존재하지 않음");
+                }
+            }
+
             isLoadData = true;
         }
     }
@@ -81,10 +102,10 @@ public class DataManager : DontDestroySingleton<DataManager>
         return unitBaseStatsData.TryGetValue(id, out data);
     }
 
-    // 몬스터 스탯
-    public bool GetMonsterStats(int id, out MonsterStats_Entity data)
+    // 몬스터(적) 스탯
+    public bool GetEnemyStats(int id, out EnemyData data)
     {
-        return monsterStatsData.TryGetValue(id, out data);
+        return enemyData.TryGetValue(id, out data);
     }
 
     // 특전 (Perk)
@@ -103,6 +124,31 @@ public class DataManager : DontDestroySingleton<DataManager>
     public bool GetLevelExpData(int level, out LevelEXPData_Entity data)
     {
         return levelExpData.TryGetValue(level, out data);
+    }
+
+}
+
+public class EnemyData
+{
+    public int id;
+    public string name;
+    public float maxHp;
+    public float moveSpeed;
+    public float damage;
+    public string description;    
+    public float attackSpeed;
+    public float range;
+
+    public EnemyData(MonsterStats_Entity monsterData, UnitBaseStats_Entity unitBaseData)
+    {
+        id = monsterData.id;
+        name = unitBaseData.name;
+        maxHp = unitBaseData.maxHp;
+        moveSpeed = unitBaseData.moveSpeed;
+        damage = unitBaseData.damage;
+        description = unitBaseData.description;
+        attackSpeed = monsterData.attackSpeed;
+        range = monsterData.range;
     }
 }
 

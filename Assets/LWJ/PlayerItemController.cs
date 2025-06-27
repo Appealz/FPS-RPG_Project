@@ -38,11 +38,15 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     // Use상태 돌입시 실행.
     public void UseCurrentItem()
     {
+        if (!isUse)
+            return;
         if (!isUse || currentItem == null)
             return;
         if (!currentItem.useable)
             return;
-        currentItem.Use();
+        InputUse();
+        //currentItem.Use();
+        Debug.Log("아이템 사용");
     }
 
     // 플레이어에서 상시 호출
@@ -51,8 +55,8 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     {
         // 현재 착용 아이템이 IWeapon일 경우만 작동.
         if(currentItem is IRangeWeapon rangeWeapon)
-        {
-            rangeWeapon.Reload();
+        {            
+            EventBus_ItemAnim.Publish(new ItemAnimEvent(gameObject, ItemAnimType.Reload));
         }
     }
 
@@ -72,7 +76,6 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     {
         isReload = isOn;    
     }
-
 
     // 코루틴으로 임시 구현
     // todo : 유니태스크 사용 예정
@@ -95,11 +98,11 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
 
         if(currentItem is IWeapon weapon)
         {
-            UseCurrentItem();
+            currentItem.Use();
         }
         else
         {
-
+            EventBus_ItemAnim.Publish(new ItemAnimEvent(gameObject, ItemAnimType.Use));
         }
     }
 

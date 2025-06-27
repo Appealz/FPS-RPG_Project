@@ -4,6 +4,7 @@ using UnityEngine;
 public class WeaponManager : DestroySingleton<WeaponManager>
 {
     Dictionary<int, GameObject> weapons = new Dictionary<int, GameObject>();
+    Dictionary<int, GameObject> playerWepaon = new Dictionary<int, GameObject>();
 
     //List<GameObject> weapons = new List<GameObject>();
 
@@ -26,9 +27,9 @@ public class WeaponManager : DestroySingleton<WeaponManager>
         // 4. 데이터 주입
         // todo: 가져온 프리팹 내부의 IWeapon 클래스를 통해서 데이터 주입.
     }
-
-   
 }
+
+
 
 public class WeaponData
 {

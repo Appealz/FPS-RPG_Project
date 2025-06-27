@@ -29,11 +29,13 @@ public class PlayerAnimController : MonoBehaviour
     private void OnEnable()
     {
         EventBus_ItemClip.Subscribe(ApplyClipHandler);
+        EventBus_ItemAnim.Subscribe(PlayEventAnim);
     }
 
     private void OnDisable()
     {
         EventBus_ItemClip.UnSubscribe(ApplyClipHandler);
+        EventBus_ItemAnim.UnSubscribe(PlayEventAnim);
     }
 
     public void UseAnim()
@@ -46,14 +48,11 @@ public class PlayerAnimController : MonoBehaviour
         animator.SetTrigger(reload);
     }
 
-    public void DropAnim()
-    {
-        animator.SetTrigger(drop);
-    }
 
-    private void ApplyClips(AnimationClip useClip, AnimationClip reloadClip = null, AnimationClip dropClip = null)
+    private void ApplyClips(AnimationClip useClip, AnimationClip reloadClip = null)
     {
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+
         if(useClip != null)
         {
             overrideController["Use"] = useClip;
@@ -62,6 +61,7 @@ public class PlayerAnimController : MonoBehaviour
         {
             overrideController["Use"] = emptyClip;
         }
+
         if(reloadClip != null)
         {
             overrideController["Reload"] = reloadClip;
@@ -70,36 +70,36 @@ public class PlayerAnimController : MonoBehaviour
         {
             overrideController["Reload"] = emptyClip;
         }
-        if(dropClip != null)
-        {
-            overrideController["Drop"] = dropClip;
-        }
-        else
-        {
-            overrideController["Drop"] = emptyClip;
-        }
 
         animator.runtimeAnimatorController = overrideController;
     }
 
     public void ApplyClipHandler(ItemClipChangedEvent newItemClip)
     {
-        ApplyClips(newItemClip.useClip, newItemClip.reloadClip, newItemClip.dropClip);
+        ApplyClips(newItemClip.useClip, newItemClip.reloadClip);
     }
 
-    public void PlayUseAnim(ItemAnimEvent animEvent)
+    // 총기는 애니메이션 X
+    public void PlayEventAnim(ItemAnimEvent animEvent)
     {
         if (animEvent.sender != gameObject)
             return;
-        if(animEvent.animType == ItemAnimType.Use)
+        switch(animEvent.animType)
         {
-            UseAnim();
+            case ItemAnimType.Use:
+                UseAnim();
+                break;
+            case ItemAnimType.Reload:
+                ReloadAnim();
+                break;
         }
-    }
+    }    
 }
 
+
+
 #region _AnimEvent_
-public static class Event_ItemAnim
+public static class EventBus_ItemAnim
 {
     public static void Subscribe(Action<ItemAnimEvent> newMethod)
     {
@@ -119,8 +119,8 @@ public enum ItemAnimType
 {
     Use,
     Reload,
-    Drop,
 }
+
 public class ItemAnimEvent
 {
     public ItemAnimType animType;
@@ -155,14 +155,13 @@ public static class EventBus_ItemClip
 public class ItemClipChangedEvent
 {
     public AnimationClip useClip;
-    public AnimationClip dropClip;
     public AnimationClip reloadClip;
-    
+    public IItem currentEquipItem;
 
     public ItemClipChangedEvent(IItem changeItem)
     {
+        currentEquipItem = changeItem;
         useClip = changeItem.useClip;
-        dropClip = changeItem.dropClip;
         reloadClip = changeItem.reloadClip;
     }
 }

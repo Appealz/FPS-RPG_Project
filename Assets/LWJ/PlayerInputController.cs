@@ -11,7 +11,8 @@ public class PlayerInputController : MonoBehaviour
     public event Action OnJumpInput;
     public event Action OnAttackInput;
     public event Action<Vector2> OnLookInput;
-    public event Action<int> OnEquipInput;    
+    public event Action<int> OnEquipInput;
+    public event Action OnReloadInput;
 
     public event Action<StateGroup, StateType> OnStateChangeEvent;
 
@@ -31,6 +32,7 @@ public class PlayerInputController : MonoBehaviour
         inputAction.Player.Attack.performed += OnAttackPerformed;
         inputAction.Player.Attack.canceled += OnAttackCanceled;
         inputAction.Player.Skill.performed += OnSkillPerformed;
+        inputAction.Player.Reload.performed += OnReloadPerformed;
     }
 
     private void OnDisable()
@@ -91,7 +93,7 @@ public class PlayerInputController : MonoBehaviour
     }
     private void OnReloadPerformed(InputAction.CallbackContext context)
     {
-
+        OnReloadInput?.Invoke();        
     }
 
     private void OnSkillPerformed(InputAction.CallbackContext context)
