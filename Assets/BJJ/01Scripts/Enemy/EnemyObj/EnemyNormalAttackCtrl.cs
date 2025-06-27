@@ -31,14 +31,13 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
             Debug.Log($"{gameObject.name} EnemyNormalAttackCtrl.cs - InitAttack() - Context Don't Reference");
         if (!TryGetComponent<IAnimHandle>(out animCtrl))
             Debug.Log($"{gameObject.name} EnemyAttackSuidideAttackCtrl.cs - InitAttack() - Can't Reference nimCtrl");
-        else animCtrl.OnAnimEvent += OnAnimationEvent;
 
         interval = context.attackSpeed;
         curDelay = 0;
         isAttackState = false;
     }
 
-    public void OnAnimationEvent(string evt)
+    public void OnAnimationEvent()
     {
         // todo 이벤트 타입들이 정해지면 그에 맞춰서 작동
     }
@@ -47,6 +46,7 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
     {
         // 이벤트 버스 애니메이션 작동?
         isAttackable = false;
+        animCtrl.SetAnim("OnAttack");
     }
 
     public void SetEnable(bool isOn)
@@ -54,10 +54,5 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
         isAttackState = isOn;
         isAttackable = isOn;
         curDelay = 0;
-    }
-
-    private void OnDisable()
-    {
-        animCtrl.OnAnimEvent -= OnAnimationEvent;
     }
 }

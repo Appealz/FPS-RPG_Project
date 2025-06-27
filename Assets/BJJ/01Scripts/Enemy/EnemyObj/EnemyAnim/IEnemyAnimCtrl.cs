@@ -3,13 +3,12 @@ using UnityEngine;
 
 public interface IAnimHandle
 {
-    void SetAnim(int animHash);
-    event Action<string> OnAnimEvent;
+    void SetAnim(string anim);
 }
 
-public interface IEnemyAnimCtrl : IAnimHandle
+public interface IAnimCtrl
 {
     void Init();
     void AnimUpdate();
-    void CheckAnimEvent();
+    void ExecuteAnimEvent();
 }
