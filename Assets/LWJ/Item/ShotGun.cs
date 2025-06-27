@@ -2,13 +2,19 @@ using UnityEngine;
 
 public class ShotGun : MonoBehaviour, IRangeWeapon
 {
-    public bool useable => throw new System.NotImplementedException();
+    public bool useable => currentAmmo > 0 && !isAttacking;
 
-    public AnimationClip useClip => throw new System.NotImplementedException();
-
-    public AnimationClip dropClip => throw new System.NotImplementedException();
+    public AnimationClip useClip => null;
 
     public AnimationClip reloadClip => throw new System.NotImplementedException();
+
+    private bool isAttacking;
+    private int currentAmmo;
+    private int currentMagazine;
+
+    private float damage;
+    private float attackRate;
+    private WeaponData myData;
 
     // todo : 아이템 데이터 주입
     // private ItemData itemData    
@@ -42,6 +48,11 @@ public class ShotGun : MonoBehaviour, IRangeWeapon
     }
 
     public void InitWeaponData(WeaponData newData)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Attack()
     {
         throw new System.NotImplementedException();
     }

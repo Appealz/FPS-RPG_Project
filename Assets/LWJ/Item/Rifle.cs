@@ -1,19 +1,22 @@
+using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 public class Rifle : MonoBehaviour, IRangeWeapon
 {
     // 아이템자체가 발동가능한지 여부.
-    public bool useable => currentAmmo > 0 || !isAttacking;
+    public bool useable => currentAmmo > 0 && !isAttacking;
 
-    public AnimationClip useClip => throw new System.NotImplementedException();
-
-    public AnimationClip dropClip => throw new System.NotImplementedException();
-
+    public AnimationClip useClip => null;
     public AnimationClip reloadClip => throw new System.NotImplementedException();
 
     private bool isAttacking;
     private int currentAmmo;
     private int currentMagazine;
+
+    private float damage;    
+    private float attackRate;
+    private WeaponData myData;
 
     // todo : 아이템 데이터 주입
     // private ItemData itemData
@@ -22,16 +25,32 @@ public class Rifle : MonoBehaviour, IRangeWeapon
         
     }
 
-    public void Use() => Fire();
+    // 플레이어 관련 스텟 주입.
+    public void SetStatus(float newDamage)
+    {
+        
+    }
 
-    private void Fire()
+    public void Use() => Attack();
+
+    public void Attack()
     {        
         if(!useable)
             return;
-        isAttacking = true;
         currentAmmo--;
+        isAttacking = true;
+        FireDelay().Forget();
+
         // todo : 1) 유니태스크로 attackRate에 따라 isAttacking 관리.
         //        2) 총알 및 레이케스트 발사.
+
+        
+    }
+
+    private async UniTaskVoid FireDelay()
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(attackRate));
+        isAttacking = false;
     }
 
     public void Reload()
@@ -39,13 +58,16 @@ public class Rifle : MonoBehaviour, IRangeWeapon
         if (currentMagazine == 0)
             return;
         currentMagazine--;
-        
-        // 애니메이션 이벤트를 이벤트버스로
+        currentAmmo = myData.maxAmmo;
+        // 애니메이션 이벤트에서 호출.
     }
 
     public void InitWeaponData(WeaponData newData)
     {
-        throw new System.NotImplementedException();
+        myData = newData;
+        currentAmmo = newData.maxAmmo;
+        damage = newData.damagePerShot;
+        attackRate = newData.fireRate;
     }
 
     // todo : currentAmmo 탄창수만큼 리셋 
