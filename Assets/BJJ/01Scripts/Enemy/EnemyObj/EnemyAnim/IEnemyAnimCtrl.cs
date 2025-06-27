@@ -4,6 +4,7 @@ using UnityEngine;
 public interface IAnimHandle
 {
     void SetAnim(string anim);
+    void SetMoveState(bool isOn);
 }
 
 public interface IAnimCtrl

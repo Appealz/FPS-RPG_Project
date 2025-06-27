@@ -7,7 +7,7 @@ public interface IEnemyManager
 }
 
 [RequireComponent(typeof(EnemyContext))]
-public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager
+public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageReceiver
 {
     private Pool ownerPool;
     private StatManager statManager;
@@ -58,6 +58,14 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager
             enemyAI.InitAI(unitFSM, enemyContext);
         }
 
+        HitPart[] hitparts = transform.GetComponentsInChildren<HitPart>();
+        foreach(var part in hitparts)
+        {
+            if (part.name.Contains("head"))
+                part.Init(this, DamageReceivePart.Head);
+            else part.Init(this, DamageReceivePart.Body);
+        }
+
         EventBus_Stat.Subscribe(OnStatChange);
         EventBus_UnitDieEvent.Subscribe(DieEventHandler);
     }
@@ -99,5 +107,24 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager
 
         EventBus_EnemyManager.Publish(new EnemyUpdateEvent(EnemyUpdateType.Unregist, this));
         ReturnToPool();
+    }
+
+    public void OnHit(DamageReceivePart part, DamageInfo info)
+    {
+        float resultDamage = info.damage;
+
+        if (part == DamageReceivePart.Head)
+            resultDamage *= 1.5f;
+
+        statManager.ApplyDamage(resultDamage);
+        statManager.AddBuff(info.buff);
+    }
+
+    public void OnExplosionDamageHandler(GameObject sender, DamageInfo info)
+    {
+        if (sender != gameObject) return;
+
+        statManager.ApplyDamage(info.damage);
+        statManager.AddBuff(info.buff);
     }
 }

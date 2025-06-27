@@ -30,7 +30,7 @@ public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack
 
     public void OnAttack()
     {
-        // todo ÀÚÆø °ø°Ý
+        animCtrl.SetAnim("OnAttack");
     }
 
     public void SetEnable(bool isOn)

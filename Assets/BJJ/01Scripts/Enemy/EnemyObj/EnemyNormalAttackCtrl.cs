@@ -4,6 +4,7 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
 {
     private IEnemyContextReadable context;
     private IAnimHandle animCtrl;
+    private IEnemyWeapon weapon;
 
     private bool isAttackState;
     private bool isAttackable;
@@ -39,12 +40,11 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
 
     public void OnAnimationEvent()
     {
-        // todo 이벤트 타입들이 정해지면 그에 맞춰서 작동
+        // todo 애니메이션 이벤트 버스 만들어진 뒤에 받아오기
     }
 
     public void OnAttack()
     {
-        // 이벤트 버스 애니메이션 작동?
         isAttackable = false;
         animCtrl.SetAnim("OnAttack");
     }

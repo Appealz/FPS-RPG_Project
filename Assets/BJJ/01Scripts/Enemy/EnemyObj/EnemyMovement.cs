@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour, IMovement
 {
     private IEnemyContextReadable context;
+    private IAnimHandle animHandle;
     private NavMeshAgent agent;
     private bool isChase;
 
@@ -17,6 +18,8 @@ public class EnemyMovement : MonoBehaviour, IMovement
             Debug.Log($"{gameObject} EnemyMovement.cs - Init() - Can't Reference NavMeshAgent");
         if (!TryGetComponent<IEnemyContextReadable>(out context))
             Debug.Log($"{gameObject} EnemyMovement.cs - Init() - Can't Reference Context");
+        if(!TryGetComponent<IAnimHandle>(out animHandle))
+            Debug.Log($"{gameObject} EnemyMovement.cs - Init() - Can't Reference IAnimHandle");
 
         curDelay = 0f;
         isChase = false;
@@ -52,5 +55,7 @@ public class EnemyMovement : MonoBehaviour, IMovement
         isChase = isOn;
         agent.isStopped = !isOn;
         curDelay = 0f;
+
+        animHandle.SetMoveState(isChase);
     }
 }
