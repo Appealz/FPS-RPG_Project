@@ -29,6 +29,7 @@ public class EnemyMovement : MonoBehaviour, IMovement
     {
         if (context.curTarget == null || !context.curTarget.IsAlive) return;
 
+        agent.speed = context.moveSpeed;
         agent.SetDestination(context.curTarget.GetTransform().position);
     }
 
@@ -59,3 +60,4 @@ public class EnemyMovement : MonoBehaviour, IMovement
         animHandle.SetMoveState(isChase);
     }
 }
+

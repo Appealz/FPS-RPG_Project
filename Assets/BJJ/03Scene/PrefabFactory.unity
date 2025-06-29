@@ -527,7 +527,8 @@ PrefabInstance:
       value: MeleeRobot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5517669631472840636, guid: eadfed3e9316c7f4896803ba641d78b4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2106078246015099047, guid: eadfed3e9316c7f4896803ba641d78b4, type: 3}

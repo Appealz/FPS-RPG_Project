@@ -26,12 +26,15 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
         }
     }
 
-    public void InitAttack()
+    public void InitAttack(IEnemyWeapon newWeapon)
     {
         if (!TryGetComponent<IEnemyContextReadable>(out context))
             Debug.Log($"{gameObject.name} EnemyNormalAttackCtrl.cs - InitAttack() - Context Don't Reference");
         if (!TryGetComponent<IAnimHandle>(out animCtrl))
             Debug.Log($"{gameObject.name} EnemyAttackSuidideAttackCtrl.cs - InitAttack() - Can't Reference nimCtrl");
+        else animCtrl.OnAttackEvent += OnAnimationEvent;
+
+        weapon = newWeapon;
 
         interval = context.attackSpeed;
         curDelay = 0;
@@ -54,5 +57,10 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
         isAttackState = isOn;
         isAttackable = isOn;
         curDelay = 0;
+    }
+
+    private void OnDisable()
+    {
+        animCtrl.OnAttackEvent -= OnAnimationEvent;
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack
 {
     private IEnemyContextReadable context;
+    private IEnemyWeapon weapon;
     private IAnimHandle animCtrl;
     private bool isAttack;
 
@@ -13,13 +14,14 @@ public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack
         OnAttack();
     }
 
-    public void InitAttack()
+    public void InitAttack(IEnemyWeapon newWeapon)
     {
         if (!TryGetComponent<IEnemyContextReadable>(out context))
             Debug.Log($"{gameObject.name} EnemyAttackSuidideAttackCtrl.cs - InitAttack() - Can't Reference EnemyContext");
-        if(!TryGetComponent<IAnimHandle>(out animCtrl))
+        if (!TryGetComponent<IAnimHandle>(out animCtrl))
             Debug.Log($"{gameObject.name} EnemyAttackSuidideAttackCtrl.cs - InitAttack() - Can't Reference nimCtrl");
-
+        else animCtrl.OnAttackEvent += OnAnimationEvent;
+        weapon = newWeapon;
         isAttack = false;
     }
 
@@ -36,5 +38,10 @@ public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack
     public void SetEnable(bool isOn)
     {
         isAttack = isOn;
+    }
+
+    private void OnDisable()
+    {
+        animCtrl.OnAttackEvent -= OnAnimationEvent;
     }
 }

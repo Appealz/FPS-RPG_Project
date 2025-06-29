@@ -29,6 +29,7 @@ public class EnemyAreaAttackMovement : MonoBehaviour, IMovement
     {
         if (context.curTarget == null || !context.curTarget.IsAlive) return;
 
+        agent.speed = context.moveSpeed;
         if (NavMesh.SamplePosition(RandomTargetNearPos(), out var hit, 1f, NavMesh.AllAreas))
         {
             agent.SetDestination(hit.position);

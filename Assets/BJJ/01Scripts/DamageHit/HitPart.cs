@@ -2,19 +2,22 @@ using UnityEngine;
 
 public interface IHitPart
 {
-    void Init(IDamageReceiver owner, DamageReceivePart part);
+    IDamageReceiver owner { get; }
+    void Init(IDamageReceiver owner);
     void DamageEventHandler(DamageInfo info);
 }
 
 public class HitPart : MonoBehaviour, IHitPart
 {
-    private IDamageReceiver owner;
+    public IDamageReceiver owner { get; private set; }
     private DamageReceivePart part;
 
-    public void Init(IDamageReceiver owner, DamageReceivePart part)
+    public void Init(IDamageReceiver owner)
     {
         this.owner = owner;
-        this.part = part;
+        if (name.Contains("head") || name.Contains("Head"))
+            part = DamageReceivePart.Head;
+        else part = DamageReceivePart.Body;
 
         EventBus_Damage.SubScribe(DamageEventHandler);
     }

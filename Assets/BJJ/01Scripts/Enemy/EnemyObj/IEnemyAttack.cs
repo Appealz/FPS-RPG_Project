@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IEnemyAttack
 {
-    void InitAttack();
+    void InitAttack(IEnemyWeapon newWeapon);
     void AttackUpdate();
     void OnAttack();
     void OnAnimationEvent();

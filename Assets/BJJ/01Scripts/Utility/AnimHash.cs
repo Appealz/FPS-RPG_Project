@@ -8,7 +8,7 @@ public static class AnimHash
         {"IsMove" , Animator.StringToHash("IsMove") },
         {"OnUse", Animator.StringToHash("OnUse") },
         {"OnReload", Animator.StringToHash("OnReload") },
-        { "OnSkill", Animator.StringToHash("OnSkill")},
+        {"OnSkill", Animator.StringToHash("OnSkill")},
         {"OnAttack", Animator.StringToHash("OnAttack") },
     };
 
