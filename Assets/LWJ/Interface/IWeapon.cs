@@ -12,6 +12,9 @@ public interface IMeleeWeapon : IWeapon
 }
 
 public interface IRangeWeapon : IWeapon
-{    
+{
+    AnimEventData reloadAnimData { get; }
+    void StartReload();
     void Reload();
+    void CancelReload();
 }

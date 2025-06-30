@@ -14,7 +14,7 @@ public class DataManager : DontDestroySingleton<DataManager>
     private Dictionary<int, AchievementsData_Entity> achievementsData = new();
     private Dictionary<int, LevelEXPData_Entity> levelExpData = new();
     //private Dictionary<int, ClassStatsData_Entity> classStatsData = new();
-    private Dictionary<int, EnemyData> enemyData = new();   
+    private Dictionary<int, EnemyData> enemyData = new();
 
 
     protected override void DoAwake()
@@ -137,7 +137,7 @@ public class EnemyData
     public float damage;
     public string description;    
     public float attackSpeed;
-    public float range;
+    public float range;    
 
     public EnemyData(MonsterStats_Entity monsterData, UnitBaseStats_Entity unitBaseData)
     {

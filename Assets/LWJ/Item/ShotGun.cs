@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 public class ShotGun : MonoBehaviour, IRangeWeapon
@@ -6,7 +8,11 @@ public class ShotGun : MonoBehaviour, IRangeWeapon
 
     public AnimationClip useClip => null;
 
-    public AnimationClip reloadClip => throw new System.NotImplementedException();
+    public AnimationClip reloadClip => null;
+
+    public AnimEventData reloadAnimData => throw new NotImplementedException();
+
+    public AnimEventData useAnimData => throw new NotImplementedException();
 
     private bool isAttacking;
     private int currentAmmo;
@@ -15,6 +21,7 @@ public class ShotGun : MonoBehaviour, IRangeWeapon
     private float damage;
     private float attackRate;
     private WeaponData myData;
+    private bool isReloading;
 
     // todo : 아이템 데이터 주입
     // private ItemData itemData    
@@ -23,37 +30,52 @@ public class ShotGun : MonoBehaviour, IRangeWeapon
 
     }
 
-    public void Use() => Fire();
+    public void Use() => Attack();
 
-    private void Fire()
+    public void Attack()
     {
-
+        if (!useable)
+            return;
+        currentAmmo--;
+        isAttacking = true;
+        FireDelay().Forget();
     }
 
     public void Reload()
     {
-
+        if (currentMagazine == 0)
+            // 사운드 호출
+            return;
+        currentMagazine--;
+        currentAmmo = myData.maxAmmo;
+        // 애니메이션 이벤트에서 호출.
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private async UniTaskVoid FireDelay()
     {
-
+        await UniTask.Delay(TimeSpan.FromSeconds(attackRate));
+        isAttacking = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 
     public void InitWeaponData(WeaponData newData)
     {
-        throw new System.NotImplementedException();
+        myData = newData;
+        currentAmmo = newData.maxAmmo;
+        damage = newData.damagePerShot;
+        attackRate = newData.fireRate;
     }
 
-    public void Attack()
+    public void StartReload()
     {
-        throw new System.NotImplementedException();
+        isReloading = true;
+    }
+
+    public void CancelReload()
+    {
+        if (!isReloading) return;
+        isReloading = false;
     }
 }
+

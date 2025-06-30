@@ -1,8 +1,19 @@
 using NUnit.Framework.Constraints;
 using System;
+using System.Collections.Generic;
+using Unity.Multiplayer.Center.Common;
 using UnityEngine;
 
-public class PlayerAnimController : MonoBehaviour
+public interface IPlayerAnimHandle
+{    
+    event Action OnUseEvent;
+    event Action OnReloadEvent;
+    event Action OnReloadCancel;
+    event Action OnSkillEffectEvent;
+ 
+}
+
+public class PlayerAnimController : MonoBehaviour, IPlayerAnimHandle
 {
     Animator animator;
     AnimatorOverrideController overrideController;
@@ -11,6 +22,10 @@ public class PlayerAnimController : MonoBehaviour
     private int reload = Animator.StringToHash("IsReload");
     private int drop = Animator.StringToHash("IsDrop");
 
+    public event Action OnUseEvent;
+    public event Action OnReloadEvent;    
+    public event Action OnSkillEffectEvent;        
+    public event Action OnReloadCancel;
 
     private void Awake()
     {
@@ -37,15 +52,18 @@ public class PlayerAnimController : MonoBehaviour
         EventBus_ItemClip.UnSubscribe(ApplyClipHandler);
         EventBus_ItemAnim.UnSubscribe(PlayEventAnim);
     }
-
+    
     public void UseAnim()
     {
         animator.SetTrigger(use);
+        PlayAnimation();
+        
     }
 
     public void ReloadAnim()
     {
         animator.SetTrigger(reload);
+        PlayAnimation();
     }
 
 
@@ -77,6 +95,7 @@ public class PlayerAnimController : MonoBehaviour
     public void ApplyClipHandler(ItemClipChangedEvent newItemClip)
     {
         ApplyClips(newItemClip.useClip, newItemClip.reloadClip);
+        currentEquipItem = newItemClip.currentEquipItem;
     }
 
     // 총기는 애니메이션 X
@@ -84,6 +103,7 @@ public class PlayerAnimController : MonoBehaviour
     {
         if (animEvent.sender != gameObject)
             return;
+        animEventData = animEvent.animData;
         switch(animEvent.animType)
         {
             case ItemAnimType.Use:
@@ -93,7 +113,67 @@ public class PlayerAnimController : MonoBehaviour
                 ReloadAnim();
                 break;
         }
-    }    
+    }
+
+    // 스킬스타트 => 1. 애니메이션 실행, 없으면 로직실행
+    
+    AnimEventData animEventData;
+    List<TimeEvent> currentEvent;
+    float animElapsedTime;
+    int currentEventIndex;
+    bool animRunning;
+    IItem currentEquipItem;
+
+    public void PlayAnimation()
+    {
+        currentEvent = animEventData.EventList;
+        Debug.Log($"Count : {currentEvent.Count} ");
+        animElapsedTime = 0f;
+        currentEventIndex = 0;
+        animRunning = true;        
+    }
+
+    public void AnimationUpdate()
+    {
+        if (!animRunning || currentEvent == null)
+            return;
+        animElapsedTime += Time.deltaTime;
+        // currentEventInex : 현재 실행중인 이벤트 인덱스
+        // currentEvent.Count : 현재 이벤트의 개수
+        // 현재 이벤트 인덱스의 이벤트 시간이 누적시간보다 작거나 같다면
+        if(currentEventIndex < currentEvent.Count && currentEvent[currentEventIndex].Time <= animElapsedTime)
+        {
+            ExecuteTimedEvent(currentEvent[currentEventIndex]);
+            currentEventIndex++;
+        }
+    }
+
+    private void ExecuteTimedEvent(TimeEvent evt)
+    {
+        Debug.Log($"[타이밍 이벤트] {evt.EventName} at {evt.Time}s | param: {evt.Param}");
+
+        switch (evt.EventName)
+        {
+            case "Use":
+                OnUseEvent?.Invoke();
+                break;
+            case "Reload":
+                OnReloadEvent?.Invoke();
+                break;
+            case "Cancel":
+                OnReloadCancel?.Invoke();
+                break;
+            case "End":
+                //currentSkill.Finish();
+                animRunning = false;
+                break;
+            case "UseSkill":
+                OnSkillEffectEvent?.Invoke();
+                break;
+
+        }
+    }
+
 }
 
 
@@ -125,11 +205,13 @@ public class ItemAnimEvent
 {
     public ItemAnimType animType;
     public GameObject sender;
+    public AnimEventData animData;
 
-    public ItemAnimEvent(GameObject Sender, ItemAnimType newAnimType)
+    public ItemAnimEvent(GameObject Sender, ItemAnimType newAnimType, AnimEventData newAnimData)
     {
         sender = Sender;
         animType = newAnimType;
+        animData = newAnimData;
     }
 }
 #endregion

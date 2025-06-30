@@ -8,7 +8,11 @@ public class Rifle : MonoBehaviour, IRangeWeapon
     public bool useable => currentAmmo > 0 && !isAttacking;
 
     public AnimationClip useClip => null;
-    public AnimationClip reloadClip => throw new System.NotImplementedException();
+    public AnimationClip reloadClip => null;
+
+    public AnimEventData reloadAnimData => null;
+
+    public AnimEventData useAnimData => null;
 
     private bool isAttacking;
     private int currentAmmo;
@@ -17,6 +21,7 @@ public class Rifle : MonoBehaviour, IRangeWeapon
     private float damage;    
     private float attackRate;
     private WeaponData myData;
+    private bool isReloading;
 
     // todo : 아이템 데이터 주입
     // private ItemData itemData
@@ -43,7 +48,6 @@ public class Rifle : MonoBehaviour, IRangeWeapon
 
         // todo : 1) 유니태스크로 attackRate에 따라 isAttacking 관리.
         //        2) 총알 및 레이케스트 발사.
-
         
     }
 
@@ -52,13 +56,23 @@ public class Rifle : MonoBehaviour, IRangeWeapon
         await UniTask.Delay(TimeSpan.FromSeconds(attackRate));
         isAttacking = false;
     }
-
+    public void StartReload()
+    {
+        isReloading = true;
+    }
+    public void CancelReload()
+    {
+        if (!isReloading)
+            return;
+        isReloading = false;
+    }
     public void Reload()
     {        
-        if (currentMagazine == 0)
+        if (currentMagazine == 0 || isReloading)
             return;
         currentMagazine--;
         currentAmmo = myData.maxAmmo;
+        isReloading = false;
         // 애니메이션 이벤트에서 호출.
     }
 
@@ -69,6 +83,10 @@ public class Rifle : MonoBehaviour, IRangeWeapon
         damage = newData.damagePerShot;
         attackRate = newData.fireRate;
     }
+
+
+
+
 
     // todo : currentAmmo 탄창수만큼 리셋 
 

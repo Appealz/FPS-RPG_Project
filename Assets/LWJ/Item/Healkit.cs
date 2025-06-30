@@ -7,6 +7,8 @@ public class Healkit : MonoBehaviour, IHealkit
 
     public AnimationClip reloadClip => throw new System.NotImplementedException();
 
+    public AnimEventData useAnimData => throw new System.NotImplementedException();
+
     public void InitData()
     {
         

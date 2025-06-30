@@ -8,6 +8,8 @@ public class Knife : MonoBehaviour, IMeleeWeapon
 
     public AnimationClip reloadClip => throw new System.NotImplementedException();
 
+    public AnimEventData useAnimData => throw new System.NotImplementedException();
+
     public void Attack()
     {
         

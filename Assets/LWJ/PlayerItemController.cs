@@ -13,14 +13,28 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     // 장전여부
     private bool isReload;
 
+    private IPlayerAnimHandle animHandle;
+
+    private void Awake()
+    {
+        if (!TryGetComponent<IPlayerAnimHandle>(out animHandle))
+            Debug.Log("animHandle is not ref");
+    }
+
     private void OnEnable()
     {
         EventBus_Item.Subscribe(Equip_Handle);
+        animHandle.OnUseEvent += UseItem;
+        animHandle.OnReloadEvent += Reload;
+        animHandle.OnReloadCancel += CancelReload;
     }
 
     private void OnDisable()
     {
         EventBus_Item.UnSubscribe(Equip_Handle);
+        animHandle.OnUseEvent -= UseItem;
+        animHandle.OnReloadEvent -= Reload;
+        animHandle.OnReloadCancel -= CancelReload;
     }
 
     public void Init()
@@ -53,10 +67,28 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     // Reload상태 돌입시 실행.
     public void ReloadWeapon()
     {
+        Debug.Log("장전 시작");
         // 현재 착용 아이템이 IWeapon일 경우만 작동.
         if(currentItem is IRangeWeapon rangeWeapon)
         {            
-            EventBus_ItemAnim.Publish(new ItemAnimEvent(gameObject, ItemAnimType.Reload));
+            EventBus_ItemAnim.Publish(new ItemAnimEvent(gameObject, ItemAnimType.Reload, rangeWeapon.reloadAnimData));
+            rangeWeapon.StartReload();
+        }
+    }
+
+    public void Reload()
+    {
+        if (currentItem is IRangeWeapon rangeWeapon)
+        {
+            rangeWeapon.Reload();
+        }
+    }
+
+    public void CancelReload()
+    {
+        if (currentItem is IRangeWeapon rangeWeapon)
+        {
+            rangeWeapon.Reload();
         }
     }
 
@@ -77,13 +109,6 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         isReload = isOn;    
     }
 
-    // 코루틴으로 임시 구현
-    // todo : 유니태스크 사용 예정
-    //private IEnumerator ItemUseRateTime()
-    //{
-    //    yield return new WaitForSeconds(itemUseRate);
-    //    isItemUseReady = true;
-    //}
 
     public void Equip_Handle(ItemChangedEvent newEvent)
     {
@@ -101,10 +126,20 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
             currentItem.Use();
         }
         else
-        {
-            EventBus_ItemAnim.Publish(new ItemAnimEvent(gameObject, ItemAnimType.Use));
+        {            
+            EventBus_ItemAnim.Publish(new ItemAnimEvent(gameObject, ItemAnimType.Use, currentItem.useAnimData));
         }
     }
 
+    public void UseItem()
+    {
+        if (!isUse)
+            return;
+        if (!isUse || currentItem == null)
+            return;
+        if (!currentItem.useable)
+            return;
+        currentItem.Use();
+    }
 
 }
