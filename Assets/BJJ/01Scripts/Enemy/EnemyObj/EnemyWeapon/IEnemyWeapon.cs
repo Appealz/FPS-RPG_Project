@@ -3,8 +3,14 @@ using UnityEngine;
 
 public interface IEnemyWeapon
 {
-    void OnAttack(Transform attackOrigin,float range, float damage);
+    void OnAttack(float range, float damage);
     IEnemyWeapon Clone();
+    void Init(GameObject owner);
+}
+
+public interface IAttackPointInjectable
+{
+    void SetAttackPoint(Transform point);
 }
 
 public static class EnemyWeaponFactory
@@ -29,45 +35,84 @@ public static class EnemyWeaponFactory
     }
 }
 
-public class EnemyMeleeAttackWeapon : IEnemyWeapon
+public class EnemyMeleeAttackWeapon : IEnemyWeapon, IAttackPointInjectable
 {
+    private GameObject owner;
+    private Transform attackPoint;
+
     public IEnemyWeapon Clone()
     {
         return new EnemyMeleeAttackWeapon();
     }
 
-    public void OnAttack(Transform attackOrigin, float range, float damage)
+    public void Init(GameObject owner)
     {
-        
+        this.owner = owner;
+    }
+
+    public void OnAttack(float range, float damage)
+    {
+        Vector3 center = attackPoint.position + attackPoint.forward * (range * 0.5f);
+        var hits = Physics.OverlapSphere(center, range, LayerMask.GetMask("Player"));
+
+        foreach(var hit in hits)
+        {
+            EventBus_Damage.Publish(new DamageInfo(owner, hit.gameObject, damage, null));
+        }
+    }
+
+    public void SetAttackPoint(Transform point)
+    {
+        attackPoint = point;
     }
 }
 
-public class EnemyRangeAttackWeapon : IEnemyWeapon
+public class EnemyRangeAttackWeapon : IEnemyWeapon, IAttackPointInjectable
 {
+    private GameObject owner;
+    private Transform attackPoint;
+
     public IEnemyWeapon Clone()
     {
         return new EnemyRangeAttackWeapon();
     }
 
-    public void OnAttack(Transform attackOrigin, float range, float damage)
+    public void Init(GameObject owner)
     {
-        if(Physics.Raycast(attackOrigin.position, attackOrigin.forward, out var hit, range, LayerMask.GetMask("Player")))
+        this.owner = owner;
+    }
+
+    public void OnAttack(float range, float damage)
+    {
+        if(Physics.Raycast(attackPoint.position, attackPoint.forward, out var hit, range, LayerMask.GetMask("Player")))
         {
-            EventBus_Damage.Publish(new DamageInfo(attackOrigin.gameObject, hit.collider.gameObject, damage, null));
+            EventBus_Damage.Publish(new DamageInfo(owner, hit.collider.gameObject, damage, null));
         }
+    }
+
+    public void SetAttackPoint(Transform point)
+    {
+        attackPoint = point;
     }
 }
 
 public class EnemySuicideWeapon : IEnemyWeapon
 {
+    private GameObject owner;
+
     public IEnemyWeapon Clone()
     {
         return new EnemySuicideWeapon();
     }
 
-    public void OnAttack(Transform attackOrigin, float range, float damage)
+    public void Init(GameObject owner)
     {
-        Collider[] hits = Physics.OverlapSphere(attackOrigin.position, range, LayerMask.GetMask("Player"));
+        this.owner = owner;
+    }
+
+    public void OnAttack(float range, float damage)
+    {
+        Collider[] hits = Physics.OverlapSphere(owner.transform.position, range, LayerMask.GetMask("Player"));
         HashSet<GameObject> targets = new HashSet<GameObject>();
 
         foreach(var hit in hits)
@@ -80,7 +125,7 @@ public class EnemySuicideWeapon : IEnemyWeapon
 
         foreach(var t in targets)
         {
-            EventBus_Damage.Publish(new DamageInfo(attackOrigin.gameObject, t, damage, null));
+            EventBus_Damage.Publish(new DamageInfo(owner, t, damage, null));
         }
     }
 }

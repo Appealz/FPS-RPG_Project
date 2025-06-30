@@ -35,6 +35,11 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
         else animCtrl.OnAttackEvent += OnAnimationEvent;
 
         weapon = newWeapon;
+        weapon.Init(gameObject);
+        if(weapon is IAttackPointInjectable p)
+        {
+            p.SetAttackPoint(MyUtility.GetChildrenTrans(transform, "AttackPoint"));
+        }
 
         interval = context.attackSpeed;
         curDelay = 0;
@@ -43,7 +48,8 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
 
     public void OnAnimationEvent()
     {
-        // weapon.OnAttack(공격 포인트, 사거리 or 범위, 데미지)
+        weapon.OnAttack(context.attackRange, context.damage);
+        isAttackable = true;
     }
 
     public void OnAttack()

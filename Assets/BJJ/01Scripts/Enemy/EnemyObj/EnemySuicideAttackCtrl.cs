@@ -22,12 +22,13 @@ public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack
             Debug.Log($"{gameObject.name} EnemyAttackSuidideAttackCtrl.cs - InitAttack() - Can't Reference nimCtrl");
         else animCtrl.OnAnimFinishEvent += OnAnimationEvent;
         weapon = newWeapon;
+        weapon.Init(gameObject);
         isAttack = false;
     }
 
     public void OnAnimationEvent()
     {
-        weapon.OnAttack(transform, context.attackRange, context.damage);
+        weapon.OnAttack(context.attackRange, context.damage);
     }
 
     public void OnAttack()
