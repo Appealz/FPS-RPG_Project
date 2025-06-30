@@ -7,11 +7,12 @@ public interface IAnimHandle
     void SetMoveState(bool isOn);
 
     event Action OnAttackEvent;
+    event Action OnAnimFinishEvent;
 }
 
 public interface IAnimCtrl
 {
     void Init();
     void AnimUpdate();
-    void ExecuteAnimEvent();
+    void ExecuteAnimEvent(TimeEvent evt);
 }

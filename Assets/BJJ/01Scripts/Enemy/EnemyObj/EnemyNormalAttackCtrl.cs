@@ -43,7 +43,7 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
 
     public void OnAnimationEvent()
     {
-        // todo 애니메이션 이벤트 버스 만들어진 뒤에 받아오기
+        // weapon.OnAttack(공격 포인트, 사거리 or 범위, 데미지)
     }
 
     public void OnAttack()

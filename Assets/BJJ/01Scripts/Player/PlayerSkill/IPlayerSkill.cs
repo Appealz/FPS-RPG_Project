@@ -11,7 +11,14 @@ public interface IPlayerSkill
     void InitSkillCtrl(ClassSkillData newData);
     void UpdateSkillCtrl();
 
+    void OnSkillActionHandler();
+
     void SetEnable(bool isOn);
+}
+
+public interface IAnimSkill
+{
+    void OnSkillAction();
 }
 
 public abstract class ClassSkill

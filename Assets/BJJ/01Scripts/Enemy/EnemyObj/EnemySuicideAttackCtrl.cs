@@ -20,14 +20,14 @@ public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack
             Debug.Log($"{gameObject.name} EnemyAttackSuidideAttackCtrl.cs - InitAttack() - Can't Reference EnemyContext");
         if (!TryGetComponent<IAnimHandle>(out animCtrl))
             Debug.Log($"{gameObject.name} EnemyAttackSuidideAttackCtrl.cs - InitAttack() - Can't Reference nimCtrl");
-        else animCtrl.OnAttackEvent += OnAnimationEvent;
+        else animCtrl.OnAnimFinishEvent += OnAnimationEvent;
         weapon = newWeapon;
         isAttack = false;
     }
 
     public void OnAnimationEvent()
     {
-        // todo 이벤트 타입들이 정해지면 그에 맞춰서 작동
+        weapon.OnAttack(transform, context.attackRange, context.damage);
     }
 
     public void OnAttack()
@@ -42,6 +42,6 @@ public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack
 
     private void OnDisable()
     {
-        animCtrl.OnAttackEvent -= OnAnimationEvent;
+        animCtrl.OnAnimFinishEvent -= OnAnimationEvent;
     }
 }

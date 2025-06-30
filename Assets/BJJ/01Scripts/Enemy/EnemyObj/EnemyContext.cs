@@ -8,6 +8,8 @@ public interface IEnemyContextReadable
     float attackSpeed { get; }
 
     float moveSpeed { get; }
+
+    float damage { get; }
 }
 
 public interface IEnemyContextWriteable : IEnemyContextReadable
@@ -25,6 +27,8 @@ public class EnemyContext : MonoBehaviour, IEnemyContextWriteable
     public float attackSpeed { get; private set; }
     public float moveSpeed { get; private set; }
 
+    public float damage { get; private set; }
+
     public void SetTarget(ITargetable target)
     {
         curTarget = target;
@@ -36,5 +40,6 @@ public class EnemyContext : MonoBehaviour, IEnemyContextWriteable
         attackRange = stat.GetStat(StatType.AttackRange);
         attackSpeed = stat.GetStat(StatType.AttackSpeed);
         moveSpeed = stat.GetStat(StatType.MoveSpeed);
+        damage = stat.GetStat(StatType.AttackDamage);
     }
 }
