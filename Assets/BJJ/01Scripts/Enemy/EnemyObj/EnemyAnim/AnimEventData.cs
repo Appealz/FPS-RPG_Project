@@ -8,6 +8,7 @@ public class AnimEventData : ScriptableObject
     public List<TimeEvent> EventList;
 }
 
+[System.Serializable]
 public struct TimeEvent
 {
     public float Time;
