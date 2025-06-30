@@ -2,6 +2,7 @@ using UnityEngine;
 
 public interface IEnemyContextReadable
 {
+    string enemyName { get; }
     ITargetable curTarget { get; }
     float curHP { get; }
     float attackRange { get; }
@@ -17,17 +18,24 @@ public interface IEnemyContextWriteable : IEnemyContextReadable
     void SetTarget(ITargetable target);
 
     void StatUpdate(StatManager stat);
+
+    void SetEnemyName(string name);
 }
 
 public class EnemyContext : MonoBehaviour, IEnemyContextWriteable
 {
+    public string enemyName { get; private set; }
     public ITargetable curTarget { get; private set; }
     public float curHP { get; private set; }
     public float attackRange {  get; private set; }
     public float attackSpeed { get; private set; }
     public float moveSpeed { get; private set; }
-
     public float damage { get; private set; }
+
+    public void SetEnemyName(string name)
+    {
+        enemyName = name;
+    }
 
     public void SetTarget(ITargetable target)
     {

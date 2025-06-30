@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyAnimCtrl : MonoBehaviour, IAnimCtrl, IAnimHandle
 {
     private Animator anim;
+    private IEnemyContextReadable context;
 
     public List<TimeEvent> eventList;
 
@@ -37,6 +38,7 @@ public class EnemyAnimCtrl : MonoBehaviour, IAnimCtrl, IAnimHandle
                 break;
             case "AnimFinish":
                 OnAnimFinishEvent.Invoke();
+                isAnimEvent = false;
                 break;
         }
     }
@@ -45,6 +47,8 @@ public class EnemyAnimCtrl : MonoBehaviour, IAnimCtrl, IAnimHandle
     {
         if (!TryGetComponent<Animator>(out anim))
             Debug.Log($"{gameObject.name} EnemyAnimCtrl.cs - Init() - Animator Can't Referenece");
+        if (!TryGetComponent<IEnemyContextReadable>(out context))
+            Debug.Log($"{gameObject.name} EnemyAnimCtrl.cs - Init() - IEnemyContextReadable Can't Referenece");
 
         curTime = 0;
         curEventIndex = 0;
@@ -54,7 +58,13 @@ public class EnemyAnimCtrl : MonoBehaviour, IAnimCtrl, IAnimHandle
     public void SetAnim(string animName)
     {
         anim.SetTrigger(AnimHash.GetAnimHash(animName));
-        // todo AnimEvent 가져오기
+        if (EnemyAnimEventDataManager.GetAnimEventData($"{context.enemyName}_{animName}", out var data))
+        {
+            eventList = data.EventList;
+            isAnimEvent = true;
+        }
+        else isAnimEvent = false;
+
         curTime = 0;
         curEventIndex = 0;
     }

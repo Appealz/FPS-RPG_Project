@@ -2288,6 +2288,7 @@ GameObject:
   - component: {fileID: 2435873725274802711}
   - component: {fileID: 759488921800746952}
   - component: {fileID: 5545415074756249818}
+  - component: {fileID: 6212110543298641948}
   m_Layer: 0
   m_Name: MeleeRobot
   m_TagString: Untagged
@@ -2428,6 +2429,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b151385963cda4c910900d639ec294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6212110543298641948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9054262507007189020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc9896f9afad6e489f416bb397f4a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventList: []
 --- !u!1 &9107932582892483153
 GameObject:
   m_ObjectHideFlags: 0

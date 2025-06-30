@@ -13,7 +13,7 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageRec
     private Pool ownerPool;
     private StatManager statManager;
     private IEnemyAI enemyAI;
-    private EnemyContext enemyContext;
+    private IEnemyContextWriteable enemyContext;
     private IUnitFSM unitFSM;
     private IMovement movement;
     private IEnemyAttack attackCtrl;
@@ -42,9 +42,13 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageRec
             Debug.Log($"{gameObject.name} EnemyManager.cs - InitEnemy() - IAnimCtrl NonReference");
         else animCtrl.Init();
 
-        if (!TryGetComponent<EnemyContext>(out enemyContext))
+        if (!TryGetComponent<IEnemyContextWriteable>(out enemyContext))
             Debug.Log($"{gameObject.name} EnemyManager.cs - InitEnemy() - EnemyContext NonReference");
-        else enemyContext.StatUpdate(statManager);
+        else
+        {
+            enemyContext.SetEnemyName(n.name);
+            enemyContext.StatUpdate(statManager);
+        }
 
         if (!TryGetComponent<IEnemyAttack>(out attackCtrl))
             Debug.Log($"{gameObject.name} EnemyManager.cs - InitEnemy() - IEnemyAttack NonReference");

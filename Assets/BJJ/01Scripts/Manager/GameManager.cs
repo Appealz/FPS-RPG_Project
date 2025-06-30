@@ -23,7 +23,7 @@ public class GameManager : DestroySingleton<GameManager>
 
     protected override void DoAwake()
     {
-        // 게임 매니저가 시작하면서 찾아야하는 것
+        
     }
 
     private void Start()
@@ -34,7 +34,7 @@ public class GameManager : DestroySingleton<GameManager>
 
     private void DontResetSetting()
     {
-
+        EnemyAnimEventDataManager.InitEnemyAnimData();
     }
 
     private void ResetSetting()
