@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponManager : DestroySingleton<WeaponManager>
-{
+{    
     Dictionary<int, GameObject> weapons = new Dictionary<int, GameObject>();
-    Dictionary<int, GameObject> playerWepaon = new Dictionary<int, GameObject>();
+    Dictionary<int, GameObject> playerWeapon = new Dictionary<int, GameObject>();
 
-    //List<GameObject> weapons = new List<GameObject>();
+    [SerializeField]
+    List<GameObject> weaponList = new List<GameObject>();
 
     public void CreateWeapon(int weaponID)
     {
@@ -16,16 +17,29 @@ public class WeaponManager : DestroySingleton<WeaponManager>
             Debug.LogError($"[WeaponManager] 무기 데이터가 존재하지 않습니다. ID: {weaponID}");
             return;
         }
-
+ 
+        
         // 2. 프리펩 로드
         // todo : 경로통해서 resources 폴더에서 가져오거나 addressable 이용
 
         // 3. 오브젝트 생성
         // todo : 가져온 프리팹을 이용해서 Instantiate
-        // GameObject obj = Instantiate
+        // GameObject obj = Instantiate        
 
         // 4. 데이터 주입
         // todo: 가져온 프리팹 내부의 IWeapon 클래스를 통해서 데이터 주입.
+    }
+
+    public void PlayerEquipWeapon()
+    {
+        ClassData classData = ContextManager.Instance.GetPlayGameContext().playClassData;
+        List<int> equipWeaponID = classData.equippedItemIds;
+
+        foreach (int weaponID in equipWeaponID)
+        {
+            CreateWeapon(weaponID);
+            
+        }
     }
 }
 
