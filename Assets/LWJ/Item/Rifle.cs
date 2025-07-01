@@ -44,6 +44,13 @@ public class Rifle : MonoBehaviour, IRangeWeapon
             return;
         currentAmmo--;
         isAttacking = true;
+
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            Debug.Log("조준한 대상: " + hit.collider.name);
+        }
+
         FireDelay().Forget();
 
         // todo : 1) 유니태스크로 attackRate에 따라 isAttacking 관리.
