@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ public class EnemyTotalManager : DestroySingleton<EnemyTotalManager>
     private EnemySpawnManager spawnManager;
     private List<IEnemyManager> enemies;
 
+    public Action OnEnemyDeadEvent;
+    
     protected override void DoAwake()
     {
         if (!TryGetComponent(out spawnManager))
@@ -33,11 +36,15 @@ public class EnemyTotalManager : DestroySingleton<EnemyTotalManager>
 
     public void InitEnemyManager()
     {
-        spawnManager.InitSpawnManager();
         enemies = new List<IEnemyManager>();
 
         GameManager.OnGameUpdate += EnemyUpdate;
         EventBus_EnemyManager.Subscribe(EnemyListUpdateHandler);
+    }
+
+    public void SetSpawnData(RoundData data)
+    {
+        spawnManager.SetSpawnData(data);
     }
 
     private void OnDisable()
@@ -48,6 +55,8 @@ public class EnemyTotalManager : DestroySingleton<EnemyTotalManager>
 
     private void EnemyUpdate()
     {
+        spawnManager.SpawnUpdate();
+
         for(int i = enemies.Count - 1; i >= 0; i--)
         {
             enemies[i].CustomUpdate();
@@ -64,7 +73,10 @@ public class EnemyTotalManager : DestroySingleton<EnemyTotalManager>
                 break;
             case EnemyUpdateType.Unregist:
                 if(enemies.Contains(evt.enemy))
+                {
                     enemies.Remove(evt.enemy);
+                    OnEnemyDeadEvent?.Invoke();
+                }
                 break;
         }
     }

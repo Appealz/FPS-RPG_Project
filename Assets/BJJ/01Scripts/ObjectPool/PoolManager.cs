@@ -19,7 +19,11 @@ public class PoolManager : DestroySingleton<PoolManager>
         // 게임매니저가 해당 데이터들을 기반으로 주르륵 SetPool을 호출
         GameObject poolObj = new GameObject($"Pool_{name}");
         Pool newPool = poolObj.AddComponent<Pool>();
-        
+        GameObject prefab = Resources.Load<GameObject>($"{type.ToString()}/{name}");
+        if(prefab.TryGetComponent<IPoolLabel>(out IPoolLabel label))
+        {
+            newPool.InitPool(label);
+        }
     }
 
     public Pool GetPool(string name)

@@ -21,6 +21,11 @@ public class GameManager : DestroySingleton<GameManager>
     public static event Action OnGameClear;
     #endregion
 
+    private bool isShoppingTime = false;
+    private float shoppingTime = 180f;
+    private float curTime = 0f;
+
+    private RoundManager roundManager;
     protected override void DoAwake()
     {
         
@@ -35,17 +40,52 @@ public class GameManager : DestroySingleton<GameManager>
     private void DontResetSetting()
     {
         EnemyAnimEventDataManager.InitEnemyAnimData();
+        roundManager = new RoundManager();
+        roundManager.InitRoundManager();
+        roundManager.OnRoundEnd += RoundEndHandler;
     }
 
     private void ResetSetting()
     {
+        // Player Setting
+        EnemyTotalManager.Instance.InitEnemyManager();
         isPause = false;
+
+        roundManager.StartRound();
     }
 
     private void Update()
     {
         if (!isPause)
+        {
             OnGameUpdate?.Invoke();
+            ShoppingTimeChecker();
+        }
+    }
+
+    private void ShoppingTimeChecker()
+    {
+        if (!isShoppingTime) return;
+
+        curTime += Time.deltaTime;
+
+        if(curTime >= shoppingTime)
+        {
+            roundManager.StartRound();
+            isShoppingTime = false;
+        }
+    }
+
+    private void RoundEndHandler()
+    {
+        if(roundManager.IsFinalRound)
+        {
+            GameClearHandler();
+            return;
+        }
+
+        isShoppingTime = true;
+        curTime = 0f;
     }
 
     private void PauseHandler(bool value)
@@ -61,5 +101,11 @@ public class GameManager : DestroySingleton<GameManager>
     private void GameClearHandler()
     {
         OnGameClear?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        roundManager.OnRoundEnd -= RoundEndHandler;
+        roundManager.DisableRoundManager();
     }
 }
