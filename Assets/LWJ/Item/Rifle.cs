@@ -14,21 +14,28 @@ public class Rifle : MonoBehaviour, IRangeWeapon
 
     public AnimEventData useAnimData => null;
 
+    private Animator anims;
+
     private bool isAttacking;
     private int currentAmmo;
     private int currentMagazine;
 
     private float damage;    
     private float attackRate;
+        
     private WeaponData myData;
     private bool isReloading;
 
+    private void Awake()
+    {
+        if(TryGetComponent<Animator>(out anims))
+        {
+            Debug.Log("Rifle - anim is not ref");
+        }
+    }
+
     // todo : 아이템 데이터 주입
     // private ItemData itemData
-    public void InitData()
-    {
-        
-    }
 
     // 플레이어 관련 스텟 주입.
     public void SetStatus(float newDamage)
@@ -39,11 +46,18 @@ public class Rifle : MonoBehaviour, IRangeWeapon
     public void Use() => Attack();
 
     public void Attack()
-    {        
-        if(!useable)
+    {
+        // 총알 미구현으로 임시 주석처리.
+        //if(!useable)
+        //    return;
+
+        // 임시로 isAttacking으로 작동
+        if (isAttacking)
             return;
+
         currentAmmo--;
         isAttacking = true;
+        Debug.Log($"rifle 공격");
 
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, 100f))
@@ -60,12 +74,13 @@ public class Rifle : MonoBehaviour, IRangeWeapon
 
     private async UniTaskVoid FireDelay()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(attackRate));
+        await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
         isAttacking = false;
     }
     public void StartReload()
     {
         isReloading = true;
+        anims.SetTrigger("Reload");
     }
     public void CancelReload()
     {

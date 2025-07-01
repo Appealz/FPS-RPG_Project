@@ -17,6 +17,11 @@ public class ContextManager : DontDestroySingleton<ContextManager>
     {
         // todo: 게임 종료시 저장될 데이터
     }
+
+    public PlayGameContext GetPlayGameContext()
+    {
+        return playGameContext;
+    }
 }
 
 // PlyaerSaveData 
