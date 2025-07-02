@@ -14,6 +14,10 @@ public class Revolver : MonoBehaviour, IRangeWeapon
 
     public AnimEventData useAnimData => throw new NotImplementedException();
 
+    public int itemID => myData.id;
+
+    public float weaponRecoil => 0.5f;
+
     private bool isAttacking;
     private int currentAmmo;
     private int currentMagazine;
@@ -38,6 +42,13 @@ public class Revolver : MonoBehaviour, IRangeWeapon
             return;
         currentAmmo--;
         isAttacking = true;
+
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            Debug.Log("조준한 대상: " + hit.collider.name);
+        }
+        
         FireDelay().Forget();
     }
 
@@ -49,6 +60,7 @@ public class Revolver : MonoBehaviour, IRangeWeapon
         currentMagazine--;
         currentAmmo = myData.maxAmmo;
         // 애니메이션 이벤트에서 호출.
+
     }
 
     private async UniTaskVoid FireDelay()

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,6 +41,19 @@ public class WeaponManager : DestroySingleton<WeaponManager>
             CreateWeapon(weaponID);
             
         }
+    }
+
+    public GameObject EquipWeapon(int weaponID)
+    {
+        weapons.TryGetValue(weaponID, out GameObject weapon);
+        return weapon;
+    }
+
+    public void ReturnWeapon(GameObject returnWeapon)
+    {
+        returnWeapon.transform.SetParent(transform);
+        returnWeapon.transform.localPosition = Vector3.zero;
+        returnWeapon.SetActive(false);
     }
 }
 

@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerItemController : MonoBehaviour,IItemCtrl
@@ -58,6 +59,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     public void Equip(IItem newItem)
     {
         currentItem = newItem;
+        weaponHolder.AttachWeapon(newItem.itemID);
         EventBus_ItemClip.Publish(new ItemClipChangedEvent(newItem));
     }
 
@@ -101,15 +103,27 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     {
         if (currentItem is IRangeWeapon rangeWeapon)
         {
-            rangeWeapon.Reload();
+            rangeWeapon.CancelReload();
         }
     }
 
     // 버리기 키와 바인딩
     public void Drop()
     {
-        // 드랍 키 발생
-        // 
+        //Debug.Log("아이템 드랍");
+        if (currentItem == null)
+            return;
+
+        if (currentItem is IDroppable dropItem)
+        {
+            Vector3 forwardDir = transform.forward + Vector3.up * 0.3f;
+            dropItem.Drop(forwardDir.normalized, 5f);
+            EventBus_Item.Publish(new ItemChangedEvent(currentItem, gameObject, ItemEventType.remove));
+        }
+        else
+            return;
+
+        
     }
 
     public void SetEnable(bool isOn)
@@ -135,11 +149,11 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     {
         if(currentItem == null) return;
 
-        if(currentItem is IWeapon weapon)
-        {            
+        if(currentItem is IRangeWeapon weapon)
+        {
             currentItem.Use();
             // todo : 0.1f는 임시, 각 무기의 반동 적용 예정
-            weaponHolder.WeaponRecoil(0.1f);
+            weaponHolder.WeaponRecoil(weapon.weaponRecoil);
         }
         else
         {            

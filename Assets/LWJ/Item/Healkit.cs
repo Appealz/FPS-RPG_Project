@@ -9,6 +9,8 @@ public class Healkit : MonoBehaviour, IHealkit
 
     public AnimEventData useAnimData => throw new System.NotImplementedException();
 
+    public int itemID => throw new System.NotImplementedException();
+
     public void InitData()
     {
         

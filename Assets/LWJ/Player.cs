@@ -77,9 +77,27 @@ public class Player : MonoBehaviour,ITargetable
         inputController.OnEquipInput += dataManager.inventory.EquipItem;
         inputController.OnAttackInput += itemCtrl.UseCurrentItem;
         inputController.OnReloadInput += itemCtrl.ReloadWeapon;
+        inputController.OnDropInput += itemCtrl.Drop;
         #endregion
 
         playerMove.Init();        
+    }
+    private void OnDisable()
+    {
+        inputController.OnStateChangeEvent -= playerFSM.SetState;
+        if (playerMove is ISetDirection direction)
+        {
+            inputController.OnMoveInput -= direction.SetDirection;
+        }
+        if (playerMove is IJump jump)
+        {
+            inputController.OnJumpInput -= jump.Jump;
+        }
+        inputController.OnLookInput -= cameraController.UpdateRotate;
+        inputController.OnEquipInput -= dataManager.inventory.EquipItem;
+        inputController.OnAttackInput -= itemCtrl.UseCurrentItem;
+        inputController.OnReloadInput -= itemCtrl.ReloadWeapon;
+        inputController.OnDropInput -= itemCtrl.Drop;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

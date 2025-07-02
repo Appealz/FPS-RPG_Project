@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class ShotGun : MonoBehaviour, IRangeWeapon
+public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable
 {
     public bool useable => currentAmmo > 0 && !isAttacking;
 
@@ -14,6 +14,10 @@ public class ShotGun : MonoBehaviour, IRangeWeapon
     public AnimEventData reloadAnimData => throw new NotImplementedException();
 
     public AnimEventData useAnimData => throw new NotImplementedException();
+
+    public int itemID => myData.id;
+
+    public float weaponRecoil => 1f;
 
     private bool isAttacking;
     private int currentAmmo;
@@ -118,6 +122,11 @@ public class ShotGun : MonoBehaviour, IRangeWeapon
     {
         if (!isReloading) return;
         isReloading = false;
+    }
+
+    public void Drop(Vector3 dropDir, float dropForce)
+    {
+        
     }
 }
 

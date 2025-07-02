@@ -2,7 +2,8 @@ using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
-public class Rifle : MonoBehaviour, IRangeWeapon
+[RequireComponent(typeof(Rigidbody))]
+public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
 {
     // 아이템자체가 발동가능한지 여부.
     public bool useable => currentAmmo > 0 && !isAttacking;
@@ -13,6 +14,10 @@ public class Rifle : MonoBehaviour, IRangeWeapon
     public AnimEventData reloadAnimData => null;
 
     public AnimEventData useAnimData => null;
+
+    public int itemID => myData.id;
+
+    public float weaponRecoil => 0.1f;
 
     private Animator anims;
 
@@ -26,11 +31,17 @@ public class Rifle : MonoBehaviour, IRangeWeapon
     private WeaponData myData;
     private bool isReloading;
 
+    private Rigidbody rb;
     private void Awake()
     {
-        if(TryGetComponent<Animator>(out anims))
+        if(!TryGetComponent<Animator>(out anims))
         {
             Debug.Log("Rifle - anim is not ref");
+        }
+
+        if(!TryGetComponent<Rigidbody>(out rb))
+        {
+            Debug.Log("Rifle - rb is not ref");
         }
     }
 
@@ -103,7 +114,16 @@ public class Rifle : MonoBehaviour, IRangeWeapon
         myData = newData;
         currentAmmo = newData.maxAmmo;
         damage = newData.damagePerShot;
-        attackRate = newData.fireRate;
+        attackRate = newData.fireRate;        
+    }
+
+    public void Drop(Vector3 dropDir, float dropForce)
+    {
+        transform.SetParent(null); // 손에서 분리
+        gameObject.SetActive(true);
+
+        rb.isKinematic = false;
+        rb.AddForce(dropDir * dropForce, ForceMode.Impulse);
     }
 
 
