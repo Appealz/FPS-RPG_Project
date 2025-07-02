@@ -132,13 +132,13 @@ GameObject:
   - component: {fileID: 111876037}
   - component: {fileID: 111876036}
   - component: {fileID: 111876035}
-  - component: {fileID: 111876038}
   - component: {fileID: 111876039}
   - component: {fileID: 111876040}
   - component: {fileID: 111876041}
   - component: {fileID: 111876042}
   - component: {fileID: 111876043}
   - component: {fileID: 111876044}
+  - component: {fileID: 111876038}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
