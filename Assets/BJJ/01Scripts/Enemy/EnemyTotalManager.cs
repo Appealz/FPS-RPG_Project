@@ -26,7 +26,7 @@ public class EnemyTotalManager : DestroySingleton<EnemyTotalManager>
     private EnemySpawnManager spawnManager;
     private List<IEnemyManager> enemies;
 
-    public Action OnEnemyDeadEvent;
+    public static event Action OnEnemyDeadEvent;
     
     protected override void DoAwake()
     {

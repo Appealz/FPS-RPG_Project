@@ -25,6 +25,7 @@ public abstract class DestroySingleton<T> : MonoBehaviour where T : MonoBehaviou
                     {
                         GameObject singleObj = new GameObject(typeof(T).Name);
                         _instance = singleObj.AddComponent<T>();
+                        singleObj.name = typeof(T).Name;
                     }
                 }
                 return _instance;
@@ -88,6 +89,7 @@ public abstract class DontDestroySingleton<T> : MonoBehaviour where T : MonoBeha
                         GameObject singleObj = new GameObject(typeof(T).Name);
                         _instance = singleObj.AddComponent<T>();
                         DontDestroyOnLoad(singleObj);
+                        singleObj.name = typeof(T).Name;
                     }
                 }
                 return _instance;

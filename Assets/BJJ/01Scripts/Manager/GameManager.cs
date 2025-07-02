@@ -39,6 +39,7 @@ public class GameManager : DestroySingleton<GameManager>
 
     private void DontResetSetting()
     {
+        PoolManager.Instance.InitPoolManager();
         EnemyAnimEventDataManager.InitEnemyAnimData();
         roundManager = new RoundManager();
         roundManager.InitRoundManager();
@@ -48,8 +49,15 @@ public class GameManager : DestroySingleton<GameManager>
     private void ResetSetting()
     {
         // Player Setting
-        EnemyTotalManager.Instance.InitEnemyManager();
         isPause = false;
+
+        Player[] players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+        foreach (Player p in players)
+        {
+            PlayerScanManager.Instance.RegisterTarget(p);
+        }
+
+        EnemyTotalManager.Instance.InitEnemyManager();
 
         roundManager.StartRound();
     }
@@ -107,5 +115,6 @@ public class GameManager : DestroySingleton<GameManager>
     {
         roundManager.OnRoundEnd -= RoundEndHandler;
         roundManager.DisableRoundManager();
+        
     }
 }

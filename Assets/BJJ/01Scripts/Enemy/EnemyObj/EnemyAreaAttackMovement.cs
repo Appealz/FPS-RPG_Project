@@ -27,7 +27,7 @@ public class EnemyAreaAttackMovement : MonoBehaviour, IMovement
 
     public void Move()
     {
-        if (context.curTarget == null || !context.curTarget.IsAlive) return;
+        if (context.curTarget == null) return; //  || !context.curTarget.IsAlive 추가 필요 << 근데 이거 왜 정상작동 안함?
 
         agent.speed = context.moveSpeed;
         if (NavMesh.SamplePosition(RandomTargetNearPos(), out var hit, 1f, NavMesh.AllAreas))

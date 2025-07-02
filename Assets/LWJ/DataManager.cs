@@ -46,11 +46,11 @@ public class DataManager : DontDestroySingleton<DataManager>
             foreach (var row in originalData.PerkData)
                 perkData.Add(row.id, row);
 
-            foreach (var row in originalData.AchievementsData)
-                achievementsData.Add(row.id, row);
+            //foreach (var row in originalData.AchievementsData)
+            //    achievementsData.Add(row.id, row);
 
-            foreach (var row in originalData.LevelEXPData)
-                levelExpData.Add(row.curLevel, row);
+            //foreach (var row in originalData.LevelEXPData)
+            //    levelExpData.Add(row.curLevel, row);
 
             // 추후 사용 시
             // foreach (var row in originalData.ClassStatsData)

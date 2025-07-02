@@ -18,6 +18,9 @@ MonoBehaviour:
     - id: 4001
       Name: MeleeRobot
       Count: 5
+    - id: 4003
+      Name: SuicideWeapon
+      Count: 1
   - curRound: 2
     spawnList:
     - id: 4001

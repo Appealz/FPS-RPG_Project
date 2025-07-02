@@ -34,10 +34,10 @@ public class EnemyAnimCtrl : MonoBehaviour, IAnimCtrl, IAnimHandle
         switch(evt.EventName)
         {
             case "Attack":
-                OnAttackEvent.Invoke();
+                OnAttackEvent?.Invoke();
                 break;
             case "AnimFinish":
-                OnAnimFinishEvent.Invoke();
+                OnAnimFinishEvent?.Invoke();
                 isAnimEvent = false;
                 break;
         }
@@ -62,11 +62,10 @@ public class EnemyAnimCtrl : MonoBehaviour, IAnimCtrl, IAnimHandle
         {
             eventList = data.EventList;
             isAnimEvent = true;
+            curTime = 0;
+            curEventIndex = 0;
         }
         else isAnimEvent = false;
-
-        curTime = 0;
-        curEventIndex = 0;
     }
 
     public void SetMoveState(bool isOn)

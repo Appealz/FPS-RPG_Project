@@ -17,8 +17,13 @@ public class EnemyFSM : MonoBehaviour, IUnitFSM
 
         if(fsmDIc.TryGetValue(type, out var state))
         {
+
             if (curState != null)
+            {
+                if (curState == state) return;
+
                 curState.ExitState();
+            }
 
             curState = state;
             curState.EnterState();

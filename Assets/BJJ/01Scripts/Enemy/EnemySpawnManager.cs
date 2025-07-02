@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySpawnManager : MonoBehaviour
 {
     private bool isSpawnState;
-    private float spawnDelay;
+    private float spawnDelay = 1f;
     private float curTime;
     private int multiSpawnCount;
 
@@ -74,8 +75,14 @@ public class EnemySpawnManager : MonoBehaviour
             if (obj.TryGetComponent<EnemyManager>(out var enemy))
             {
                 enemy.InitEnemy(data);
-                // 위치 랜덤으로 던지기
-
+                if(obj.TryGetComponent<NavMeshAgent>(out var agent))
+                {
+                    if(NavMesh.SamplePosition(Vector3.zero, out var hit, 1f, NavMesh.AllAreas))
+                    {
+                        agent.Warp(hit.position);
+                    }
+                }
+                EventBus_EnemyManager.Publish(new EnemyUpdateEvent(EnemyUpdateType.Regist, enemy));
                 return true;
             }
 

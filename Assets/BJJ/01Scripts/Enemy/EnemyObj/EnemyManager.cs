@@ -11,7 +11,7 @@ public interface IEnemyManager
 public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageReceiver
 {
     private Pool ownerPool;
-    private StatManager statManager;
+    [SerializeField] private StatManager statManager;
     private IEnemyAI enemyAI;
     private IEnemyContextWriteable enemyContext;
     private IUnitFSM unitFSM;
@@ -52,7 +52,14 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageRec
 
         if (!TryGetComponent<IEnemyAttack>(out attackCtrl))
             Debug.Log($"{gameObject.name} EnemyManager.cs - InitEnemy() - IEnemyAttack NonReference");
-        else attackCtrl.InitAttack(EnemyWeaponFactory.GetEnemyWeapon(n.name));
+        else
+        {
+            attackCtrl.InitAttack(EnemyWeaponFactory.GetEnemyWeapon(n.name));
+            if(attackCtrl is ISuicideAttack sa)
+            {
+                sa.OnSuicideEvent += ReturnToPool;
+            }
+        }
 
         if (!TryGetComponent<IMovement>(out movement))
             Debug.Log($"{gameObject.name} EnemyManager.cs - InitEnemy() - IMovement NonReference");
@@ -99,7 +106,13 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageRec
         EventBus_Stat.Unsubscribe(OnStatChange);
         EventBus_Damage.UnSubscribe(OnExplosionDamageHandler);
         EventBus_UnitDieEvent.UnSubscribe(DieEventHandler);
+
+        if (attackCtrl is ISuicideAttack sa)
+        {
+            sa.OnSuicideEvent -= ReturnToPool;
+        }
         ownerPool.ReturnToPool(gameObject);
+        EventBus_EnemyManager.Publish(new EnemyUpdateEvent(EnemyUpdateType.Unregist, this));
     }
 
     private void OnStatChange(StatModifier modifier)

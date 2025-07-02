@@ -1,11 +1,19 @@
+using System;
 using UnityEngine;
 
-public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack
+public interface ISuicideAttack
+{
+    event Action OnSuicideEvent;
+}
+
+public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack, ISuicideAttack
 {
     private IEnemyContextReadable context;
     private IEnemyWeapon weapon;
     private IAnimHandle animCtrl;
     private bool isAttack;
+
+    public event Action OnSuicideEvent;
 
     public void AttackUpdate()
     {
@@ -29,10 +37,12 @@ public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack
     public void OnAnimationEvent()
     {
         weapon.OnAttack(context.attackRange, context.damage);
+        OnSuicideEvent?.Invoke();
     }
 
     public void OnAttack()
     {
+        isAttack = false;
         animCtrl.SetAnim("OnAttack");
     }
 
@@ -43,6 +53,7 @@ public class EnemySuicideAttackCtrl : MonoBehaviour, IEnemyAttack
 
     private void OnDisable()
     {
-        animCtrl.OnAnimFinishEvent -= OnAnimationEvent;
+        if (animCtrl != null)
+            animCtrl.OnAnimFinishEvent -= OnAnimationEvent;
     }
 }

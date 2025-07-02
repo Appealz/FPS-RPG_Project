@@ -30,7 +30,7 @@ public class RoundManager
         // 지금은 테스트코드
         spawnData = Resources.Load<SpawnData>("SpawnData/Test");
 
-        EnemyTotalManager.Instance.OnEnemyDeadEvent += RegisterEnemyDeath;
+        EnemyTotalManager.OnEnemyDeadEvent += RegisterEnemyDeath;
     }
 
     public void StartRound()
@@ -62,6 +62,6 @@ public class RoundManager
 
     public void DisableRoundManager()
     {
-        EnemyTotalManager.Instance.OnEnemyDeadEvent -= RegisterEnemyDeath;
+        EnemyTotalManager.OnEnemyDeadEvent -= RegisterEnemyDeath;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,13 +35,14 @@ public class StatModifier
     }
 }
 
+[Serializable]
 public class StatManager
 {
     private GameObject owner;
     private Dictionary<StatType, StatValue> statMap = new Dictionary<StatType, StatValue>();
     private Dictionary<StatType, float> prevMap = new Dictionary<StatType, float>();
 
-    private float curHP;
+    [SerializeField] private float curHP;
     public int CurHP => Mathf.RoundToInt(curHP); // 내부처리는 curHP로 한 뒤 UI에 던지는 용도
 
     private ArmorManager armorManager;

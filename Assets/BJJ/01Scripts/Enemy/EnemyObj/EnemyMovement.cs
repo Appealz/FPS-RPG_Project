@@ -27,7 +27,7 @@ public class EnemyMovement : MonoBehaviour, IMovement
 
     public void Move()
     {
-        if (context.curTarget == null || !context.curTarget.IsAlive) return;
+        if (context.curTarget == null) return; //  || !context.curTarget.IsAlive 추가해야함
 
         agent.speed = context.moveSpeed;
         agent.SetDestination(context.curTarget.GetTransform().position);
@@ -36,7 +36,6 @@ public class EnemyMovement : MonoBehaviour, IMovement
     public void MoveUpdate()
     {
         if (!isChase) return;
-
         curDelay -= Time.deltaTime;
         if(curDelay <= 0f)
         {

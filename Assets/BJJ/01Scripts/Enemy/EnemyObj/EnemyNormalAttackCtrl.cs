@@ -67,6 +67,7 @@ public class EnemyNormalAttackCtrl : MonoBehaviour, IEnemyAttack
 
     private void OnDisable()
     {
-        animCtrl.OnAttackEvent -= OnAnimationEvent;
+        if(animCtrl != null)
+            animCtrl.OnAttackEvent -= OnAnimationEvent;
     }
 }
