@@ -26,47 +26,47 @@ public class PlayerDataManager : MonoBehaviour
 
         currencyManager = new CurrencyManager(gameObject);
 
-        EventBus_Item.Subscribe(AddItemHandler);
-        EventBus_Item.Subscribe(RemoveItemHandler);
-        EventBus_Stat.Subscribe(AddStatHandler);
-        EventBus_Stat.Subscribe(RemoveStatHandler);
+        EventBus_Item.Subscribe(UpdateItemHandler);
+        EventBus_Stat.Subscribe(UpdateStatHandler);
     }
 
     private void OnDisable()
     {
-        EventBus_Item.UnSubscribe(AddItemHandler);
-        EventBus_Item.UnSubscribe(RemoveItemHandler);
-        EventBus_Stat.Unsubscribe(AddStatHandler);
-        EventBus_Stat.Unsubscribe(RemoveStatHandler);
+        EventBus_Item.UnSubscribe(UpdateItemHandler);
+        EventBus_Stat.Unsubscribe(UpdateStatHandler);
     }
 
     // todo 이벤트 버스 구현 후 이벤트 버스로 이벤트를 받는 핸들러 구현 필요
 
-    private void AddItemHandler(ItemChangedEvent newItemEvent)
+    private void UpdateItemHandler(ItemChangedEvent newItemEvent)
     {
-        if (newItemEvent.sender != gameObject || newItemEvent.eventType != ItemEventType.add) return;
+        if (newItemEvent.sender != gameObject) return;
 
-        inventory.AddItem(newItemEvent.changeItem);
+        switch(newItemEvent.eventType)
+        {
+            case ItemEventType.add:
+                inventory.AddItem(newItemEvent.changeItem);
+                break;
+            case ItemEventType.remove:
+                inventory.RemoveItem(newItemEvent.changeItem);
+                break;
+        }
     }
 
-    private void RemoveItemHandler(ItemChangedEvent newItemEvent)
+    private void UpdateStatHandler(StatModifier modifier)
     {
-        if (newItemEvent.sender != gameObject || newItemEvent.eventType != ItemEventType.add) return;
+        if (modifier.sender != gameObject) return;
 
-        inventory.RemoveItem(newItemEvent.changeItem);
+        switch(modifier.EventType)
+        {
+            case StatEventType.Add:
+                statManager.AddModifier(modifier.ChangedStatType, modifier.ChangeValue, modifier.isMulti);
+                break;
+            case StatEventType.Remove:
+                statManager.RemoveModifier(modifier.ChangedStatType, modifier.ChangeValue, modifier.isMulti);
+                break;
+        }
+
     }
 
-    private void AddStatHandler(StatModifier modifier)
-    {
-        if (modifier.sender != gameObject || modifier.EventType != StatEventType.Add) return;
-
-        statManager.AddModifier(modifier.ChangedStatType, modifier.ChangeValue, modifier.isMulti);
-    }
-
-    private void RemoveStatHandler(StatModifier modifier)
-    {
-        if (modifier.sender != gameObject || modifier.EventType != StatEventType.Remove) return;
-
-        statManager.RemoveModifier(modifier.ChangedStatType, modifier.ChangeValue, modifier.isMulti);
-    }
 }
