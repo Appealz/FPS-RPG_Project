@@ -21,6 +21,9 @@ MonoBehaviour:
     - id: 4003
       Name: SuicideWeapon
       Count: 1
+    - id: 4002
+      Name: RangeRobot
+      Count: 1
   - curRound: 2
     spawnList:
     - id: 4001
