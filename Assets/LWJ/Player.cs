@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour,ITargetable
 {
     IMovement playerMove;
     PlayerInputController inputController;
@@ -13,6 +13,13 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     ClassSkillData skillData;
+
+    public bool IsAlive => dataManager.statManager.CurHP <= 0;
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
 
     private void Awake()
     {

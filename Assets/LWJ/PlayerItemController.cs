@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class PlayerItemController : MonoBehaviour,IItemCtrl
 {
+    //[SerializeField]
+    //private Rifle testWeapon;
     [SerializeField]
-    private Rifle testWeapon;
+    private ShotGun testWeapon;
     private IItem currentItem;
     private float itemUseRate;
     private bool isItemUseReady;
