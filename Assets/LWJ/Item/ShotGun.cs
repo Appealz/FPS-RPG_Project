@@ -23,6 +23,10 @@ public class ShotGun : MonoBehaviour, IRangeWeapon
     private WeaponData myData;
     private bool isReloading;
 
+    private float bulletCount = 10f;
+    private float spreadAngle = 8f;
+
+
     // todo : 아이템 데이터 주입
     // private ItemData itemData    
     public void InitData()
@@ -41,6 +45,19 @@ public class ShotGun : MonoBehaviour, IRangeWeapon
         FireDelay().Forget();
     }
 
+    //private Vector3 GetSpreadDirection(Vector3 forward, float angle)
+    //{
+    //    Transform cam = Camera.main.transform;
+    //    float spreadRadius = MathF.Tan(angle * Mathf.Deg2Rad);
+
+    //    Vector2 randomInCircle = UnityEngine.Random.insideUnitSphere * spreadRadius;
+
+
+
+    //    Vector3 spreadDirection;
+    //    return spreadDirection;
+    //}
+
     public void Reload()
     {
         if (currentMagazine == 0)
@@ -50,6 +67,8 @@ public class ShotGun : MonoBehaviour, IRangeWeapon
         currentAmmo = myData.maxAmmo;
         // 애니메이션 이벤트에서 호출.
     }
+
+
 
     private async UniTaskVoid FireDelay()
     {

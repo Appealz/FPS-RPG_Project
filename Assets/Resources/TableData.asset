@@ -37,11 +37,11 @@ MonoBehaviour:
     price: 0
   UnitBaseStatsData:
   - id: 4001
-    name: monster01
+    name: MeleeRobot
     maxHp: 100
     moveSpeed: 5
     damage: 5
-    description: 
+    description: "\uAC00\uC7A5 \uAE30\uBCF8\uC801\uC778 \uB85C\uBD07\uC774\uB2E4."
   - id: 5001
     name: rilfer
     maxHp: 0
@@ -66,10 +66,29 @@ MonoBehaviour:
     moveSpeed: 0
     damage: 0
     description: 
+  - id: 4002
+    name: RangeRobot
+    maxHp: 100
+    moveSpeed: 4
+    damage: 5
+    description: "\uAE30\uBCF8\uC801\uC778 \uB85C\uBD07\uC5D0 \uAD8C\uCD1D\uB9CC
+      \uB4E4\uB824\uC900 \uC0C1\uD0DC\uC774\uB2E4"
+  - id: 4003
+    name: SuicideWeapon
+    maxHp: 60
+    moveSpeed: 5
+    damage: 20
+    description: "\uC790\uD3ED\uD615 \uC804\uC7C1\uB85C\uBD07\uC774\uB2E4."
   MonsterStatsData:
   - id: 4001
     attackSpeed: 3
     range: 2
+  - id: 4002
+    attackSpeed: 3
+    range: 10
+  - id: 4003
+    attackSpeed: 1
+    range: 5
   PerkData:
   - id: 50011
     name: perk01
