@@ -78,10 +78,19 @@ public class PlayerInputController : MonoBehaviour
 
     private void OnEquipItem(InputAction.CallbackContext context)
     {
-        int index = context.action.GetBindingIndexForControl(context.control);
-        OnEquipInput?.Invoke(index);
-        OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Swap);
-        //Debug.Log($"{index}");
+        //int index = context.action.GetBindingIndexForControl(context.control);
+        //OnEquipInput?.Invoke(index);
+        //OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Swap);
+        ////Debug.Log($"{index}");
+
+        string key = context.control.name; // "1", "2", "3", ...
+        if (int.TryParse(key, out int number))
+        {
+            int index = number - 1; // 1번 키 → 0번 인덱스
+            OnEquipInput?.Invoke(index);
+            //Debug.Log($"{index}");
+            //OnStateChangeEvent?.Invoke(StateGroup.Attack, StateType.Swap);
+        }
     }
 
     private void OnAttackPerformed(InputAction.CallbackContext context)

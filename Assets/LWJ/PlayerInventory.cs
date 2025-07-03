@@ -3,46 +3,96 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum itemSlotType
+{
+    Main = 0,
+    Sub,
+    Revolver,
+    Knife,
+    HealKit
+}
+
 public class PlayerInventory
 {
     private GameObject owner;
-    private List<IItem> items = new List<IItem>();
+    //private List<IItem> items = new List<IItem>();
+    private Dictionary<int, int> items = new();
     private IItem currentItem;
     private int currentIndex;
 
-    public PlayerInventory(GameObject newOwner, List<IItem> newItemList)
+    public PlayerInventory(GameObject newOwner, Dictionary<int, int> newItemDictionary)
     {
         owner = newOwner;
-        if (newItemList == null)
+        if (newItemDictionary == null)
         {
-            items = new List<IItem>();
+            items = new Dictionary<int, int>();
         }
         else
         {
-            items = newItemList;
+            items = newItemDictionary;
         }
     }
 
     // 1,2,3,4,5 Å°¿Í ¹ÙÀÎµù
     public void EquipItem(int index)
     {
-        if (index >= items.Count || index > 0)
-            return;
+        if (!items.ContainsKey(index)) 
+            return;        
         Debug.Log($"{index}¾ÆÀÌÅÛ ÀåÂø");
-        // todo: ÀÌº¥Æ®·Î PlayerItemController¿¡ Equip(items[index]) È£Ãâ;
-        EventBus_Item.Publish(new ItemChangedEvent(items[index], owner, ItemEventType.equip));
+        //todo: ÀÌº¥Æ®·Î PlayerItemController¿¡ Equip(items[index]) È£Ãâ;
+        EventBus_Item.Publish(new ItemChangedEvent(null, owner, ItemEventType.equip, items[index]));
     }
 
-    public void AddItem(IItem newItem)
-    {
-        items.Add(newItem);
-    }
-
-    public void RemoveItem(IItem removeItem)
-    {
-        if(items.Contains(removeItem))
+    public void AddItem(int id)
+    {   
+        if (id >= 1001 && id <= 1015)
         {
-            items.Remove(removeItem);
+            if (!items.ContainsKey((int)itemSlotType.Main))
+            {
+                items[(int)itemSlotType.Main] = id;
+                Debug.Log($"Main ½½·Ô¿¡ ÀåÂø: {id}");
+            }
+            else if (!items.ContainsKey((int)itemSlotType.Sub))
+            {
+                items[(int)itemSlotType.Sub] = id;
+                Debug.Log($"Sub ½½·Ô¿¡ ÀåÂø: {id}");
+            }
+            else
+            {
+                Debug.LogWarning("Main/Sub ½½·ÔÀÌ ¸ðµÎ °¡µæ Ã¡½À´Ï´Ù. ¾ÆÀÌÅÛ È¹µæ ½ÇÆÐ.");
+            }
+        }
+        else if (id == 1016)
+        {
+            items[(int)itemSlotType.Revolver] = id;
+        }
+        else if (id == 1017)
+        {
+            items[(int)(itemSlotType.Knife)] = id;
+        }
+        else if (id == 3001)
+        {
+            items[(int)(itemSlotType.HealKit)] = id;
+        }
+        else
+            return;
+            
+    }
+
+    public void RemoveItem(int removeItem)
+    {
+        int? findKey = null;
+        foreach(var pair in items)
+        {
+            if (pair.Value == removeItem)
+            {
+                findKey = pair.Key;
+            }
+        }
+
+        if (findKey.HasValue)
+        {
+            items.Remove(findKey.Value);
         }
         else
         {
@@ -84,11 +134,13 @@ public class ItemChangedEvent
     public IItem changeItem;
     public GameObject sender;
     public ItemEventType eventType;
+    public int itemID;
 
-    public ItemChangedEvent(IItem newItem, GameObject newSender, ItemEventType newEventType)
+    public ItemChangedEvent(IItem newItem, GameObject newSender, ItemEventType newEventType, int newItemID)
     {
         changeItem = newItem;
         sender = newSender;
         eventType = newEventType;
+        itemID = newItemID;
     }
 }

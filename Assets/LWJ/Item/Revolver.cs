@@ -24,7 +24,7 @@ public class Revolver : MonoBehaviour, IRangeWeapon
 
     private float damage;
     private float attackRate;
-    private WeaponData myData;
+    private WeaponData_Entity myData;
     private bool isReloading;
 
     // todo : 아이템 데이터 주입
@@ -71,7 +71,7 @@ public class Revolver : MonoBehaviour, IRangeWeapon
 
 
 
-    public void InitWeaponData(WeaponData newData)
+    public void InitWeaponData(WeaponData_Entity newData)
     {
         myData = newData;
         currentAmmo = newData.maxAmmo;

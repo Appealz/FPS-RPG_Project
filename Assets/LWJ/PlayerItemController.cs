@@ -57,7 +57,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         isUse = false;
     }
     public void Equip(IItem newItem)
-    {
+    {        
         currentItem = newItem;
         weaponHolder.AttachWeapon(newItem.itemID);
         EventBus_ItemClip.Publish(new ItemClipChangedEvent(newItem));
@@ -118,7 +118,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         {
             Vector3 forwardDir = transform.forward + Vector3.up * 0.3f;
             dropItem.Drop(forwardDir.normalized, 5f);
-            EventBus_Item.Publish(new ItemChangedEvent(currentItem, gameObject, ItemEventType.remove));
+            EventBus_Item.Publish(new ItemChangedEvent(currentItem, gameObject, ItemEventType.remove, currentItem.itemID));
         }
         else
             return;

@@ -17,7 +17,7 @@ public class Knife : MonoBehaviour, IMeleeWeapon
         
     }
 
-    public void InitWeaponData(WeaponData newData)
+    public void InitWeaponData(WeaponData_Entity newData)
     {
         
     }

@@ -25,7 +25,7 @@ public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable
 
     private float damage;
     private float attackRate;
-    private WeaponData myData;
+    private WeaponData_Entity myData;
     private bool isReloading;
 
     private float bulletCount = 10f;
@@ -105,12 +105,13 @@ public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable
 
 
 
-    public void InitWeaponData(WeaponData newData)
+    public void InitWeaponData(WeaponData_Entity newData)
     {
         myData = newData;
         currentAmmo = newData.maxAmmo;
         damage = newData.damagePerShot;
         attackRate = newData.fireRate;
+        Debug.Log($"데이터 주입 성공 : {newData.name}, {newData.id}, {newData.fireRate}, {newData.ammoPerReload}, {newData.range}");
     }
 
     public void StartReload()

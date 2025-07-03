@@ -6,8 +6,8 @@ public interface IItem
     int itemID { get; }
     void Use();
     bool useable { get; }
-    AnimationClip useClip { get; }    
-    AnimationClip reloadClip { get; }   
+    AnimationClip useClip { get; }
+    AnimationClip reloadClip { get; }
     AnimEventData useAnimData { get; }
     
 }

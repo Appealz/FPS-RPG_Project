@@ -48,10 +48,10 @@ public class PlayerDataManager : MonoBehaviour
         switch(newItemEvent.eventType)
         {
             case ItemEventType.add:
-                inventory.AddItem(newItemEvent.changeItem);
+                inventory.AddItem(newItemEvent.itemID);
                 break;
             case ItemEventType.remove:
-                inventory.RemoveItem(newItemEvent.changeItem);
+                inventory.RemoveItem(newItemEvent.itemID);
                 break;
         }
     }

@@ -15,7 +15,6 @@ public class PlayerWeaponHolder : MonoBehaviour
         originalLocalPos = transform.localPosition;
     }
 
-
     public void WeaponRecoil(float weaponRecoil)
     {
         recoilOffset += Vector3.back * weaponRecoil;

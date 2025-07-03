@@ -28,7 +28,7 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
     private float damage;    
     private float attackRate;
         
-    private WeaponData myData;
+    private WeaponData_Entity myData;
     private bool isReloading;
 
     private Rigidbody rb;
@@ -109,12 +109,14 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
         // 애니메이션 이벤트에서 호출.
     }
 
-    public void InitWeaponData(WeaponData newData)
+    public void InitWeaponData(WeaponData_Entity newData)
     {
         myData = newData;
         currentAmmo = newData.maxAmmo;
         damage = newData.damagePerShot;
-        attackRate = newData.fireRate;        
+        attackRate = newData.fireRate;
+
+        Debug.Log($"데이터 주입 성공 : {newData.name}, {newData.id}, {newData.fireRate}, {newData.ammoPerReload}, {newData.range}");
     }
 
     public void Drop(Vector3 dropDir, float dropForce)
