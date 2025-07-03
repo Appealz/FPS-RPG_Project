@@ -13,7 +13,7 @@ public class EnemyAnimCtrl : MonoBehaviour, IAnimCtrl, IAnimHandle
     public event Action OnAttackEvent;
     public event Action OnAnimFinishEvent;
 
-    protected bool isAnimEvent;
+    [SerializeField]protected bool isAnimEvent;
     private float curTime;
     private int curEventIndex;
 

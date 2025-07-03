@@ -26,6 +26,7 @@ public class PoolManager : DestroySingleton<PoolManager>
             {
                 GameObject poolObj = new GameObject();
                 poolObj.transform.parent = transform;
+                poolObj.name = obj.name;
                 Pool newPool = poolObj.AddComponent<Pool>();
                 newPool.InitPool(label);
                 poolDic[obj.name] = newPool;

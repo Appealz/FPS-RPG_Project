@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f36835ed455f7246ad8af09387bd614, type: 3}
   m_Name: RangeRobot_OnAttack
   m_EditorClassIdentifier: 
-  AnimName: 
-  EventList: []
+  AnimName: RangeRobot_OnAttack
+  EventList:
+  - Time: 0.2
+    EventName: Attack
+    Param: 
+  - Time: 1
+    EventName: AnimFinish
+    Param: 

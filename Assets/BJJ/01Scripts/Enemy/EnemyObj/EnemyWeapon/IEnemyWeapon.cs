@@ -84,9 +84,8 @@ public class EnemyRangeAttackWeapon : IEnemyWeapon, IAttackPointInjectable
 
     public void OnAttack(float range, float damage)
     {
-        if(Physics.Raycast(attackPoint.position, attackPoint.forward, out var hit, range, LayerMask.GetMask("Player")))
+        if (Physics.Raycast(attackPoint.position, attackPoint.forward, out var hit, range, LayerMask.GetMask("Player")))
         {
-            Debug.Log($"{hit.collider.name}");
             EventBus_Damage.Publish(new DamageInfo(owner, hit.collider.gameObject, damage, null));
         }
     }

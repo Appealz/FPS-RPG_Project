@@ -5,7 +5,7 @@ public class RangeRobotAnimCtrl : EnemyAnimCtrl
     private bool isIKSet = false;
     private Transform rh_GripPoint;
 
-    [SerializeField] private Vector3 shootOffset;
+    [SerializeField] private Vector3 shootOffset = new Vector3 (0,90f, 0f);
 
     public override void Init()
     {
