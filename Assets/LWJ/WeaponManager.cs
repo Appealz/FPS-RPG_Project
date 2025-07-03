@@ -18,7 +18,7 @@ public class WeaponManager : DestroySingleton<WeaponManager>
             Debug.LogError($"[WeaponManager] 무기 데이터가 존재하지 않습니다. ID: {weaponID}");
             return;
         }
- 
+        
         
         // 2. 프리펩 로드
         // todo : 경로통해서 resources 폴더에서 가져오거나 addressable 이용
@@ -31,17 +31,17 @@ public class WeaponManager : DestroySingleton<WeaponManager>
         // todo: 가져온 프리팹 내부의 IWeapon 클래스를 통해서 데이터 주입.
     }
 
-    public void PlayerEquipWeapon()
-    {
-        ClassData classData = ContextManager.Instance.GetPlayGameContext().playClassData;
-        List<int> equipWeaponID = classData.equippedItemIds;
+    //public void PlayerEquipWeapon()
+    //{
+    //    ClassData classData = ContextManager.Instance.GetPlayGameContext().playClassData;
+    //    List<int> equipWeaponID = classData.equippedItemIds;
 
-        foreach (int weaponID in equipWeaponID)
-        {
-            CreateWeapon(weaponID);
+    //    foreach (int weaponID in equipWeaponID)
+    //    {
+    //        CreateWeapon(weaponID);
             
-        }
-    }
+    //    }
+    //}
 
     public GameObject EquipWeapon(int weaponID)
     {

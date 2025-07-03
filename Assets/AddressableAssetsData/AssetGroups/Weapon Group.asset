@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Weapon Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Weapon Group
+  m_GUID: 230434b12aa529b46862a03a3d9bb17c
+  m_SerializeEntries:
+  - m_GUID: 2ef42ede08384664a96ae492bdc0eac4
+    m_Address: Assets/LWJ/Prefab/Rifle.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44e8e3ef292784f4a96206ab8f843983
+    m_Address: Assets/LWJ/Prefab/ShotGun.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b042ff1ec29d5e64ea5f2f5441feb9c1
+    m_Address: Assets/LWJ/Prefab/Revolver.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f647fb91619094a48b019769a9ebff13, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1d05ad029d35ed240bfcd22b21c99f53, type: 2}
+    - {fileID: 11400000, guid: 6843a068903bfa14fa088e2e64cf39de, type: 2}

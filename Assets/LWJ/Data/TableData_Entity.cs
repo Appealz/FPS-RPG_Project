@@ -15,6 +15,7 @@ public class WeaponData_Entity
     public float weight;
     public int price;
     public int weaponLevel;
+    public string weaponType;
 }
 
 [Serializable]
