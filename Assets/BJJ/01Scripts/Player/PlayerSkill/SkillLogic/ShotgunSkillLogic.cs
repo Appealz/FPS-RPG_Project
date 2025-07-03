@@ -19,7 +19,10 @@ public class ShotgunSkillLogic : ClassSkill
 
         curCoolDown = skillData.CoolDown;
         StartCooldown();
-        // 추후 애니메이션 이벤트에 기반하여 스킬 작동 예정
+
+        // todo Effect
+        EventBus_Buff.Publish(new BuffEvent(BuffEventType.Add, owner, owner, 
+                                            new AttackSpeedBuff(skillData.ID, skillData.name, shotgunSkillData.Duration, null, owner, shotgunSkillData.ReduceAttackSpeed)));
         Debug.Log("Test Code - Shotgun");
     }
 }

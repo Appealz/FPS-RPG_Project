@@ -20,7 +20,8 @@ public class PlayerDataManager : MonoBehaviour
         {
             {StatType.HP, new StatValue(100) },
             {StatType.MoveSpeed, new StatValue(1) },
-            {StatType.AttackDamage, new StatValue(0) }
+            {StatType.AttackDamage, new StatValue(0) },
+            {StatType.AttackSpeed, new StatValue(1f) }
         });
         inventory = new PlayerInventory(gameObject, null);
 
@@ -28,12 +29,14 @@ public class PlayerDataManager : MonoBehaviour
 
         EventBus_Item.Subscribe(UpdateItemHandler);
         EventBus_Stat.Subscribe(UpdateStatHandler);
+        EventBus_Buff.Subscribe(UpdateBuffHandler);
     }
 
     private void OnDisable()
     {
         EventBus_Item.UnSubscribe(UpdateItemHandler);
         EventBus_Stat.Unsubscribe(UpdateStatHandler);
+        EventBus_Buff.UnSubscribe(UpdateBuffHandler);
     }
 
     // todo 이벤트 버스 구현 후 이벤트 버스로 이벤트를 받는 핸들러 구현 필요
@@ -66,7 +69,20 @@ public class PlayerDataManager : MonoBehaviour
                 statManager.RemoveModifier(modifier.ChangedStatType, modifier.ChangeValue, modifier.isMulti);
                 break;
         }
-
     }
 
+    private void UpdateBuffHandler(BuffEvent evt)
+    {
+        if (evt.receiver != gameObject) return;
+
+        switch (evt.Type)
+        {
+            case BuffEventType.Add:
+                statManager.AddBuff(evt.Buff);
+                break;
+            case BuffEventType.Remove:
+                // todo RemoveBuff
+                break;
+        }
+    }
 }
