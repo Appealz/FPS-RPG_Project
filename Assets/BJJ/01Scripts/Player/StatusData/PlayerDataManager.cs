@@ -23,7 +23,7 @@ public class PlayerDataManager : MonoBehaviour
             {StatType.AttackDamage, new StatValue(0) },
             {StatType.AttackSpeed, new StatValue(1f) }
         });
-        inventory = new PlayerInventory(gameObject, null);
+        inventory = new PlayerInventory(gameObject, ContextManager.Instance.TestPlayGameContext().playClassData.equippedItemDictionary);
 
         currencyManager = new CurrencyManager(gameObject);
 

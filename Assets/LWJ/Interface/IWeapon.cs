@@ -1,8 +1,7 @@
 using UnityEngine;
 
 public interface IWeapon : IItem
-{    
-    void InitWeaponData(WeaponData_Entity newData);
+{       
     void Attack();
 }
 

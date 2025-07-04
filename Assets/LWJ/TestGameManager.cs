@@ -4,7 +4,7 @@ public class TestGameManager : MonoBehaviour
 {
     private void Awake()
     {
-        for (int i = 1001; i < 1011; i++)
+        for (int i = 1001; i < 1017; i++)
         {
             WeaponManager.Instance.CreateWeapon(i);
         }

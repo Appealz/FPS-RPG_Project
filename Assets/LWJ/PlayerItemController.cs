@@ -32,7 +32,6 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         {
             Debug.Log($"{currentItem}");
         }
-
     }
 
     private void OnEnable()
@@ -56,11 +55,12 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         isItemUseReady = true;
         isUse = false;
     }
-    public void Equip(IItem newItem)
-    {        
-        currentItem = newItem;
-        weaponHolder.AttachWeapon(newItem.itemID);
-        EventBus_ItemClip.Publish(new ItemClipChangedEvent(newItem));
+    public void Equip(int itemID)
+    {
+        GameObject obj = WeaponManager.Instance.EquipWeapon(itemID);
+        obj.TryGetComponent<IItem>(out currentItem);
+        weaponHolder.AttachWeapon(itemID);
+        EventBus_ItemClip.Publish(new ItemClipChangedEvent(currentItem));
     }
 
     // 플레이어에서 상시 호출
@@ -142,7 +142,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     {
         if (newEvent.eventType != ItemEventType.equip || newEvent.sender != gameObject)
             return;
-        Equip(newEvent.changeItem);
+        Equip(newEvent.itemID);
     }
 
     public void InputUse()

@@ -9,5 +9,6 @@ public interface IItem
     AnimationClip useClip { get; }
     AnimationClip reloadClip { get; }
     AnimEventData useAnimData { get; }
-    
+
+    void InitData(ItemData newData);    
 }

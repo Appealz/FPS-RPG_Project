@@ -26,16 +26,28 @@ public class PlayerWeaponHolder : MonoBehaviour
         transform.localPosition = Vector3.Lerp(originalLocalPos, originalLocalPos + recoilOffset, Time.deltaTime * recoilSpeed);
     }
 
-    public void AttachWeapon(int weaponID)
+    public void WeaponSetting(IItem newItem)
     {
-        if (equipWeaponObj == null)
-            return;
-        equipWeaponObj.SetActive(false);
+        // todo : 오브젝트 풀 객체 가져옴
+        GameObject obj;
+        //obj.TryGetComponent<IItem>()
+    }
+
+    public void AttachWeapon(int weaponID)
+    {        
+        if (equipWeaponObj != null)
+        {
+            equipWeaponObj.SetActive(false);
+        }
+        
         GameObject equipWeapon = WeaponManager.Instance.EquipWeapon(weaponID);
-        equipWeapon.transform.SetParent(transform);
+
+        equipWeapon.SetActive(true);
+        equipWeapon.transform.SetParent(transform, false);
         equipWeapon.transform.localPosition = Vector3.zero;
         equipWeapon.transform.localRotation = Quaternion.identity;
-        equipWeapon.SetActive(true);
+        equipWeapon.transform.localScale = Vector3.one; // 추가했는지 확인
+        
         equipWeaponObj = equipWeapon;
     }
 

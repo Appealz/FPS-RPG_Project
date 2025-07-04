@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8a3cd047925ee54aa85e9f37125a2c0
+    m_Address: Assets/LWJ/Prefab/HeavyGun.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b042ff1ec29d5e64ea5f2f5441feb9c1
     m_Address: Assets/LWJ/Prefab/Revolver.prefab
     m_ReadOnly: 0
