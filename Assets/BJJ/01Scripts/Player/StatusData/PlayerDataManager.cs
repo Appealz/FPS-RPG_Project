@@ -30,6 +30,9 @@ public class PlayerDataManager : MonoBehaviour
         EventBus_Item.Subscribe(UpdateItemHandler);
         EventBus_Stat.Subscribe(UpdateStatHandler);
         EventBus_Buff.Subscribe(UpdateBuffHandler);
+        EventBus_Currency.Subscribe(CurrecyChangeHandler);
+        EventBus_CurrencyCheck.Subscribe(CurrencyCheckHandler);
+        EventBus_CurrencyQuery.Subscribe(CurrencyQueryHandler);
     }
 
     private void OnDisable()
@@ -37,6 +40,9 @@ public class PlayerDataManager : MonoBehaviour
         EventBus_Item.UnSubscribe(UpdateItemHandler);
         EventBus_Stat.Unsubscribe(UpdateStatHandler);
         EventBus_Buff.UnSubscribe(UpdateBuffHandler);
+        EventBus_Currency.UnSubscribe(CurrecyChangeHandler);
+        EventBus_CurrencyCheck.UnSubscribe(CurrencyCheckHandler);
+        EventBus_CurrencyQuery.UnSubscribe(CurrencyQueryHandler);
     }
 
     // todo 이벤트 버스 구현 후 이벤트 버스로 이벤트를 받는 핸들러 구현 필요
@@ -84,5 +90,35 @@ public class PlayerDataManager : MonoBehaviour
                 // todo RemoveBuff
                 break;
         }
+    }
+
+    private void CurrecyChangeHandler(CurrencyChangeEvent evt)
+    {
+        if (evt.receiver != gameObject) return;
+
+        switch(evt.eventType)
+        {
+            case CurrencyChangeEventType.Add:
+                currencyManager.AddGold(evt.value);
+                break;
+            case CurrencyChangeEventType.Remove:
+                currencyManager.RemoveGold(evt.value);
+                break;
+        }
+    }
+
+    private void CurrencyCheckHandler(CurrencyCheckEvent evt)
+    {
+        if (evt.receiver != gameObject) return;
+
+        bool canAfford = currencyManager.GetGold() >= evt.price;
+        evt.callback?.Invoke(canAfford);
+    }
+
+    private void CurrencyQueryHandler(CurrencyQueryEvent evt)
+    {
+        if(evt.receiver != gameObject) return;
+
+        evt.onResult(currencyManager.GetGold());
     }
 }

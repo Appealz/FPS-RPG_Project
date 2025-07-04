@@ -7,7 +7,7 @@ public enum BuffEventType
     Remove
 }
 
-public struct BuffEvent
+public class BuffEvent
 {
     public BuffEventType Type;
     public GameObject sender;

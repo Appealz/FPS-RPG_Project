@@ -5,18 +5,20 @@ public class Pool : MonoBehaviour
 {
     private IPoolLabel originPrefab;
     private Stack<IPoolLabel> stk = new Stack<IPoolLabel>();
+    private int createCount;
 
-    public void InitPool(IPoolLabel newLabel)
+    public void InitPool(IPoolLabel newLabel, int newCount = 10)
     {
         originPrefab = newLabel;
+        createCount = newCount;
         Allocate();
     }
 
     private void Allocate()
     {
-        for(int i = 0; i < 20; i++)
+        for(int i = 0; i < createCount; i++)
         {
-            GameObject obj = Instantiate((originPrefab as MonoBehaviour).gameObject, transform);
+            GameObject obj = ObjectPoolFactory.Instance.CreateObj(originPrefab);
             if(obj.TryGetComponent<IPoolLabel>(out IPoolLabel label))
             {
                 label.Create(this);

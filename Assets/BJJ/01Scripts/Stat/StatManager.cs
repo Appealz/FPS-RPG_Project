@@ -45,7 +45,7 @@ public class StatManager
     [SerializeField] private float curHP;
     public int CurHP => Mathf.RoundToInt(curHP); // 내부처리는 curHP로 한 뒤 UI에 던지는 용도
 
-    private ArmorManager armorManager;
+    public ArmorManager armorManager { get; private set; }
 
     private List<Buff> activeBuffList;
 

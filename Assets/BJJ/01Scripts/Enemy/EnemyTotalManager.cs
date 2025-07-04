@@ -8,7 +8,7 @@ public enum EnemyUpdateType
     Unregist
 }
 
-public struct EnemyUpdateEvent
+public class EnemyUpdateEvent
 {
     public EnemyUpdateType type;
     public IEnemyManager enemy;

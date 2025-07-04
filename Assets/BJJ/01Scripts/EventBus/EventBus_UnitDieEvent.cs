@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public struct UnitDieEvent
+public class UnitDieEvent
 {
     public GameObject sender;
 

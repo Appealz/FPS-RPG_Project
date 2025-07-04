@@ -5,9 +5,9 @@ public class CurrencyManager
     private GameObject owner;
     private int gold;
 
-    public CurrencyManager(GameObject newOwner)
+    public CurrencyManager(GameObject newOwner, int hasMoney = 0)
     {
-        gold = 0;
+        gold = hasMoney;
         owner = newOwner;
     }
 

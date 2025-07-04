@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public struct DamageInfo
+public class DamageInfo
 {
     public GameObject sender;
     public GameObject receiver;
@@ -17,7 +17,7 @@ public struct DamageInfo
     }
 }
 
-public struct DamageResult
+public class DamageResult
 {
     public GameObject sender;
     public GameObject receiver;
