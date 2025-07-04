@@ -2,8 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
+public class HeavyGun : MonoBehaviour, IRangeWeapon, IDroppable
 {
     // 아이템자체가 발동가능한지 여부.
     public bool useable => currentAmmo > 0 && !isAttacking;
@@ -25,26 +24,24 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
     private int currentAmmo;
     private int currentMagazine;
 
-    private float damage;    
+    private float damage;
     private float attackRate;
-        
+
     private WeaponData_Entity myData;
     private bool isReloading;
-
-    
 
     private Rigidbody rb;
     private void Awake()
     {
-        if(!TryGetComponent<Animator>(out anims))
+        if (!TryGetComponent<Animator>(out anims))
         {
             Debug.Log("Rifle - anim is not ref");
         }
 
-        if(!TryGetComponent<Rigidbody>(out rb))
+        if (!TryGetComponent<Rigidbody>(out rb))
         {
             Debug.Log("Rifle - rb is not ref");
-        }                
+        }
     }
 
     // todo : 아이템 데이터 주입
@@ -53,7 +50,7 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
     // 플레이어 관련 스텟 주입.
     public void SetStatus(float newDamage)
     {
-        
+
     }
 
     public void Use() => Attack();
@@ -82,7 +79,7 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
 
         // todo : 1) 유니태스크로 attackRate에 따라 isAttacking 관리.
         //        2) 총알 및 레이케스트 발사.
-        
+
     }
 
     private async UniTaskVoid FireDelay()
@@ -102,7 +99,7 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
         isReloading = false;
     }
     public void Reload()
-    {        
+    {
         if (currentMagazine == 0 || isReloading)
             return;
         currentMagazine--;
@@ -110,8 +107,6 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
         isReloading = false;
         // 애니메이션 이벤트에서 호출.
     }
-
-    // todo: 탄창 증가 메소드구현
 
     public void InitWeaponData(WeaponData_Entity newData)
     {

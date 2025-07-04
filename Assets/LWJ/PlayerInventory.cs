@@ -16,45 +16,57 @@ public class PlayerInventory
 {
     private GameObject owner;
     //private List<IItem> items = new List<IItem>();
-    private Dictionary<int, int> items = new();
+    private Dictionary<itemSlotType, int> items = new();
     private IItem currentItem;
     private int currentIndex;
+    private Dictionary<itemSlotType, IItem> itemDictionary = new();
 
-    public PlayerInventory(GameObject newOwner, Dictionary<int, int> newItemDictionary)
+    public PlayerInventory(GameObject newOwner, Dictionary<itemSlotType, int> newItemDictionary)
     {
         owner = newOwner;
         if (newItemDictionary == null)
         {
-            items = new Dictionary<int, int>();
+            items = new Dictionary<itemSlotType, int>();
         }
         else
         {
             items = newItemDictionary;
+            foreach(var item in newItemDictionary)
+            {
+                itemDictionary[item.Key] = WeaponManager.Instance.GetItemData(item.Value);
+            }
+        }
+        
+        Debug.Log("[PlayerInventory] 생성됨. 전달된 아이템 슬롯 수: " + items.Count);
+
+        foreach (var pair in items)
+        {
+            Debug.Log($"[PlayerInventory] 슬롯: {pair.Key}, 아이템ID: {pair.Value}");
         }
     }
 
     // 1,2,3,4,5 키와 바인딩
     public void EquipItem(int index)
     {
-        if (!items.ContainsKey(index)) 
-            return;        
+        if (!items.ContainsKey((itemSlotType)index)) 
+            return;
         Debug.Log($"{index}아이템 장착");
         //todo: 이벤트로 PlayerItemController에 Equip(items[index]) 호출;
-        EventBus_Item.Publish(new ItemChangedEvent(null, owner, ItemEventType.equip, items[index]));
+        EventBus_Item.Publish(new ItemChangedEvent(null, owner, ItemEventType.equip, items[(itemSlotType)index]));
     }
 
     public void AddItem(int id)
     {   
         if (id >= 1001 && id <= 1015)
         {
-            if (!items.ContainsKey((int)itemSlotType.Main))
+            if (!items.ContainsKey(itemSlotType.Main))
             {
                 items[(int)itemSlotType.Main] = id;
                 Debug.Log($"Main 슬롯에 장착: {id}");
             }
-            else if (!items.ContainsKey((int)itemSlotType.Sub))
+            else if (!items.ContainsKey(itemSlotType.Sub))
             {
-                items[(int)itemSlotType.Sub] = id;
+                items[itemSlotType.Sub] = id;
                 Debug.Log($"Sub 슬롯에 장착: {id}");
             }
             else
@@ -64,15 +76,15 @@ public class PlayerInventory
         }
         else if (id == 1016)
         {
-            items[(int)itemSlotType.Revolver] = id;
+            items[itemSlotType.Revolver] = id;
         }
         else if (id == 1017)
         {
-            items[(int)(itemSlotType.Knife)] = id;
+            items[(itemSlotType.Knife)] = id;
         }
         else if (id == 3001)
         {
-            items[(int)(itemSlotType.HealKit)] = id;
+            items[(itemSlotType.HealKit)] = id;
         }
         else
             return;
@@ -86,13 +98,13 @@ public class PlayerInventory
         {
             if (pair.Value == removeItem)
             {
-                findKey = pair.Key;
+                findKey = (int)pair.Key;
             }
         }
 
         if (findKey.HasValue)
         {
-            items.Remove(findKey.Value);
+            items.Remove((itemSlotType)findKey.Value);
         }
         else
         {
@@ -103,6 +115,11 @@ public class PlayerInventory
         // 다음 인덱스의 아이템이 없는경우
         // 이전 인덱스의 아이템 착용
         // 권총, 칼은 버리기 x
+    }
+
+    public void SaveItemData()
+    {
+
     }
 }
 

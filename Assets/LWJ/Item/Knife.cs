@@ -17,6 +17,11 @@ public class Knife : MonoBehaviour, IMeleeWeapon
         
     }
 
+    public void InitData(ItemData newData)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void InitWeaponData(WeaponData_Entity newData)
     {
         

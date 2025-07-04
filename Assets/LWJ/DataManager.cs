@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class DataManager : DontDestroySingleton<DataManager>
     private Dictionary<int, LevelEXPData_Entity> levelExpData = new();
     //private Dictionary<int, ClassStatsData_Entity> classStatsData = new();
     private Dictionary<int, EnemyData> enemyData = new();
-
+    private Dictionary<int, ItemData> itemData = new();
 
     protected override void DoAwake()
     {
@@ -29,13 +30,22 @@ public class DataManager : DontDestroySingleton<DataManager>
         if(!isLoadData)
         {
             foreach (var row in originalData.WeaponData)
+            {
                 weaponData.Add(row.id, row);
-
+                itemData.Add(row.id, new WeaponData(row));
+            }
+                
             foreach (var row in originalData.ArmorData)
+            {
                 armorData.Add(row.id, row);
-
+                itemData.Add(row.id, new ArmorData(row));
+            }
+                
             foreach (var row in originalData.HealkitData)
+            {
                 healkitData.Add(row.id, row);
+                itemData.Add(row.id, new HealkitData(row));
+            }                
 
             foreach (var row in originalData.UnitBaseStatsData)
                 unitBaseStatsData.Add(row.id, row);
@@ -73,6 +83,11 @@ public class DataManager : DontDestroySingleton<DataManager>
                 {
                     Debug.LogWarning($"[EnemyData 누락] id {monsterID}에 해당하는 UnitBaseStatsData가 존재하지 않음");
                 }
+            }
+
+            foreach(var weapon in weaponData)
+            {
+
             }
 
             isLoadData = true;
@@ -151,4 +166,69 @@ public class EnemyData
         range = monsterData.range;
     }
 }
+
+public class ItemData
+{
+    public int itemID;
+    public string name;
+    public int price;
+}
+
+public class WeaponData : ItemData
+{
+    public float damagePerShot;
+    public float fireRate;
+    public int ammoPerReload;
+    public int maxAmmo;
+    public float range;
+    public float weight;
+    public int weaponLevel;
+    public WeaponData_Entity data;
+
+    public WeaponData(WeaponData_Entity newData)
+    {
+        data = newData;
+        itemID = newData.id;
+        name = newData.name;
+        damagePerShot = newData.damagePerShot;
+        fireRate = newData.fireRate;
+        ammoPerReload = newData.ammoPerReload;
+        maxAmmo = newData.maxAmmo;
+        range = newData.range;
+        weight = newData.weight;
+        price = newData.price;
+        weaponLevel = newData.weaponLevel;
+    }
+}
+
+
+public class HealkitData : ItemData
+{
+    public float healAmount;    
+    public HealkitData(Healkit_Entity newData)
+    {
+        itemID = newData.id;
+        name = newData.name;
+        healAmount = newData.healAmount;
+        price = newData.price;
+    }
+}
+
+public class ArmorData : ItemData
+{
+    public float durability;
+    public float weight;
+    public float damageRedcution;
+
+    public ArmorData(ArmorData_Entity newData)
+    {
+        itemID = newData.id;
+        name = newData.name;
+        durability = newData.durability;
+        weight = newData.weight;
+        damageRedcution = newData.damageReduction;
+        price = newData.price;
+    }
+}
+
 

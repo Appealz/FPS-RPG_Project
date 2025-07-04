@@ -89,4 +89,15 @@ public class Revolver : MonoBehaviour, IRangeWeapon
         if(!isReloading) return;
         isReloading=false;
     }
+
+    public void InitData(ItemData newData)
+    {
+        if(newData is WeaponData weaponData)
+        {
+            myData = weaponData.data;
+            currentAmmo = weaponData.maxAmmo;
+            damage = weaponData.damagePerShot;
+            attackRate = weaponData.fireRate;
+        }
+    }
 }

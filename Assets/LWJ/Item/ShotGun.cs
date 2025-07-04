@@ -129,5 +129,10 @@ public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable
     {
         
     }
+
+    public void InitData(ItemData newData)
+    {
+        throw new NotImplementedException();
+    }
 }
 

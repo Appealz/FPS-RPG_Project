@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayGameContext 
 {    
-    public ClassData playClassData;    
+    public ClassData playClassData;
     public int playLevel;
 
     /// <summary>

@@ -11,14 +11,14 @@ public class Healkit : MonoBehaviour, IHealkit
 
     public int itemID => throw new System.NotImplementedException();
 
-    public void InitData()
-    {
-        
-    }
+    public float healAmount;
 
-    public void InitData(Healkit_Entity newData)
+    public void InitData(ItemData newData)
     {
-        
+        if(newData is HealkitData healkitData)
+        {
+            healAmount = healkitData.healAmount;
+        }
     }
 
     public void Use()

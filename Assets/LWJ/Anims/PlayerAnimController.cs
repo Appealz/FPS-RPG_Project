@@ -9,8 +9,7 @@ public interface IPlayerAnimHandle
     event Action OnUseEvent;
     event Action OnReloadEvent;
     event Action OnReloadCancel;
-    event Action OnSkillEffectEvent;
- 
+    event Action OnSkillEffectEvent; 
 }
 
 public class PlayerAnimController : MonoBehaviour, IPlayerAnimHandle
@@ -43,14 +42,14 @@ public class PlayerAnimController : MonoBehaviour, IPlayerAnimHandle
 
     private void OnEnable()
     {
-        EventBus_ItemClip.Subscribe(ApplyClipHandler);
-        EventBus_ItemAnim.Subscribe(PlayEventAnim);
+        //EventBus_ItemClip.Subscribe(ApplyClipHandler);
+        //EventBus_ItemAnim.Subscribe(PlayEventAnim);
     }
 
     private void OnDisable()
     {
-        EventBus_ItemClip.UnSubscribe(ApplyClipHandler);
-        EventBus_ItemAnim.UnSubscribe(PlayEventAnim);
+        //EventBus_ItemClip.UnSubscribe(ApplyClipHandler);
+        //EventBus_ItemAnim.UnSubscribe(PlayEventAnim);
     }
     
     public void UseAnim()

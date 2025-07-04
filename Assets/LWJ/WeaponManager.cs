@@ -9,6 +9,8 @@ public class WeaponManager : DestroySingleton<WeaponManager>
     Dictionary<int, GameObject> weapons = new Dictionary<int, GameObject>();
     Dictionary<int, GameObject> playerWeapon = new Dictionary<int, GameObject>();
 
+    Dictionary<int, IItem> itemDatas = new Dictionary<int, IItem>();
+
     [SerializeField]
     List<GameObject> weaponList = new List<GameObject>();
 
@@ -29,12 +31,13 @@ public class WeaponManager : DestroySingleton<WeaponManager>
 
         // 4. 데이터 주입
         // todo: 가져온 프리팹 내부의 IWeapon 클래스를 통해서 데이터 주입.
-        if(obj.TryGetComponent<IWeapon>(out IWeapon newWeapon))
+        if (obj.TryGetComponent<IItem>(out IItem newItem))
         {
-            newWeapon.InitWeaponData(weaponData);
+            newItem.InitData(new WeaponData(weaponData));
             weapons.Add(weaponID, obj);
+            itemDatas.Add(weaponID, newItem);
             obj.SetActive(false);
-        }        
+        }
     }
 
     private async UniTask<GameObject> LoadWeaponPrefab(int weaponID)
@@ -87,6 +90,12 @@ public class WeaponManager : DestroySingleton<WeaponManager>
             
     //    }
     //}
+
+    public IItem GetItemData(int weaponID)
+    {
+        itemDatas.TryGetValue(weaponID, out var item);
+        return item;
+    }
 
     public GameObject EquipWeapon(int weaponID)
     {

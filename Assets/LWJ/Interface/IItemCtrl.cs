@@ -3,7 +3,7 @@ using UnityEngine;
 public interface IItemCtrl
 {
     void Init();
-    void Equip(IItem newItem);
+    void Equip(int itemID);
     void UseCurrentItem();
     void ReloadWeapon();
     void Drop();
