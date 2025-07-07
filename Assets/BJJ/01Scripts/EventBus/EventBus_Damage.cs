@@ -1,19 +1,27 @@
 using System;
 using UnityEngine;
 
+public enum DamageType
+{
+    Damage,
+    Heal
+}
+
 public class DamageInfo
 {
     public GameObject sender;
     public GameObject receiver;
+    public DamageType type;
     public float damage;
     public Buff buff;
 
-    public DamageInfo (GameObject newSender, GameObject newReceiver, float newDamage, Buff newBuff)
+    public DamageInfo (GameObject newSender, GameObject newReceiver, float newDamage, Buff newBuff, DamageType type)
     {
         sender = newSender;
         receiver = newReceiver;
         damage = newDamage;
         buff = newBuff;
+        this.type = type;
     }
 }
 

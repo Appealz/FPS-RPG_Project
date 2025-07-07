@@ -57,7 +57,7 @@ public class EnemyMeleeAttackWeapon : IEnemyWeapon, IAttackPointInjectable
 
         foreach(var hit in hits)
         {
-            EventBus_Damage.Publish(new DamageInfo(owner, hit.gameObject, damage, null));
+            EventBus_Damage.Publish(new DamageInfo(owner, hit.gameObject, damage, null, DamageType.Damage));
         }
     }
 
@@ -86,7 +86,7 @@ public class EnemyRangeAttackWeapon : IEnemyWeapon, IAttackPointInjectable
     {
         if (Physics.Raycast(attackPoint.position, attackPoint.forward, out var hit, range, LayerMask.GetMask("Player")))
         {
-            EventBus_Damage.Publish(new DamageInfo(owner, hit.collider.gameObject, damage, null));
+            EventBus_Damage.Publish(new DamageInfo(owner, hit.collider.gameObject, damage, null, DamageType.Damage));
         }
     }
 
@@ -125,7 +125,7 @@ public class EnemySuicideWeapon : IEnemyWeapon
 
         foreach(var t in targets)
         {
-            EventBus_Damage.Publish(new DamageInfo(owner, t, damage, null));
+            EventBus_Damage.Publish(new DamageInfo(owner, t, damage, null, DamageType.Damage));
         }
     }
 }
