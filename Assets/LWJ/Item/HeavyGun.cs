@@ -140,6 +140,21 @@ public class HeavyGun : MonoBehaviour, IRangeWeapon, IDroppable
         }
     }
 
+    public CurrentData GetItemCurrentData()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Create(Pool onwerPool)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ReturnToPool()
+    {
+        throw new NotImplementedException();
+    }
+
 
 
 

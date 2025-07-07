@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IItem
+public interface IItem : IPoolLabel
 {
     // todo : SO ¡÷¿‘.
     int itemID { get; }
@@ -10,5 +10,8 @@ public interface IItem
     AnimationClip reloadClip { get; }
     AnimEventData useAnimData { get; }
 
-    void InitData(ItemData newData);    
+    void InitData(ItemData newData);
+
+    CurrentData GetItemCurrentData();
+
 }

@@ -17,6 +17,16 @@ public class Knife : MonoBehaviour, IMeleeWeapon
         
     }
 
+    public void Create(Pool onwerPool)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public CurrentData GetItemCurrentData()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void InitData(ItemData newData)
     {
         throw new System.NotImplementedException();
@@ -25,6 +35,11 @@ public class Knife : MonoBehaviour, IMeleeWeapon
     public void InitWeaponData(WeaponData_Entity newData)
     {
         
+    }
+
+    public void ReturnToPool()
+    {
+        throw new System.NotImplementedException();
     }
 
     public void Use() => Attack();   

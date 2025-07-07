@@ -31,7 +31,7 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
     private WeaponData_Entity myData;
     private bool isReloading;
 
-    
+    private CurrentData currentData;
 
     private Rigidbody rb;
     private void Awake()
@@ -142,18 +142,59 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
             attackRate = weaponData.fireRate;
 
             Debug.Log($"데이터 주입 성공 : {weaponData.name}, {weaponData.itemID}, {weaponData.fireRate}, {weaponData.ammoPerReload}, {weaponData.range}");
+
+            currentData = new CurrentData
+            {
+                name = weaponData.name,
+                damage = weaponData.damagePerShot,
+                firerRate = weaponData.fireRate,
+                ammoPerReload = weaponData.ammoPerReload,
+                maxAmmo = weaponData.maxAmmo,
+                currentMagazine = weaponData.maxAmmo,
+                price = weaponData.price,
+                level = weaponData.weaponLevel,
+            };
         }
     }
 
 
+    public CurrentData GetItemCurrentData()
+    {
+        currentData.currentMagazine = currentMagazine;
+        return currentData;
+    }
 
+    public void Create(Pool onwerPool)
+    {
+        throw new NotImplementedException();
+    }
 
+    public void ReturnToPool()
+    {
+        throw new NotImplementedException();
+    }
 
     // todo : currentAmmo 탄창수만큼 리셋 
 
 
+}
 
+public class CurrentData
+{
+    public string name;
+    public float damage;
+    public float firerRate;
+    public int ammoPerReload;
+    public int maxAmmo;
+    public int currentMagazine;
+    public int price;
+    public int level;
+    public float durability;    
+    public float damageRedcution;
+    public float healAmount;
 
+    public CurrentData()
+    {
 
-
+    }
 }

@@ -134,5 +134,20 @@ public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable
     {
         throw new NotImplementedException();
     }
+
+    public CurrentData GetItemCurrentData()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Create(Pool onwerPool)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ReturnToPool()
+    {
+        throw new NotImplementedException();
+    }
 }
 

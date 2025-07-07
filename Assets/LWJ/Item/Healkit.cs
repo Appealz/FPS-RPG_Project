@@ -37,4 +37,19 @@ public class Healkit : MonoBehaviour, IHealkit
     {
         
     }
+
+    public CurrentData GetItemCurrentData()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Create(Pool onwerPool)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ReturnToPool()
+    {
+        throw new System.NotImplementedException();
+    }
 }

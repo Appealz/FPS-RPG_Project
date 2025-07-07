@@ -100,4 +100,19 @@ public class Revolver : MonoBehaviour, IRangeWeapon
             attackRate = weaponData.fireRate;
         }
     }
+
+    public CurrentData GetItemCurrentData()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Create(Pool onwerPool)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ReturnToPool()
+    {
+        throw new NotImplementedException();
+    }
 }

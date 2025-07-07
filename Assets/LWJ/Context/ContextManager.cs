@@ -21,9 +21,7 @@ public class ContextManager : DontDestroySingleton<ContextManager>
 
     public void StartGameSetUp(PlayerSaveData newData)
     {
-        playGameContext = new PlayGameContext(newData.classDatas[playClassName], playLevel);
-
-       
+        playGameContext = new PlayGameContext(newData.classDatas[playClassName], playLevel);       
     }
     
 

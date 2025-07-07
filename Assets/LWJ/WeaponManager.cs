@@ -4,16 +4,56 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
+
+// 캐싱된 아이템 데이터 리스트 오픈
 public class WeaponManager : DestroySingleton<WeaponManager>
-{    
+{
+    private Dictionary<int, Pool> itemPoolDic = new Dictionary<int, Pool>();
+
     Dictionary<int, GameObject> weapons = new Dictionary<int, GameObject>();
     Dictionary<int, GameObject> playerWeapon = new Dictionary<int, GameObject>();
 
-    Dictionary<int, IItem> itemDatas = new Dictionary<int, IItem>();
+    Dictionary<int, ItemData> itemDatas = new Dictionary<int, ItemData>();
 
     [SerializeField]
     List<GameObject> weaponList = new List<GameObject>();
 
+
+    private void CreateItemData()
+    {
+        // 주입받은 메인슬롯의 무기 레벨
+        ContextManager.Instance.GetPlayGameContext().playClassData.equippedItemDictionary.TryGetValue(itemSlotType.Main, out int ID);
+        DataManager.Instance.GetWeaponData(ID, out WeaponData_Entity saveWeaponData);
+        int weaponLevel = saveWeaponData.weaponLevel;
+
+        List<WeaponData_Entity> weaponIDList = DataManager.Instance.GetWeaponList();
+        foreach (var weapon in weaponIDList)
+        {
+            if (weapon.weaponLevel >= weaponLevel)
+            {
+                itemDatas[weapon.id] = new WeaponData(weapon);
+            }
+        }
+    }
+
+    public void CreatePool()
+    {
+
+
+        //GameObject[] objs = 
+        //foreach (GameObject obj in objs)
+        //{
+        //    if (obj.TryGetComponent<IPoolLabel>(out var label))
+        //    {
+        //        GameObject poolObj = new GameObject();
+        //        poolObj.transform.parent = transform;
+        //        poolObj.name = obj.name;
+        //        Pool newPool = poolObj.AddComponent<Pool>();
+        //        newPool.InitPool(label);
+        //        poolDic[obj.name] = newPool;
+        //    }
+        //}
+    }
     public async void CreateWeapon(int weaponID)
     {
         // 1. 데이터 로드        
@@ -22,20 +62,21 @@ public class WeaponManager : DestroySingleton<WeaponManager>
             Debug.LogError($"[WeaponManager] 무기 데이터가 존재하지 않습니다. ID: {weaponID}");
             return;
         }
-        
+
         // 2. 프리펩 로드
-        GameObject weaponPrefab = await LoadWeaponPrefab(weaponID);                                
+        GameObject weaponPrefab = await LoadWeaponPrefab(weaponID);
 
         // 3. 오브젝트 생성        
-        GameObject obj = Instantiate(weaponPrefab,transform);
+        GameObject obj = Instantiate(weaponPrefab, transform);
 
         // 4. 데이터 주입
         // todo: 가져온 프리팹 내부의 IWeapon 클래스를 통해서 데이터 주입.
         if (obj.TryGetComponent<IItem>(out IItem newItem))
         {
-            newItem.InitData(new WeaponData(weaponData));
+            WeaponData newWeaponData = new WeaponData(weaponData);
+            newItem.InitData(newWeaponData);
             weapons.Add(weaponID, obj);
-            itemDatas.Add(weaponID, newItem);
+            itemDatas.Add(weaponID, newWeaponData);
             obj.SetActive(false);
         }
     }
@@ -70,7 +111,7 @@ public class WeaponManager : DestroySingleton<WeaponManager>
 
         if (weaponPrefab.Status == AsyncOperationStatus.Succeeded)
         {
-            return weaponPrefab.Result; 
+            return weaponPrefab.Result;
         }
         else
         {
@@ -79,22 +120,12 @@ public class WeaponManager : DestroySingleton<WeaponManager>
         }
     }
 
-    //public void PlayerEquipWeapon()
-    //{
-    //    ClassData classData = ContextManager.Instance.GetPlayGameContext().playClassData;
-    //    List<int> equipWeaponID = classData.equippedItemIds;
-
-    //    foreach (int weaponID in equipWeaponID)
-    //    {
-    //        CreateWeapon(weaponID);
-            
-    //    }
-    //}
 
     public IItem GetItemData(int weaponID)
     {
-        itemDatas.TryGetValue(weaponID, out var item);
-        return item;
+        itemPoolDic.TryGetValue(weaponID, out var item);
+        item.TryGetComponent<IItem>(out IItem newItemData);
+        return newItemData;
     }
 
     public GameObject EquipWeapon(int weaponID)
