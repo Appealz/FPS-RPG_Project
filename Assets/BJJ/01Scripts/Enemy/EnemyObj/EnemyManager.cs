@@ -91,6 +91,7 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageRec
         EventBus_Stat.Subscribe(OnStatChange);
         EventBus_Damage.SubScribe(OnExplosionDamageHandler);
         EventBus_UnitDieEvent.Subscribe(DieEventHandler);
+        EventBus_HPEffectModifier.Subscribe(HPEffectModifierHandler);
     }
 
     public void CustomUpdate()
@@ -106,6 +107,7 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageRec
         EventBus_Stat.Unsubscribe(OnStatChange);
         EventBus_Damage.UnSubscribe(OnExplosionDamageHandler);
         EventBus_UnitDieEvent.UnSubscribe(DieEventHandler);
+        EventBus_HPEffectModifier.UnSubscribe(HPEffectModifierHandler);
 
         if (attackCtrl is ISuicideAttack sa)
         {
@@ -142,20 +144,60 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageRec
 
     public void OnHit(DamageReceivePart part, DamageInfo info)
     {
-        float resultDamage = info.damage;
+        if (info.type == DamageType.Heal)
+        {
+            if (info.calculateType == HPCalculateType.Calculator)
+            {
+                statManager.ApplyHeal(info.effectCalculator);
+            }
+            else
+            {
+                float resultDamage = info.damage;
+                statManager.ApplyHeal(resultDamage);
+            }
+        }
+        else
+        {
+            if (info.calculateType == HPCalculateType.Calculator)
+            {
+                statManager.ApplyDamage(info.effectCalculator);
+            }
+            else
+            {
+                float resultDamage = info.damage;
 
-        if (part == DamageReceivePart.Head)
-            resultDamage *= 1.5f;
+                if (part == DamageReceivePart.Head)
+                    resultDamage *= 1.5f;
 
-        statManager.ApplyDamage(resultDamage);
+                statManager.ApplyDamage(resultDamage);
+            }
+        }
+
         statManager.AddBuff(info.buff);
+    }
+
+    public void HPEffectModifierHandler(HPEffectModifier modifier)
+    {
+        if (modifier.receiver != gameObject) return;
+
+        if (modifier.eventType == StatEventType.Add)
+            statManager.AddHPModifier(modifier.effectModifier);
+        else
+            statManager.RemoveModifier(modifier.effectModifier);
     }
 
     public void OnExplosionDamageHandler(DamageInfo info)
     {
         if (info.receiver != gameObject) return;
 
-        statManager.ApplyDamage(info.damage);
+        if (info.calculateType == HPCalculateType.Calculator)
+        {
+            statManager.ApplyDamage(info.effectCalculator);
+        }
+        else
+        {
+            statManager.ApplyDamage(info.damage);
+        }
         statManager.AddBuff(info.buff);
     }
 }

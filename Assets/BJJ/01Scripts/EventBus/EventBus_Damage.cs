@@ -7,21 +7,31 @@ public enum DamageType
     Heal
 }
 
+public enum HPCalculateType
+{ 
+    None,
+    Calculator
+}
+
 public class DamageInfo
 {
     public GameObject sender;
     public GameObject receiver;
     public DamageType type;
     public float damage;
+    public HPCalculateType calculateType;
+    public IHpEffectCalculator effectCalculator;
     public Buff buff;
 
-    public DamageInfo (GameObject newSender, GameObject newReceiver, float newDamage, Buff newBuff, DamageType type)
+    public DamageInfo (GameObject newSender, GameObject newReceiver, float newDamage, Buff newBuff, DamageType type,HPCalculateType calculateType = HPCalculateType.None,IHpEffectCalculator effectCalculator = null)
     {
         sender = newSender;
         receiver = newReceiver;
         damage = newDamage;
         buff = newBuff;
         this.type = type;
+        this.calculateType = calculateType;
+        this.effectCalculator = effectCalculator;
     }
 }
 

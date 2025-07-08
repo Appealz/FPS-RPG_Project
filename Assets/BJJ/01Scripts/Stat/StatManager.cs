@@ -48,6 +48,7 @@ public class StatManager
     public ArmorManager armorManager { get; private set; }
 
     private List<Buff> activeBuffList;
+    private List<IHpEffectModifier> activeHPModifier;
 
     public StatManager(GameObject newOwner, Dictionary<StatType, StatValue> statMap, List<Buff> setPerks = null)
     {
@@ -57,8 +58,9 @@ public class StatManager
         curHP = statMap[StatType.HP].Value;
         armorManager = new ArmorManager();
         activeBuffList = setPerks ?? new List<Buff>();
+        activeHPModifier = new List<IHpEffectModifier>();
 
-        foreach(var buff in activeBuffList)
+        foreach (var buff in activeBuffList)
         {
             buff.OnApply();
         }
@@ -119,10 +121,19 @@ public class StatManager
 
     public void ApplyDamage(float damage) // 상위 매니저에서 끌어다가 사용할 예정
     {
-        float absorb = armorManager.ApplyDamage(damage);
-        curHP -= absorb;
+        DamageResult(damage);
+    }
 
-        if(curHP <= 0)
+    public void ApplyDamage(IHpEffectCalculator calculator)
+    {
+        float absorb = calculator.Calculate(this);
+        DamageResult(absorb);
+    }
+
+    private void DamageResult(float absorb)
+    {
+        curHP -= armorManager.ApplyDamage(CurHPModifierCalculate(DamageType.Damage, absorb));
+        if (curHP <= 0)
         {
             curHP = 0;
             Debug.Log("DieEvent");
@@ -132,10 +143,51 @@ public class StatManager
         // todo UI처리
     }
 
+    public void ApplyHeal(float heal)
+    {
+        HealResult(heal);
+    }
+
+    public void ApplyHeal(IHpEffectCalculator calculator)
+    {
+        float absorb = calculator.Calculate(this);
+        HealResult(absorb);
+    }
+
+    private void HealResult(float absorb)
+    {
+        curHP += CurHPModifierCalculate(DamageType.Heal, absorb);
+        if (curHP >= statMap[StatType.HP].Value)
+            curHP = statMap[StatType.HP].Value;
+
+        // todo) UI처리
+    }
+
+    private float CurHPModifierCalculate(DamageType type, float absorb)
+    {
+        float result = absorb;
+        for(int i = activeHPModifier.Count - 1; i >= 0; i--)
+        {
+            result = activeHPModifier[i].Modify(type,result);
+        }
+
+        return result;
+    }
+
     public void AddBuff(Buff newBuff)
     {
         newBuff.OnApply();
         activeBuffList.Add(newBuff);
+    }
+
+    public void AddHPModifier(IHpEffectModifier modifier)
+    {
+        activeHPModifier.Add(modifier);
+    }
+
+    public void RemoveModifier(IHpEffectModifier modifier)
+    {
+        activeHPModifier.Remove(modifier);
     }
 
     public float GetStat(StatType type)
