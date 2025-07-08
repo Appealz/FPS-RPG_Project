@@ -132,22 +132,22 @@ public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable
 
     public void InitData(ItemData newData)
     {
-        throw new NotImplementedException();
+        
     }
 
     public CurrentData GetItemCurrentData()
     {
-        throw new NotImplementedException();
+        return null;
     }
 
     public void Create(Pool onwerPool)
     {
-        throw new NotImplementedException();
+        
     }
 
     public void ReturnToPool()
     {
-        throw new NotImplementedException();
+        
     }
 }
 

@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.AI;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 
@@ -21,9 +22,10 @@ public class WeaponManager : DestroySingleton<WeaponManager>
 
     private void CreateItemData()
     {
-        // 주입받은 메인슬롯의 무기 레벨
-        ContextManager.Instance.GetPlayGameContext().playClassData.equippedItemDictionary.TryGetValue(itemSlotType.Main, out int ID);
-        DataManager.Instance.GetWeaponData(ID, out WeaponData_Entity saveWeaponData);
+        // 주입받은 메인슬롯의 무기 레벨        
+        ClassData selectClassData = ContextManager.Instance.GetPlayGameContext().playClassData;
+        int playerMainWeaponID = selectClassData.GetEquippedItemID(itemSlotType.Main);
+        DataManager.Instance.GetWeaponData(playerMainWeaponID, out WeaponData_Entity saveWeaponData);
         int weaponLevel = saveWeaponData.weaponLevel;
 
         List<WeaponData_Entity> weaponIDList = DataManager.Instance.GetWeaponList();
@@ -38,8 +40,6 @@ public class WeaponManager : DestroySingleton<WeaponManager>
 
     public void CreatePool()
     {
-
-
         //GameObject[] objs = 
         //foreach (GameObject obj in objs)
         //{
@@ -54,6 +54,7 @@ public class WeaponManager : DestroySingleton<WeaponManager>
         //    }
         //}
     }
+
     public async void CreateWeapon(int weaponID)
     {
         // 1. 데이터 로드        

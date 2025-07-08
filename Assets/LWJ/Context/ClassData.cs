@@ -16,4 +16,10 @@ public class ClassData
         this.level = level;
         equippedItemDictionary = newEquipData;
     }
+
+    public int GetEquippedItemID(itemSlotType slotType)
+    {
+        equippedItemDictionary.TryGetValue(slotType, out int id);
+        return id;
+    }
 }

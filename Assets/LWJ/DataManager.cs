@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+
 public class DataManager : DontDestroySingleton<DataManager>
 {
     private TableData originalData;
@@ -141,7 +143,7 @@ public class DataManager : DontDestroySingleton<DataManager>
     {
         return levelExpData.TryGetValue(level, out data);
     }
-
+        
     
 }
 

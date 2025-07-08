@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c6d97d19c4d1ab448e9b0be4f7592af
+    m_Address: Assets/LWJ/Prefab/Knife.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a8a3cd047925ee54aa85e9f37125a2c0
     m_Address: Assets/LWJ/Prefab/HeavyGun.prefab
     m_ReadOnly: 0
@@ -32,6 +37,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b042ff1ec29d5e64ea5f2f5441feb9c1
     m_Address: Assets/LWJ/Prefab/Revolver.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bbc76937ef1a63e43bd216979add4e32
+    m_Address: Assets/LWJ/Prefab/HealthKit.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
