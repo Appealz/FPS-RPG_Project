@@ -21,6 +21,7 @@ public class Pool : MonoBehaviour
             GameObject obj = ObjectPoolFactory.Instance.CreateObj(originPrefab);
             if(obj.TryGetComponent<IPoolLabel>(out IPoolLabel label))
             {
+                obj.transform.SetParent(transform);
                 label.Create(this);
                 stk.Push(label);
             }

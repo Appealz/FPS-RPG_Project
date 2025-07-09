@@ -39,7 +39,6 @@ public class GameManager : DestroySingleton<GameManager>
 
     private void DontResetSetting()
     {
-        PoolManager.Instance.InitPoolManager();
         EnemyAnimEventDataManager.InitEnemyAnimData();
         roundManager = new RoundManager();
         roundManager.InitRoundManager();

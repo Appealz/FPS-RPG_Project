@@ -1,5 +1,8 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public enum PoolType
 {
@@ -12,9 +15,30 @@ public class PoolManager : DestroySingleton<PoolManager>
 {
     private Dictionary<string, Pool> poolDic = new Dictionary<string, Pool>();
 
-    public void InitPoolManager()
+    public async void PoolRegist(string path)
     {
-        EnemySet();
+        var obj = await Addressables.LoadAssetAsync<GameObject>(path).ToUniTask();
+
+        if(obj == null)
+        {
+            Debug.Log($"PoolManager.cs - PoolRegist()- {path} is ErrorKey");
+        }
+        else
+        {
+            if(!obj.TryGetComponent<IPoolLabel>(out var label))
+            {
+                Debug.Log($"PoolManager.cs - PoolRegist()- {obj.name} Can't Find PoolLabel");
+            }
+            else
+            {
+                GameObject poolObj = new GameObject();
+                poolObj.transform.parent = transform;
+                poolObj.name = obj.name;
+                Pool newPool = poolObj.AddComponent<Pool>();
+                newPool.InitPool(label);
+                poolDic[obj.name] = newPool;
+            }
+        }
     }
 
     private void EnemySet()

@@ -37,6 +37,7 @@ public class EnemyTotalManager : DestroySingleton<EnemyTotalManager>
     public void InitEnemyManager()
     {
         enemies = new List<IEnemyManager>();
+        spawnManager.InitSpawnManager();
 
         GameManager.OnGameUpdate += EnemyUpdate;
         EventBus_EnemyManager.Subscribe(EnemyListUpdateHandler);

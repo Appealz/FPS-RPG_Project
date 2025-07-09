@@ -1,6 +1,8 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
 
 public class EnemySpawnManager : MonoBehaviour
@@ -13,6 +15,28 @@ public class EnemySpawnManager : MonoBehaviour
     private RoundData roundData;
     private Dictionary<int, SpawnUnit> countMap;
     private Dictionary<int, SpawnUnit> dataMap;
+
+    public void InitSpawnManager()
+    {
+        SetEnemyAddressable();
+    }
+
+    private async void SetEnemyAddressable()
+    {
+        var groups = await Addressables.LoadResourceLocationsAsync("Enemy").ToUniTask();
+
+        if(groups == null || groups.Count == 0)
+        {
+            Debug.Log("EnemySpawnManager.cs - GetEnemyAddressablePath() - Enemy Label Non");
+            return;
+        }
+
+        foreach(var enemy in groups)
+        {
+            string path = enemy.PrimaryKey;
+            PoolManager.Instance.PoolRegist(path);
+        }
+    }
 
     public void SpawnUpdate()
     {
