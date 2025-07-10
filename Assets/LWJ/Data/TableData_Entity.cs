@@ -16,6 +16,7 @@ public class WeaponData_Entity
     public int price;
     public int weaponLevel;
     public string weaponType;
+    public string path;
 }
 
 [Serializable]
@@ -36,6 +37,7 @@ public class Healkit_Entity
     public string name;
     public float healAmount;
     public int price;
+    public string path;
 }
 
 [Serializable]
@@ -55,6 +57,7 @@ public class MonsterStats_Entity
     public int id;    
     public float attackSpeed;
     public float range;
+    public string path;
 }
 
 //[Serializable]

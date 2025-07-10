@@ -144,7 +144,10 @@ public class DataManager : DontDestroySingleton<DataManager>
         return levelExpData.TryGetValue(level, out data);
     }
         
-    
+    public bool GetMonsterData(int id, out MonsterStats_Entity data)
+    {
+        return monsterStatsData.TryGetValue(id, out data);
+    }
 }
 
 public class EnemyData

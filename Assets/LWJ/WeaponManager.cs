@@ -20,7 +20,7 @@ public class WeaponManager : DestroySingleton<WeaponManager>
     List<GameObject> weaponList = new List<GameObject>();
 
 
-    private void CreateItemData()
+    private async void CreateItemData()
     {
         // 주입받은 메인슬롯의 무기 레벨        
         ClassData selectClassData = ContextManager.Instance.GetPlayGameContext().playClassData;
@@ -34,8 +34,12 @@ public class WeaponManager : DestroySingleton<WeaponManager>
             if (weapon.weaponLevel >= weaponLevel)
             {
                 itemDatas[weapon.id] = new WeaponData(weapon);
+
+                GameObject obj = await PrefabLoad.LoadToPrefab(weapon.id, PrefabType.Weapon);
             }
         }
+
+
     }
 
     public void CreatePool()
