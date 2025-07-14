@@ -16,6 +16,7 @@ public class ShopItemCtrl
     public void UpdateList()
     {
         // todo Random 리스트 만들기
+       
     }
 
     public bool SelectItem(int index, out IItem selectItem)

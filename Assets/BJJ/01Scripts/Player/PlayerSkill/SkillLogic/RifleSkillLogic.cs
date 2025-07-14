@@ -12,6 +12,17 @@ public class RifleSkillLogic : ClassSkill, IAnimSkill
     public void OnSkillAction()
     {
         Debug.Log("Test Code - Rifle Motion");
+
+        GameObject grenade = PoolManager.Instance.GetPool("Rifle_Grenade").GetObjFromPool();
+        if(grenade.TryGetComponent<ISkillObject>(out var so))
+        {
+            so.InitSpawnObj(owner, skillData);
+        }
+        if(grenade.TryGetComponent<Rigidbody>(out Rigidbody grd))
+        {
+            // todo 화면 정중앙 (크로스헤어 기준)으로 수정할 필요가 있음
+            grd.AddForce(owner.transform.forward * 15, ForceMode.Impulse);
+        }
     }
 
     public override void UseSkill()
