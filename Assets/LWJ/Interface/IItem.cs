@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IItem : IPoolLabel
+public interface IItem
 {
     // todo : SO ¡÷¿‘.
     int itemID { get; }

@@ -3,8 +3,10 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
+public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable , IPoolLabel
 {
+    private Pool ownerPool;
+
     // 아이템자체가 발동가능한지 여부.
     public bool useable => currentAmmo > 0 && !isAttacking;
 
@@ -166,12 +168,13 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable
 
     public void Create(Pool onwerPool)
     {
-        throw new NotImplementedException();
+        this.ownerPool = onwerPool;
+        gameObject.SetActive(false);
     }
 
     public void ReturnToPool()
     {
-        throw new NotImplementedException();
+        ownerPool.ReturnToPool(gameObject);
     }
 
     // todo : currentAmmo 탄창수만큼 리셋 

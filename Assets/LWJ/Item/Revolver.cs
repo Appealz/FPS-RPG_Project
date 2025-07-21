@@ -2,8 +2,9 @@ using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
-public class Revolver : MonoBehaviour, IRangeWeapon
+public class Revolver : MonoBehaviour, IRangeWeapon, IPoolLabel
 {
+    private Pool ownerPool;
     public bool useable => currentAmmo > 0 && !isAttacking;
 
     public AnimationClip useClip => null;
@@ -108,11 +109,12 @@ public class Revolver : MonoBehaviour, IRangeWeapon
 
     public void Create(Pool onwerPool)
     {
-        throw new NotImplementedException();
+        this.ownerPool = onwerPool;
+        gameObject.SetActive(false);
     }
 
     public void ReturnToPool()
     {
-        throw new NotImplementedException();
+        ownerPool.ReturnToPool(gameObject);
     }
 }

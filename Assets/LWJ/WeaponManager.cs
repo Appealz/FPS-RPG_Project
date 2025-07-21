@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
@@ -9,7 +11,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 // 캐싱된 아이템 데이터 리스트 오픈
 public class WeaponManager : DestroySingleton<WeaponManager>
 {
-    private Dictionary<int, Pool> itemPoolDic = new Dictionary<int, Pool>();
+    private Dictionary<int, Pool> weaponPoolDic = new Dictionary<int, Pool>();
 
     Dictionary<int, GameObject> weapons = new Dictionary<int, GameObject>();
     Dictionary<int, GameObject> playerWeapon = new Dictionary<int, GameObject>();
@@ -20,117 +22,74 @@ public class WeaponManager : DestroySingleton<WeaponManager>
     List<GameObject> weaponList = new List<GameObject>();
 
 
-    private async void CreateItemData()
+    // 게임 시작시 WeaponManager에 플레이타임동안 사용할 데이터 로드
+    public async UniTask CreateItemData()
     {
         // 주입받은 메인슬롯의 무기 레벨        
-        ClassData selectClassData = ContextManager.Instance.GetPlayGameContext().playClassData;
+        //ClassData selectClassData = ContextManager.Instance.GetPlayGameContext().playClassData;
+
+        // Test
+        ClassData selectClassData = ContextManager.Instance.TestPlayGameContext().playClassData;
         int playerMainWeaponID = selectClassData.GetEquippedItemID(itemSlotType.Main);
         DataManager.Instance.GetWeaponData(playerMainWeaponID, out WeaponData_Entity saveWeaponData);
         int weaponLevel = saveWeaponData.weaponLevel;
-
         List<WeaponData_Entity> weaponIDList = DataManager.Instance.GetWeaponList();
         foreach (var weapon in weaponIDList)
         {
             if (weapon.weaponLevel >= weaponLevel)
             {
                 itemDatas[weapon.id] = new WeaponData(weapon);
-
-                GameObject obj = await PrefabLoad.LoadToPrefab(weapon.id, PrefabType.Weapon);
+                await CreateWeaponPool(weapon.id);
             }
         }
-
-
     }
 
-    public void CreatePool()
+    private async UniTask CreateWeaponPool(int id)
     {
-        //GameObject[] objs = 
-        //foreach (GameObject obj in objs)
-        //{
-        //    if (obj.TryGetComponent<IPoolLabel>(out var label))
-        //    {
-        //        GameObject poolObj = new GameObject();
-        //        poolObj.transform.parent = transform;
-        //        poolObj.name = obj.name;
-        //        Pool newPool = poolObj.AddComponent<Pool>();
-        //        newPool.InitPool(label);
-        //        poolDic[obj.name] = newPool;
-        //    }
-        //}
-    }
-
-    public async void CreateWeapon(int weaponID)
-    {
-        // 1. 데이터 로드        
-        if (!DataManager.Instance.GetWeaponData(weaponID, out var weaponData))
+        var prefab = await PrefabLoad.LoadToPrefab(id, PrefabType.Weapon);
+        if(prefab == null)
         {
-            Debug.LogError($"[WeaponManager] 무기 데이터가 존재하지 않습니다. ID: {weaponID}");
+            Debug.Log("프리팹 로드 실패");
+            return;
+        }
+        if(!prefab.TryGetComponent<IPoolLabel>(out var label))
+        {
+            Debug.Log("IPoolLabel 참조 실패");
+            return;
+        }
+        if(weaponPoolDic.ContainsKey(id))
+        {
+            Debug.Log("이미 생성된 풀 존재");
             return;
         }
 
-        // 2. 프리펩 로드
-        GameObject weaponPrefab = await LoadWeaponPrefab(weaponID);
-
-        // 3. 오브젝트 생성        
-        GameObject obj = Instantiate(weaponPrefab, transform);
-
-        // 4. 데이터 주입
-        // todo: 가져온 프리팹 내부의 IWeapon 클래스를 통해서 데이터 주입.
-        if (obj.TryGetComponent<IItem>(out IItem newItem))
-        {
-            WeaponData newWeaponData = new WeaponData(weaponData);
-            newItem.InitData(newWeaponData);
-            weapons.Add(weaponID, obj);
-            itemDatas.Add(weaponID, newWeaponData);
-            obj.SetActive(false);
-        }
+        GameObject poolObj = new GameObject($"WeaponPool_{id}");
+        poolObj.transform.SetParent(transform);
+        
+        Pool newPool = poolObj.AddComponent<Pool>();
+        newPool.InitPool(label, 1);
+        weaponPoolDic[id] = newPool;
     }
-
-    private async UniTask<GameObject> LoadWeaponPrefab(int weaponID)
-    {
-        string address;
-        switch (weaponID)
-        {
-            case int id when id >= 1001 && id <= 1005:
-                address = "Assets/LWJ/Prefab/Rifle.prefab";
-                break;
-            case int id when id >= 1006 && id <= 1010:
-                address = "Assets/LWJ/Prefab/ShotGun.prefab";
-                break;
-            case int id when id >= 1011 && id <= 1015:
-                address = "Assets/LWJ/Prefab/HeavyGun.prefab";
-                break;
-            case 1016:
-                address = "Assets/LWJ/Prefab/Revolver.prefab";
-                break;
-            case 1017:
-                address = "Assets/LWJ/Prefab/Knife.prefab";
-                break;
-            default:
-                Debug.LogError($"[WeaponManager] 정의되지 않은 무기 ID: {weaponID}");
-                return null;
-        }
-
-        var weaponPrefab = Addressables.LoadAssetAsync<GameObject>(address);
-        await weaponPrefab.Task;
-
-        if (weaponPrefab.Status == AsyncOperationStatus.Succeeded)
-        {
-            return weaponPrefab.Result;
-        }
-        else
-        {
-            Debug.LogError("프리팹 로드 실패!");
-            return null;
-        }
-    }
-
 
     public IItem GetItemData(int weaponID)
     {
-        itemPoolDic.TryGetValue(weaponID, out var item);
-        item.TryGetComponent<IItem>(out IItem newItemData);
+        if (!weaponPoolDic.TryGetValue(weaponID, out var item) || item == null)
+        {
+            Debug.LogError($"[WeaponManager] weaponPoolDic에 ID {weaponID}에 대한 풀이 없습니다.");
+            return null;
+        }
+
+        if (!item.TryGetComponent<IItem>(out var newItemData))
+        {
+            Debug.LogError($"[WeaponManager] ID {weaponID}의 풀 오브젝트에 IItem 컴포넌트가 없습니다.");
+            return null;
+        }
+
         return newItemData;
+
+        //weaponPoolDic.TryGetValue(weaponID, out var item);
+        //item.TryGetComponent<IItem>(out IItem newItemData);
+        //return newItemData;
     }
 
     public GameObject EquipWeapon(int weaponID)
@@ -144,6 +103,38 @@ public class WeaponManager : DestroySingleton<WeaponManager>
         returnWeapon.transform.SetParent(transform);
         returnWeapon.transform.localPosition = Vector3.zero;
         returnWeapon.SetActive(false);
+    }
+
+    public GameObject FindGetPool(int weaponID)
+    {
+        if(weaponPoolDic.TryGetValue(weaponID, out var pool))
+        {
+            return pool.GetObjFromPool();
+        }
+
+        Debug.Log("무기 풀 없음");
+        return null;
+    }
+
+    public void FindReturnPool(GameObject obj)
+    {
+        if(obj.TryGetComponent<IItem>(out IItem item))
+        {
+            int id = item.itemID;
+            if (weaponPoolDic.TryGetValue(id, out var pool))
+            {
+                pool.ReturnToPool(obj);
+            }
+            else
+            {
+                Debug.Log("무기 풀 없음");
+            }
+
+        }
+        else
+        {
+            Debug.Log("IItem 참조 실패");
+        }        
     }
 }
 

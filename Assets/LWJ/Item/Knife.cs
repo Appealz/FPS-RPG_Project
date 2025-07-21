@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class Knife : MonoBehaviour, IMeleeWeapon
+public class Knife : MonoBehaviour, IMeleeWeapon , IPoolLabel
 {
+    private Pool ownerPool;
     public bool useable => throw new System.NotImplementedException();
 
     public AnimationClip useClip => throw new System.NotImplementedException();    
@@ -19,7 +20,8 @@ public class Knife : MonoBehaviour, IMeleeWeapon
 
     public void Create(Pool onwerPool)
     {
-        throw new System.NotImplementedException();
+        this.ownerPool = onwerPool;
+        gameObject.SetActive(false);
     }
 
     public CurrentData GetItemCurrentData()
@@ -39,7 +41,7 @@ public class Knife : MonoBehaviour, IMeleeWeapon
 
     public void ReturnToPool()
     {
-        throw new System.NotImplementedException();
+        ownerPool.ReturnToPool(gameObject);
     }
 
     public void Use() => Attack();   

@@ -39,7 +39,7 @@ public class Player : MonoBehaviour,ITargetable
         {
             Debug.Log("dataManager is not ref");
         }
-        dataManager.InitPlayerData();
+        
         if(!TryGetComponent<IUnitFSM>(out playerFSM))
         {
             Debug.Log("playerFSM is not ref");
@@ -52,11 +52,18 @@ public class Player : MonoBehaviour,ITargetable
         {
 
         }
+   
+    }
+
+    private void OnEnable()
+    {
+        dataManager.InitPlayerData();
+
         playerSkill.InitSkillCtrl(skillData);
 
         itemCtrl.Init();
 
-        
+
         playerFSM.ResistState(StateType.Idle, new IdleState());
         playerFSM.ResistState(StateType.Move, new MoveState(playerMove));
         playerFSM.ResistState(StateType.Use, new UseState(itemCtrl));
@@ -64,12 +71,12 @@ public class Player : MonoBehaviour,ITargetable
 
         #region _KeyBinding_
         inputController.Init();
-        inputController.OnStateChangeEvent += playerFSM.SetState;        
-        if(playerMove is ISetDirection direction)
+        inputController.OnStateChangeEvent += playerFSM.SetState;
+        if (playerMove is ISetDirection direction)
         {
             inputController.OnMoveInput += direction.SetDirection;
         }
-        if(playerMove is IJump jump)
+        if (playerMove is IJump jump)
         {
             inputController.OnJumpInput += jump.Jump;
         }
@@ -80,8 +87,9 @@ public class Player : MonoBehaviour,ITargetable
         inputController.OnDropInput += itemCtrl.Drop;
         #endregion
 
-        playerMove.Init();        
+        playerMove.Init();
     }
+
     private void OnDisable()
     {
         inputController.OnStateChangeEvent -= playerFSM.SetState;

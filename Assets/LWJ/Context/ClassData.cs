@@ -11,6 +11,11 @@ public class ClassData
     public List<int> unlockedPerks;      // 해금된 특전 ID
     public Dictionary<itemSlotType, int> equippedItemDictionary;    // 마지막 장착 아이템 ID 리스트 (ex: 무기, 방어구, 스킬 등)
 
+    /// <summary>
+    /// 플레이어의 장착 무기 리스트(딕셔너리), 플레이어 레벨
+    /// </summary>
+    /// <param name="newEquipData"></param>
+    /// <param name="level"></param>
     public ClassData(Dictionary<itemSlotType, int> newEquipData, int level)
     {
         this.level = level;
