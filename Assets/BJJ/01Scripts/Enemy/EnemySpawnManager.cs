@@ -106,7 +106,7 @@ public class EnemySpawnManager : MonoBehaviour
                         agent.Warp(hit.position);
                     }
                 }
-                EventBus_EnemyManager.Publish(new EnemyUpdateEvent(EnemyUpdateType.Regist, enemy));
+                EventBus_EnemyManager.Publish(new EnemyUpdateEvent(UpdateType.Regist, enemy));
                 return true;
             }
 

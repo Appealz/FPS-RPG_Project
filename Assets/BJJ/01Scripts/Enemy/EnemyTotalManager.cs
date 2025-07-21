@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyUpdateType
+public enum UpdateType
 { 
     Regist,
     Unregist
@@ -10,10 +10,10 @@ public enum EnemyUpdateType
 
 public class EnemyUpdateEvent
 {
-    public EnemyUpdateType type;
+    public UpdateType type;
     public IEnemyManager enemy;
 
-    public EnemyUpdateEvent(EnemyUpdateType type, IEnemyManager enemy)
+    public EnemyUpdateEvent(UpdateType type, IEnemyManager enemy)
     {
         this.type = type;
         this.enemy = enemy;
@@ -68,11 +68,11 @@ public class EnemyTotalManager : DestroySingleton<EnemyTotalManager>
     {
         switch (evt.type)
         {
-            case EnemyUpdateType.Regist:
+            case UpdateType.Regist:
                 if(!enemies.Contains(evt.enemy))
                     enemies.Add(evt.enemy);
                 break;
-            case EnemyUpdateType.Unregist:
+            case UpdateType.Unregist:
                 if(enemies.Contains(evt.enemy))
                 {
                     enemies.Remove(evt.enemy);

@@ -10,6 +10,7 @@ public class Grenade : MonoBehaviour, ISkillObject, IPoolLabel
     public void Create(Pool onwerPool)
     {
         this.ownerPool = onwerPool;
+        gameObject.SetActive(false);
     }
 
     public void InitSpawnObj(GameObject ownerObj, ClassSkillData data)

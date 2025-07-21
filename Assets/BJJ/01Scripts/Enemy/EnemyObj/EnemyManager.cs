@@ -114,7 +114,7 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageRec
             sa.OnSuicideEvent -= ReturnToPool;
         }
         ownerPool.ReturnToPool(gameObject);
-        EventBus_EnemyManager.Publish(new EnemyUpdateEvent(EnemyUpdateType.Unregist, this));
+        EventBus_EnemyManager.Publish(new EnemyUpdateEvent(UpdateType.Unregist, this));
     }
 
     private void OnStatChange(StatModifier modifier)
@@ -138,7 +138,7 @@ public class EnemyManager : MonoBehaviour, IPoolLabel, IEnemyManager, IDamageRec
     {
         if (dieEvent.sender != gameObject) return;
 
-        EventBus_EnemyManager.Publish(new EnemyUpdateEvent(EnemyUpdateType.Unregist, this));
+        EventBus_EnemyManager.Publish(new EnemyUpdateEvent(UpdateType.Unregist, this));
         ReturnToPool();
     }
 
