@@ -30,7 +30,9 @@ public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable
 
     private float bulletCount = 10f;
     private float spreadAngle = 8f;
+    private CurrentData currentData;
 
+    private Pool ownerPool;
 
     // todo : 아이템 데이터 주입
     // private ItemData itemData    
@@ -112,6 +114,8 @@ public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable
         damage = newData.damagePerShot;
         attackRate = newData.fireRate;
         Debug.Log($"데이터 주입 성공 : {newData.name}, {newData.id}, {newData.fireRate}, {newData.ammoPerReload}, {newData.range}");
+
+
     }
 
     public void StartReload()
@@ -132,22 +136,45 @@ public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable
 
     public void InitData(ItemData newData)
     {
-        
+        if (newData is WeaponData weaponData)
+        {
+            myData = weaponData.data;
+            currentAmmo = weaponData.maxAmmo;
+            damage = weaponData.damagePerShot;
+            attackRate = weaponData.fireRate;
+
+            Debug.Log($"데이터 주입 성공 : {weaponData.name}, {weaponData.itemID}, {weaponData.fireRate}, {weaponData.ammoPerReload}, {weaponData.range}");
+
+            currentData = new CurrentData
+            {
+                name = weaponData.name,
+                damage = weaponData.damagePerShot,
+                firerRate = weaponData.fireRate,
+                ammoPerReload = weaponData.ammoPerReload,
+                maxAmmo = weaponData.maxAmmo,
+                currentMagazine = weaponData.maxAmmo,
+                price = weaponData.price,
+                level = weaponData.weaponLevel,
+            };
+        }
     }
 
     public CurrentData GetItemCurrentData()
-    {
-        return null;
+    { 
+        currentData.currentMagazine = currentMagazine;
+        return currentData;
     }
 
     public void Create(Pool onwerPool)
     {
-        
+        this.ownerPool = onwerPool;
+        gameObject.SetActive(false);
     }
 
     public void ReturnToPool()
     {
-        
+        ownerPool.ReturnToPool(gameObject);
     }
+
 }
 

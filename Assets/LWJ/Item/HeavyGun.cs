@@ -31,6 +31,9 @@ public class HeavyGun : MonoBehaviour, IRangeWeapon, IDroppable
     private bool isReloading;
 
     private Rigidbody rb;
+    private CurrentData currentData;
+
+    private Pool ownerPool;
     private void Awake()
     {
         if (!TryGetComponent<Animator>(out anims))
@@ -129,7 +132,7 @@ public class HeavyGun : MonoBehaviour, IRangeWeapon, IDroppable
 
     public void InitData(ItemData newData)
     {
-        if(newData is WeaponData weaponData)
+        if (newData is WeaponData weaponData)
         {
             myData = weaponData.data;
             currentAmmo = weaponData.maxAmmo;
@@ -137,23 +140,37 @@ public class HeavyGun : MonoBehaviour, IRangeWeapon, IDroppable
             attackRate = weaponData.fireRate;
 
             Debug.Log($"데이터 주입 성공 : {weaponData.name}, {weaponData.itemID}, {weaponData.fireRate}, {weaponData.ammoPerReload}, {weaponData.range}");
+
+            currentData = new CurrentData
+            {
+                name = weaponData.name,
+                damage = weaponData.damagePerShot,
+                firerRate = weaponData.fireRate,
+                ammoPerReload = weaponData.ammoPerReload,
+                maxAmmo = weaponData.maxAmmo,
+                currentMagazine = weaponData.maxAmmo,
+                price = weaponData.price,
+                level = weaponData.weaponLevel,
+            };
         }
     }
 
     public CurrentData GetItemCurrentData()
     {
-        throw new NotImplementedException();
+        currentData.currentMagazine = currentMagazine;
+        return currentData;
     }
-
     public void Create(Pool onwerPool)
     {
-        throw new NotImplementedException();
+        this.ownerPool = onwerPool;
+        gameObject.SetActive(false);
     }
 
     public void ReturnToPool()
     {
-        throw new NotImplementedException();
+        ownerPool.ReturnToPool(gameObject);
     }
+
 
 
 
