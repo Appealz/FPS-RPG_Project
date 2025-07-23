@@ -12,13 +12,13 @@ public interface ISentryGunWeapon
 public interface ISentryGunReadableContext
 {
     GameObject owner { get; }
-    GameObject target { get; }
+    IEnemyTargetable target { get; }
 
     float GetStat(StatType type);
 }
 
 public interface ISentryGunWriteableContext : ISentryGunReadableContext
 {
-    void NewTarget(GameObject newTarget);
+    void NewTarget(IEnemyTargetable newTarget);
     void Init(GameObject owner,StatManager statManager);
 }

@@ -12,6 +12,7 @@ public class SentryGunWeapon : MonoBehaviour, ISentryGunWeapon
     private bool isAttack;
     private bool canFire;
     private ISentryGunReadableContext context;
+    private Transform curTargetPart;
 
     private float rotateSpeed = 10f;
     
@@ -47,16 +48,16 @@ public class SentryGunWeapon : MonoBehaviour, ISentryGunWeapon
     public void WeaponUpdate()
     {
         if (!isAttack) return;
-
-        RotateTarget(); // 공격 상태에 들어가면 타겟을 향해 조준해야함
-
         if (!canFire) return;
+
+        TargetPart();
+        RotateTarget(); // 공격 상태에 들어가면 타겟을 향해 조준해야함
         Fire();
     }
 
     private void RotateTarget()
     {
-        var dir = context.target.transform.position - transform.position;
+        var dir = curTargetPart.position - transform.position;
 
         // mount
         Vector3 flatDir = new Vector3(dir.x, 0f, dir.z);
@@ -71,7 +72,7 @@ public class SentryGunWeapon : MonoBehaviour, ISentryGunWeapon
     private async void Fire()
     {
         canFire = false;
-        var dir = context.target.transform.position - attackPoint.position;
+        var dir = curTargetPart.position - attackPoint.position;
 
         if(Physics.Raycast(attackPoint.position, dir, out var hit,context.GetStat(StatType.AttackRange), LayerMask.GetMask("Enemy")))
         {
@@ -81,5 +82,11 @@ public class SentryGunWeapon : MonoBehaviour, ISentryGunWeapon
         
         await UniTask.WaitForSeconds(context.GetStat(StatType.AttackSpeed));
         canFire = true;
+    }
+
+    private void TargetPart()
+    {
+        int index = Random.Range(0, context.target.Parts.Count);
+        curTargetPart = context.target.Parts[index];
     }
 }

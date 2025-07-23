@@ -5,7 +5,7 @@ public class SentryGunContext : MonoBehaviour, ISentryGunWriteableContext
 {
     private StatManager statManager;
 
-    public GameObject target { get; private set; }
+    public IEnemyTargetable target { get; private set; }
 
     public GameObject owner { get; private set; }
 
@@ -14,7 +14,7 @@ public class SentryGunContext : MonoBehaviour, ISentryGunWriteableContext
         return statManager.GetStat(type);
     }
 
-    public void NewTarget(GameObject newTarget)
+    public void NewTarget(IEnemyTargetable newTarget)
     {
         target = newTarget;
     }
