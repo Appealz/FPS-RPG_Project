@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class GameManager : DestroySingleton<GameManager>
 {
@@ -39,10 +41,42 @@ public class GameManager : DestroySingleton<GameManager>
 
     private void DontResetSetting()
     {
+        SetStaticObject();
         EnemyAnimEventDataManager.InitEnemyAnimData();
         roundManager = new RoundManager();
         roundManager.InitRoundManager();
         roundManager.OnRoundEnd += RoundEndHandler;
+    }
+
+    private async void SetStaticObject()
+    {
+        var groups = await Addressables.LoadResourceLocationsAsync("Effect").ToUniTask();
+
+        if (groups == null || groups.Count == 0)
+        {
+            Debug.Log("GameManager.cs - SetStaticObject() - Effect Label Non");
+            return;
+        }
+
+        foreach (var efx in groups)
+        {
+            string path = efx.PrimaryKey;
+            PoolManager.Instance.PoolRegist(path);
+        }
+
+        var groups2 = await Addressables.LoadResourceLocationsAsync("SkillObject").ToUniTask();
+
+        if (groups2 == null || groups2.Count == 0)
+        {
+            Debug.Log("GameManager.cs - SetStaticObject() - SkillObject Label Non");
+            return;
+        }
+
+        foreach (var obj in groups2)
+        {
+            string path = obj.PrimaryKey;
+            PoolManager.Instance.PoolRegist(path);
+        }
     }
 
     private void ResetSetting()
@@ -88,6 +122,7 @@ public class GameManager : DestroySingleton<GameManager>
         if(roundManager.IsFinalRound)
         {
             GameClearHandler();
+            GameEndHandler();
             return;
         }
 

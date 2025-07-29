@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: 5ac5b86a8d6c7de4eaf6619734dbab23
   m_SerializeEntries:
   - m_GUID: 3871ac1e6ca8aa547872120fde1662a6
-    m_Address: Assets/SpawnObject/GrenadeExplosion.prefab
+    m_Address: Assets/SpawnObject/Explosion01.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Effect

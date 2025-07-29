@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class Grenade : MonoBehaviour, ISkillObject, IPoolLabel
 {
@@ -34,13 +36,26 @@ public class Grenade : MonoBehaviour, ISkillObject, IPoolLabel
 
     private void Explosion()
     {
-        // todo ¿Ã∆Â∆Æ º“»Ø
-
+        var explosion = PoolManager.Instance.GetPool("Explosion01").GetObjFromPool();
+        explosion.transform.position = transform.position;
+        if (explosion.TryGetComponent<IEffectObject>(out var efx))
+        {
+            efx.EffectStart();
+        }
         Collider[] objs = Physics.OverlapSphere(transform.position, 8f);
+        HashSet<GameObject> hits = new HashSet<GameObject>();
 
         foreach (Collider obj in objs)
         {
-            EventBus_Damage.Publish(new DamageInfo(ownerObj, obj.gameObject, rifleSkill.Damage, null, DamageType.Damage));
+            if(obj.TryGetComponent<IHitPart>(out var hit))
+            {
+                hits.Add(hit.owner.ReciverGO);
+            }
+        }
+
+        foreach(var hit in hits)
+        {
+            EventBus_Damage.Publish(new DamageInfo(ownerObj, hit, rifleSkill.Damage, null, DamageType.Damage));
         }
 
         ReturnToPool();

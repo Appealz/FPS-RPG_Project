@@ -24,6 +24,7 @@ public class GrenadeExplosion : MonoBehaviour, IPoolLabel, IEffectObject
             }
             else main.stopAction = ParticleSystemStopAction.Callback;
         }
+        gameObject.SetActive(false);
     }
 
     public void EffectStart()

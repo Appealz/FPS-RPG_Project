@@ -112,20 +112,29 @@ public class EnemySuicideWeapon : IEnemyWeapon
 
     public void OnAttack(float range, float damage)
     {
+        var explosion = PoolManager.Instance.GetPool("Explosion01").GetObjFromPool();
+        explosion.transform.position = owner.transform.position;
+        if(explosion.TryGetComponent<IEffectObject>(out var efx))
+        {
+            efx.EffectStart();
+        }
+
         Collider[] hits = Physics.OverlapSphere(owner.transform.position, range, LayerMask.GetMask("Player"));
         HashSet<GameObject> targets = new HashSet<GameObject>();
 
         foreach(var hit in hits)
         {
-            if(hit.TryGetComponent<IHitPart>(out IHitPart part))
-            {
-                targets.Add(part.owner.ReciverGO);
-            }
+            //if(hit.TryGetComponent<IHitPart>(out IHitPart part))
+            //{
+            //    targets.Add(part.owner.ReciverGO);
+            //}
+            EventBus_Damage.Publish(new DamageInfo(owner, hit.gameObject, damage, null, DamageType.Damage));
         }
 
-        foreach(var t in targets)
-        {
-            EventBus_Damage.Publish(new DamageInfo(owner, t, damage, null, DamageType.Damage));
-        }
+        //추후에 플레이어의 콜라이더를 쪼개뒀을 때 사용할 코드
+        //foreach(var t in targets)
+        //{
+        //    EventBus_Damage.Publish(new DamageInfo(owner, t, damage, null, DamageType.Damage));
+        //}
     }
 }
