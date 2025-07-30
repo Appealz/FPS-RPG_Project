@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -16,8 +17,8 @@ public class ShopItemCtrl
     public void UpdateList()
     {
         // todo Random 리스트 만들기
-        
-       
+
+        EventBus_ShopItemUpdate.Publish(new ShopItemUpdateEvent(selectedItemList, playerCurItems.ToList()));
     }
 
     public bool SelectItem(int index, out IItem selectItem)

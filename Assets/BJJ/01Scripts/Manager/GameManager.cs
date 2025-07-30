@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -39,16 +40,16 @@ public class GameManager : DestroySingleton<GameManager>
         ResetSetting();
     }
 
-    private void DontResetSetting()
+    private async Task DontResetSetting()
     {
-        SetStaticObject();
+        await SetStaticObject();
         EnemyAnimEventDataManager.InitEnemyAnimData();
         roundManager = new RoundManager();
         roundManager.InitRoundManager();
         roundManager.OnRoundEnd += RoundEndHandler;
     }
 
-    private async void SetStaticObject()
+    private async UniTask SetStaticObject()
     {
         var groups = await Addressables.LoadResourceLocationsAsync("Effect").ToUniTask();
 

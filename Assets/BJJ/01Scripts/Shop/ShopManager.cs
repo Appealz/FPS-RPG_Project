@@ -19,6 +19,17 @@ public class ShopManager : DestroySingleton<ShopManager>
         _healkitCtrl.Init();
 
         player = FindAnyObjectByType<Player>().gameObject;
+
+        EventBus_ShopBuyWeapon.Subscribe(BuyItemHandler);
+        EventBus_ShopSellWeapon.Subscribe(SellItemHandler);
+        EventBus_ShopAmmoRefillEvent.Subscribe(BuyAmmoHandler);
+    }
+
+    private void OnDisable()
+    {
+        EventBus_ShopBuyWeapon.UnSubscribe(BuyItemHandler);
+        EventBus_ShopSellWeapon.UnSubscribe(SellItemHandler);
+        EventBus_ShopAmmoRefillEvent.UnSubscribe(BuyAmmoHandler);
     }
 
     public void ShopUpdate()
@@ -27,15 +38,15 @@ public class ShopManager : DestroySingleton<ShopManager>
     }
 
     // 아이템을 사고 파는 매서드들
-    public void BuyItemHandler(int index)
+    public void BuyItemHandler(ShopBuyWeapon evt)
     {
-        if(_shopItemCtrl.SelectItem(index, out IItem buyItem))
+        if(_shopItemCtrl.SelectItem(evt.index, out IItem buyItem))
         {
             EventBus_CurrencyCheck.Publish(new CurrencyCheckEvent(player, 999, (canbuy) =>
             {
                 if(!canbuy)
                 {
-                    Debug.Log($"ShopManager.cs - BuyItemHandler() - {index} is Can't Buy Item");
+                    Debug.Log($"ShopManager.cs - BuyItemHandler() - {evt.index} is Can't Buy Item");
                     return;
                 }
 
@@ -44,10 +55,23 @@ public class ShopManager : DestroySingleton<ShopManager>
             }));
             return;
         }
-        Debug.Log($"ShopManager.cs - BuyItemHandler() - {index} is Can't Select Item");
+        Debug.Log($"ShopManager.cs - BuyItemHandler() - {evt.index} is Can't Select Item");
     }
 
-    public void BuyAmmo(int index)
+    private void BuyAmmoHandler(ShopAmmoRefillEvent evt)
+    {
+        switch(evt.type)
+        {
+            case AmmoRefillType.Normal:
+                BuyAmmo(evt.index);
+                break;
+            case AmmoRefillType.Max:
+                BuyFullAmmo(evt.index);
+                break;
+        }
+    }
+
+    private void BuyAmmo(int index)
     {
         if(_shopItemCtrl.SelectPlayerItem(index, out IItem item))
         {
@@ -55,15 +79,24 @@ public class ShopManager : DestroySingleton<ShopManager>
             // EventBus_Currency.Publish(RemoveMoney)
         }
     }
-
-    public void SellItemHandler(int index)
+    private void BuyFullAmmo(int index)
     {
-        if(_shopItemCtrl.SelectPlayerItem(index, out IItem item))
+        if (_shopItemCtrl.SelectPlayerItem(index, out IItem item))
+        {
+            // EventBus << Ammo Add
+            // EventBus_Currency.Publish(RemoveMoney)
+        }
+    }
+
+    public void SellItemHandler(ShopSellWeapon evt)
+    {
+        if(_shopItemCtrl.SelectPlayerItem(evt.index, out IItem item))
         {
             EventBus_Item.Publish(new ItemChangedEvent(item, player, ItemEventType.remove, item.itemID));
             EventBus_Currency.Publish(new CurrencyChangeEvent(player, CurrencyChangeEventType.Add, 999));
             // UI 이벤트 송신
-        }
+        }else
+            Debug.Log($"ShopManager.cs - SellItemHandler() - {evt.index} is Can't Select Item");
     }
 
     public void BuyArmor(int index)
