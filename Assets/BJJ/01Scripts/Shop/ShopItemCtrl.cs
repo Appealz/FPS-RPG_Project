@@ -47,4 +47,10 @@ public class ShopItemCtrl
         selectItem = item;
         return true;
     }
+
+    public void RemoveShopItem(int index)
+    {
+        selectedItemList.RemoveAt(index);
+        UpdateList();
+    }
 }

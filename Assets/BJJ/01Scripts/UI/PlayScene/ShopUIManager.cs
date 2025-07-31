@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,14 +10,16 @@ public interface IShopUI
     event Action<int> OnWeaponBuyEvent;
     event Action<int> OnWeaponSellEvent;
     event Action<AmmoRefillType,int> OnWeaponAmmoRefillEvent;
-    event Action<int> OnArmorBuyEvent;
-    event Action<MedikitBuyType, int> OnMedikitBuyEvent;
+    event Action<ShopArmorBtnType, int> OnArmorBuyEvent;
+    event Action<HealkitBuyType> OnHealkitBuyEvent;
 
     void Init(Transform canvas);
 
     void ShopOnOff(bool isOn);
 
-    void ShopUpdate(List<IItem> showSellList, List<IItem> playerInven);
+    void ShopItemUpdate(List<IItem> showSellList, List<IItem> playerInven);
+    void ArmorUpdate();
+    void HealkitFullBuyPriceUpdate();
 }
 
 public class ShopUIManager : MonoBehaviour, IShopUI
@@ -25,12 +27,21 @@ public class ShopUIManager : MonoBehaviour, IShopUI
     private Transform canvas;
     private List<ShopItemBlock> shopBuyBlocks = new List<ShopItemBlock>();
     private List<ShopPlayerInvenBlock> shopPlayerInvenBlocks = new List<ShopPlayerInvenBlock>();
+    private List<ShopArmorBlock> shopArmorBlocks = new List<ShopArmorBlock>();
+
+    private TextMeshProUGUI healkitBuyPriceText;
+    private TextMeshProUGUI healkitFullBuyPriceText;
+    private TextMeshProUGUI curHealkitCountText;
+
+    private Button healkitBuyBtn;
+    private Button healkitFullBuyBtn;
+    private Button shopUICloseBtn;
 
     public event Action<int> OnWeaponBuyEvent;
     public event Action<int> OnWeaponSellEvent;
     public event Action<AmmoRefillType, int> OnWeaponAmmoRefillEvent;
-    public event Action<int> OnArmorBuyEvent;
-    public event Action<MedikitBuyType, int> OnMedikitBuyEvent;
+    public event Action<ShopArmorBtnType,int> OnArmorBuyEvent;
+    public event Action<HealkitBuyType> OnHealkitBuyEvent;
 
     public void Init(Transform newCanvas)
     {
@@ -58,6 +69,53 @@ public class ShopUIManager : MonoBehaviour, IShopUI
                 shopPlayerInvenBlocks[i].BlockInit(i, OnWeaponSellEvent, OnWeaponAmmoRefillEvent);
             }
         }
+
+        var armorUI = MyUtility.GetChildrenTrans(canvas, "ArmorUI");
+        if(armorUI == null)
+            Debug.Log("ShopUIManager.cs - Init() - ArmorUI Non Reference");
+        else
+        {
+            shopArmorBlocks = armorUI.GetComponentsInChildren<ShopArmorBlock>().ToList();
+            for(int i = 0; i < shopArmorBlocks.Count; i++)
+            {
+                shopArmorBlocks[i].BlockInit(i, OnArmorBuyEvent);
+            }
+        }
+
+        if (!MyUtility.GetChildrenTrans(canvas, "HealkitBuyBtn").TryGetComponent<Button>(out healkitBuyBtn))
+        {
+            Debug.Log("ShopUIManager.cs - Init() - HealkitBuyBtn Non Reference");
+        }
+        else
+            healkitBuyBtn.onClick.AddListener(() => OnHealkitBuyEvent?.Invoke(HealkitBuyType.Normal));
+        if (!MyUtility.GetChildrenTrans(canvas, "HealkitFullBuyBtn").TryGetComponent<Button>(out healkitFullBuyBtn))
+        {
+            Debug.Log("ShopUIManager.cs - Init() - HealkitFullBuyBtn Non Reference");
+        }
+        else
+            healkitFullBuyBtn.onClick.AddListener(() => OnHealkitBuyEvent?.Invoke(HealkitBuyType.Max));
+
+        if(!MyUtility.GetChildrenTrans(canvas, "HealkitBuyPriceText").TryGetComponent<TextMeshProUGUI>(out healkitBuyPriceText))
+            Debug.Log("ShopUIManager.cs - Init() - HealkitBuyPriceText Non Reference");
+        else
+        {
+            EventBus_HealkitPriceQueryEvent.Publish(new HealkitPriceQueryEvent((query) =>
+            {
+                healkitBuyPriceText.text = $"{query.price}";
+            }));
+        }
+        if (!MyUtility.GetChildrenTrans(canvas, "HealkitFullBuyPriceText").TryGetComponent<TextMeshProUGUI>(out healkitFullBuyPriceText))
+            Debug.Log("ShopUIManager.cs - Init() - HealkitFullBuyPriceText Non Reference");
+
+        if (!MyUtility.GetChildrenTrans(canvas, "CurHealkitCountText").TryGetComponent<TextMeshProUGUI>(out curHealkitCountText))
+            Debug.Log("ShopUIManager.cs - Init() - CurHealkitCountText Non Reference");
+
+        if (!MyUtility.GetChildrenTrans(canvas, "ShopCloseBtn").TryGetComponent<Button>(out shopUICloseBtn))
+        {
+            Debug.Log("ShopUIManager.cs - Init() - ShopCloseBtn Non Reference");
+        }
+        else
+            shopUICloseBtn.onClick.AddListener(() => ShopOnOff(false));
     }
 
     public void ShopOnOff(bool isOn)
@@ -65,7 +123,7 @@ public class ShopUIManager : MonoBehaviour, IShopUI
         canvas.gameObject.SetActive(isOn);
     }
 
-    public void ShopUpdate(List<IItem> showSellList, List<IItem> playerInven)
+    public void ShopItemUpdate(List<IItem> showSellList, List<IItem> playerInven)
     {
         for(int i = 0; i < showSellList.Count; i++)
         {
@@ -75,6 +133,26 @@ public class ShopUIManager : MonoBehaviour, IShopUI
         for (int i = 0; i< playerInven.Count; i++)
         {
             shopPlayerInvenBlocks[i].BlockUpdate(playerInven[i]);
+        }
+    }
+
+    public void HealkitFullBuyPriceUpdate()
+    {
+        EventBus_HealkitPriceQueryEvent.Publish(new HealkitPriceQueryEvent((query) =>
+        {
+            healkitFullBuyPriceText.text = $"{query.maxPrice}";
+        }));
+        EventBus_HealkitQueryEvent.Publish(new HealkitQueryEvent((query) =>
+        {
+            curHealkitCountText.text = $"{query.curCount} / {query.maxCount}";
+        }));
+    }
+
+    public void ArmorUpdate()
+    {
+        foreach (var armorBlock in shopArmorBlocks)
+        {
+            armorBlock.BlockUpdate();
         }
     }
 }

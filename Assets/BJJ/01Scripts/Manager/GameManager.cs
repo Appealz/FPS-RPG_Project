@@ -130,7 +130,7 @@ public class GameManager : DestroySingleton<GameManager>
         isShoppingTime = true;
         curTime = 0f;
         ShopManager.Instance.ShopUpdate();
-        // EventBus_ShopUI.Publish(true); 
+        EventBus_ShopIsOn.Publish(new ShopIsOnEvent(true));
     }
 
     private void PauseHandler(bool value)

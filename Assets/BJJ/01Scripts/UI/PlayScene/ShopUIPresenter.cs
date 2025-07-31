@@ -18,19 +18,27 @@ public class ShopUIPresenter
     {
         shopUI = view;
         EventBus_ShopIsOn.Subscribe(UIOnOff);
-        EventBus_ShopItemUpdate.Subscribe(ShopItemUpdate);
+        EventBus_ShopItemUpdate.Subscribe(ShopItemUpdateHandler);
+        EventBus_ArmorUIUpdateEvent.Subscribe(ShopArmorUpdateHandler);
+        EventBus_HealkitUIUpdateEvent.Subscribe(ShopHealkitUpdateHandler);
         shopUI.OnWeaponBuyEvent += WeaponBuyHandler;
         shopUI.OnWeaponSellEvent += WeaponSellHandler;
         shopUI.OnWeaponAmmoRefillEvent += WeaponAmmoRefillHandler;
+        shopUI.OnHealkitBuyEvent += HealkitBuyHandler;
+        shopUI.OnArmorBuyEvent += ArmorBuyBtnHandler;
     }
 
     public void DisableUI()
     {
         EventBus_ShopIsOn.UnSubscribe(UIOnOff);
-        EventBus_ShopItemUpdate.UnSubscribe(ShopItemUpdate);
+        EventBus_ShopItemUpdate.UnSubscribe(ShopItemUpdateHandler);
+        EventBus_HealkitUIUpdateEvent.UnSubscribe(ShopHealkitUpdateHandler);
+        EventBus_ArmorUIUpdateEvent.UnSubscribe(ShopArmorUpdateHandler);
         shopUI.OnWeaponBuyEvent -= WeaponBuyHandler;
         shopUI.OnWeaponSellEvent -= WeaponSellHandler;
         shopUI.OnWeaponAmmoRefillEvent -= WeaponAmmoRefillHandler;
+        shopUI.OnHealkitBuyEvent -= HealkitBuyHandler;
+        shopUI.OnArmorBuyEvent -= ArmorBuyBtnHandler;
     }
 
     private void UIOnOff(ShopIsOnEvent evt)
@@ -52,8 +60,28 @@ public class ShopUIPresenter
         EventBus_ShopAmmoRefillEvent.Publish(new ShopAmmoRefillEvent(type, index));
     }
 
-    private void ShopItemUpdate(ShopItemUpdateEvent evt)
+    private void HealkitBuyHandler(HealkitBuyType type)
     {
-        shopUI.ShopUpdate(evt.shopItemList, evt.playerInven);
+        EventBus_ShopHealkitBuyEvent.Publish(new HealkitBuyEvent(type));
+    }
+
+    private void ArmorBuyBtnHandler(ShopArmorBtnType type, int index)
+    {
+        EventBus_ArmorBuyEvent.Publish(new ArmorBuyEvent(type, index));
+    }
+
+    private void ShopItemUpdateHandler(ShopItemUpdateEvent evt)
+    {
+        shopUI.ShopItemUpdate(evt.shopItemList, evt.playerInven);
+    }
+
+    private void ShopHealkitUpdateHandler(HealkitUIUpdateEvent evt)
+    {
+        shopUI.HealkitFullBuyPriceUpdate();
+    }
+
+    private void ShopArmorUpdateHandler(ArmorUIUpdateEvent evt)
+    {
+        shopUI.ArmorUpdate();
     }
 }

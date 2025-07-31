@@ -55,11 +55,6 @@ public static class EventBus_Currency
         EventBus.Subscribe(newMethod);
     }
 
-    public static void Subscribe(Action<CurrencyCheckEvent> newMethod)
-    {
-        EventBus.Subscribe(newMethod);
-    }
-
     public static void UnSubscribe(Action<CurrencyChangeEvent> newMethod)
     {
         EventBus.UnSubscribe(newMethod);
