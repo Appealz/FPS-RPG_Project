@@ -116,6 +116,8 @@ public class ShopUIManager : MonoBehaviour, IShopUI
         }
         else
             shopUICloseBtn.onClick.AddListener(() => ShopOnOff(false));
+
+        canvas.gameObject.SetActive(false);
     }
 
     public void ShopOnOff(bool isOn)

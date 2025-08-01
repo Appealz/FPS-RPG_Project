@@ -36,17 +36,19 @@ public class GameManager : DestroySingleton<GameManager>
 
     private void Start()
     {
-        DontResetSetting();
+        DontResetSetting().Forget();
         ResetSetting();
     }
 
-    private async Task DontResetSetting()
+    private async UniTaskVoid DontResetSetting()
     {
-        await SetStaticObject();
         EnemyAnimEventDataManager.InitEnemyAnimData();
         roundManager = new RoundManager();
         roundManager.InitRoundManager();
         roundManager.OnRoundEnd += RoundEndHandler;
+        ShopManager.Instance.InitShop();
+        TestUIManager.Instance.InitTestUI();
+        await SetStaticObject();
     }
 
     private async UniTask SetStaticObject()
@@ -129,8 +131,8 @@ public class GameManager : DestroySingleton<GameManager>
 
         isShoppingTime = true;
         curTime = 0f;
-        ShopManager.Instance.ShopUpdate();
         EventBus_ShopIsOn.Publish(new ShopIsOnEvent(true));
+        ShopManager.Instance.ShopUpdate();
     }
 
     private void PauseHandler(bool value)

@@ -27,6 +27,7 @@ public class ShopArmorBlock : MonoBehaviour
         if(!DataManager.Instance.GetArmorData(armorId, out data))
         {
             Debug.Log($"{gameObject.name}_ShopArmorBlock.cs - BlockInit() - Error ID {armorId}");
+            return;
         }
 
         if (!MyUtility.GetChildrenTrans(transform, "ArmorNameText").TryGetComponent<TextMeshProUGUI>(out armorNameText))
@@ -75,7 +76,7 @@ public class ShopArmorBlock : MonoBehaviour
     {
         EventBus_ArmorQueryEvent.Publish(new ArmorQueryEvent((evt) =>
         {
-            if(evt.curArmor.itemID == data.id && evt.isEquipArmor)
+            if(evt.isEquipArmor && evt.curArmor.itemID == data.id)
             {
                 type = ShopArmorBtnType.Repair;
                 armorDurabilityText.gameObject.SetActive(true);
@@ -88,7 +89,9 @@ public class ShopArmorBlock : MonoBehaviour
             else
             {
                 type = ShopArmorBtnType.Buy;
-                armorDurabilityText.gameObject.SetActive(false);
+                if(armorDurabilityText.gameObject.activeSelf)
+                    armorDurabilityText.gameObject.SetActive(false);
+
                 armorPrice.text = data.price.ToString();
                 btnText.text = "±¸¸Å";
             }

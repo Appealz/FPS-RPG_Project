@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class ShopPlayerInvenBlock : MonoBehaviour
 {
     private TextMeshProUGUI weaponCurAmmoText;
+    private TextMeshProUGUI refillPriceText;
+    private TextMeshProUGUI fullRefillPriceText;
     private Button ammoRefillBtn;
     private Button ammoFullRefillBtn;
 
@@ -30,16 +32,32 @@ public class ShopPlayerInvenBlock : MonoBehaviour
         }
         else ammoRefillBtn.onClick.AddListener(() => onAmmoRefillEvent.Invoke(AmmoRefillType.Normal, index));
 
+        if (!MyUtility.GetChildrenTrans(ammoRefillBtn.transform, "RefillPriceText").TryGetComponent<TextMeshProUGUI>(out refillPriceText))
+        {
+            Debug.Log($"{gameObject.name}_ShopPlayerInvenBlock.cs - BlockInit() - Can't Find RefillPriceText");
+        }
+
         if (!MyUtility.GetChildrenTrans(transform, "AmmoFullRefillBtn").TryGetComponent<Button>(out ammoFullRefillBtn))
         {
             Debug.Log($"{gameObject.name}_ShopPlayerInvenBlock.cs - BlockInit() - Can't Find AmmoFullRefillBtn");
         }
         else ammoFullRefillBtn.onClick.AddListener(() => onAmmoRefillEvent.Invoke(AmmoRefillType.Max, index));
+
+        if (!MyUtility.GetChildrenTrans(ammoFullRefillBtn.transform, "FullRefillPriceText").TryGetComponent<TextMeshProUGUI>(out fullRefillPriceText))
+        {
+            Debug.Log($"{gameObject.name}_ShopPlayerInvenBlock.cs - BlockInit() - Can't Find FullRefillPriceText");
+        }
     }
 
     public void BlockUpdate(IItem newItem)
     {
         block.BlockUpdate(newItem);
-        weaponCurAmmoText.text = newItem.GetItemCurrentData().currentMagazine.ToString();
+
+        if (newItem == null)
+            return;
+
+        weaponCurAmmoText.text = $"{newItem.GetItemCurrentData().currentMagazine} / {newItem.GetItemCurrentData().maxAmmo}";
+        refillPriceText.text = "100";
+        fullRefillPriceText.text = $"{(newItem.GetItemCurrentData().maxAmmo - newItem.GetItemCurrentData().currentMagazine) * 100}";
     }
 }

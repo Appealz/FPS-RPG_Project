@@ -13,6 +13,8 @@ public class ShopItemBlock : MonoBehaviour
     private TextMeshProUGUI weaponMaxAmmoText;
     private TextMeshProUGUI weaponPriceText;
 
+    private GameObject blockContent;
+
     private Button blockBtn;
 
     public void InitBlock(int blockIndex, Action<int> onBlockBtn)
@@ -51,10 +53,23 @@ public class ShopItemBlock : MonoBehaviour
         }
         else
             blockBtn.onClick.AddListener(() => onBlockBtn.Invoke(blockIndex));
+
+        blockContent = MyUtility.GetChildrenTrans(transform, "BlockContent").gameObject;
+        if(blockContent == null)
+            Debug.Log($"{gameObject.name}_ShopItemBlock.cs - InitBlock() - BlockContent Can't Find");
     }
 
     public void BlockUpdate(IItem newItem)
     {
+        if(newItem == null)
+        {
+            blockContent.SetActive(false);
+            return;
+        }
+
+        if (!blockContent.activeSelf)
+            blockContent.SetActive(true);
+
         var data = newItem.GetItemCurrentData();
         weaponNameText.text = data.name;
         weaponLevelText.text = data.level.ToString();

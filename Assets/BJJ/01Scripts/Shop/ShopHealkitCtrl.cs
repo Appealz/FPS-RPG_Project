@@ -8,6 +8,11 @@ public class ShopHealkitCtrl
     {
         get
         {
+            if(curPlayerHealkit == null)
+            {
+                return 0;
+            }
+
             int buyCount = curPlayerHealkit.GetItemCurrentData().maxAmmo - curPlayerHealkit.GetItemCurrentData().currentMagazine;
             return healkitPrice * buyCount;
         }
@@ -17,6 +22,12 @@ public class ShopHealkitCtrl
     {
         // todo 플레이어 인벤토리의 힐킷칸 연결
         // 플레이어의 특전 등에 의해서 가격이 변동되는걸 여기서 반영해서 캐싱해둠
+
+        if(curPlayerHealkit == null)
+        {
+            Debug.Log("ShopHealkitCtrl.cs - Init() - curPlayerHealkit can't Reference");
+            return;
+        }    
         healkitPrice = curPlayerHealkit.GetItemCurrentData().price;
     }
 
