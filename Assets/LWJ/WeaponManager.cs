@@ -32,16 +32,19 @@ public class WeaponManager : DestroySingleton<WeaponManager>
         ClassData selectClassData = ContextManager.Instance.TestPlayGameContext().playClassData;
         int playerMainWeaponID = selectClassData.GetEquippedItemID(itemSlotType.Main);
         DataManager.Instance.GetWeaponData(playerMainWeaponID, out WeaponData_Entity saveWeaponData);
-        int weaponLevel = saveWeaponData.weaponLevel;
-        List<WeaponData_Entity> weaponIDList = DataManager.Instance.GetWeaponList();
-        foreach (var weapon in weaponIDList)
-        {
-            if (weapon.weaponLevel >= weaponLevel)
-            {
-                itemDatas[weapon.id] = new WeaponData(weapon);
-                await CreateWeaponPool(weapon.id);
-            }
-        }
+        //int weaponLevel = saveWeaponData.weaponLevel;
+        //List<WeaponData_Entity> weaponIDList = DataManager.Instance.GetWeaponList();
+        //foreach (var weapon in weaponIDList)
+        //{
+        //    if (weapon.weaponLevel >= weaponLevel)
+        //    {
+        //        itemDatas[weapon.id] = new WeaponData(weapon);
+        //        await CreateWeaponPool(weapon.id);
+        //    }
+        //}
+
+        itemDatas[saveWeaponData.id] = new WeaponData(saveWeaponData);
+        await CreateWeaponPool(saveWeaponData.id);
     }
 
     private async UniTask CreateWeaponPool(int id)
@@ -71,21 +74,15 @@ public class WeaponManager : DestroySingleton<WeaponManager>
         weaponPoolDic[id] = newPool;
     }
 
-    public IItem GetItemData(int weaponID)
+    public ItemData GetItemData(int weaponID)
     {
-        if (!weaponPoolDic.TryGetValue(weaponID, out var item) || item == null)
+        if (!itemDatas.TryGetValue(weaponID, out var item) || item == null)
         {
             Debug.LogError($"[WeaponManager] weaponPoolDic에 ID {weaponID}에 대한 풀이 없습니다.");
             return null;
         }
 
-        if (!item.TryGetComponent<IItem>(out var newItemData))
-        {
-            Debug.LogError($"[WeaponManager] ID {weaponID}의 풀 오브젝트에 IItem 컴포넌트가 없습니다.");
-            return null;
-        }
-
-        return newItemData;
+        return item;
 
         //weaponPoolDic.TryGetValue(weaponID, out var item);
         //item.TryGetComponent<IItem>(out IItem newItemData);
@@ -94,8 +91,53 @@ public class WeaponManager : DestroySingleton<WeaponManager>
 
     public GameObject EquipWeapon(int weaponID)
     {
-        weapons.TryGetValue(weaponID, out GameObject weapon);
-        return weapon;
+        //weapons.TryGetValue(weaponID, out GameObject weapon);
+        //return weapon;
+
+        if (weaponPoolDic.TryGetValue(weaponID, out Pool pool))
+        {
+            GameObject weapon = pool.GetObjFromPool();
+
+            if (weapon != null)
+            {
+                weapon.SetActive(true); // 필요 시 활성화
+                return weapon;
+            }
+            else
+            {
+                Debug.LogWarning($"[WeaponManager] 무기 풀에서 무기 꺼내기 실패 - ID: {weaponID}");
+                return null;
+            }
+        }
+        else
+        {
+            Debug.LogError($"[WeaponManager] weaponPoolDic에 무기 ID {weaponID} 대한 풀 없음");
+            return null;
+        }
+    }
+
+    public IItem GetItemInterface(int weaponID)
+    {
+        if (weaponPoolDic.TryGetValue(weaponID, out Pool pool))
+        {
+            GameObject weapon = pool.GetObjFromPool();
+
+            if (weapon != null)
+            {
+                weapon.TryGetComponent<IItem>(out IItem item);
+                return item;
+            }
+            else
+            {
+                Debug.LogWarning($"[WeaponManager] 무기 풀에서 무기 꺼내기 실패 - ID: {weaponID}");
+                return null;
+            }
+        }
+        else
+        {
+            Debug.LogError($"[WeaponManager] weaponPoolDic에 무기 ID {weaponID} 대한 풀 없음");
+            return null;
+        }        
     }
 
     public void ReturnWeapon(GameObject returnWeapon)

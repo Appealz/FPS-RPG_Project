@@ -24,6 +24,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: Assets/LWJ/Prefab/Rifle.prefab
+    slotType: Main
   - id: 1002
     name: rifle02
     damagePerShot: 25
@@ -35,6 +37,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 2
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1003
     name: rifle03
     damagePerShot: 25
@@ -46,6 +50,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 3
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1004
     name: rifle04
     damagePerShot: 25
@@ -57,6 +63,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 4
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1005
     name: rifle05
     damagePerShot: 25
@@ -68,6 +76,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 5
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1006
     name: shotgun01
     damagePerShot: 10
@@ -79,6 +89,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: Assets/LWJ/Prefab/ShotGun.prefab
+    slotType: Main
   - id: 1007
     name: shotgun02
     damagePerShot: 10
@@ -90,6 +102,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1008
     name: shotgun03
     damagePerShot: 10
@@ -101,6 +115,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1009
     name: shotgun04
     damagePerShot: 10
@@ -112,6 +128,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1010
     name: shotgun05
     damagePerShot: 10
@@ -123,6 +141,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1011
     name: heavygun01
     damagePerShot: 35
@@ -134,6 +154,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: Assets/LWJ/Prefab/HeavyGun.prefab
+    slotType: Main
   - id: 1012
     name: heavygun02
     damagePerShot: 35
@@ -145,6 +167,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1013
     name: heavygun03
     damagePerShot: 35
@@ -156,6 +180,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1014
     name: heavygun04
     damagePerShot: 35
@@ -167,6 +193,8 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1015
     name: heavygun05
     damagePerShot: 35
@@ -178,28 +206,34 @@ MonoBehaviour:
     price: 500
     weaponLevel: 1
     weaponType: range
+    path: 
+    slotType: Main
   - id: 1016
     name: revolver
     damagePerShot: 25
     fireRate: 0.8
     ammoPerReload: 12
-    maxAmmo: 48
+    maxAmmo: -1
     range: 50
     weight: 0
     price: 0
     weaponLevel: 1
     weaponType: range
+    path: Assets/LWJ/Prefab/Revolver.prefab
+    slotType: Revolver
   - id: 1017
     name: knife
     damagePerShot: 15
     fireRate: 0.5
     ammoPerReload: 1
-    maxAmmo: 1
+    maxAmmo: 0
     range: 10
     weight: 0
     price: 0
     weaponLevel: 1
     weaponType: melee
+    path: Assets/LWJ/Prefab/Knife.prefab
+    slotType: Knife
   ArmorData:
   - id: 2001
     name: lightweight vest
@@ -212,6 +246,7 @@ MonoBehaviour:
     name: normalHealkit
     healAmount: 25
     price: 0
+    path: 
   UnitBaseStatsData:
   - id: 4001
     name: MeleeRobot
@@ -260,12 +295,15 @@ MonoBehaviour:
   - id: 4001
     attackSpeed: 3
     range: 2
+    path: 
   - id: 4002
     attackSpeed: 3
     range: 10
+    path: 
   - id: 4003
     attackSpeed: 1
     range: 5
+    path: 
   PerkData:
   - id: 50011
     name: perk01

@@ -57,6 +57,11 @@ public class Player : MonoBehaviour,ITargetable
 
     private void OnEnable()
     {
+       
+    }
+
+    public void Init()
+    {
         dataManager.InitPlayerData();
 
         playerSkill.InitSkillCtrl(skillData);

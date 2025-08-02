@@ -193,6 +193,7 @@ public class WeaponData : ItemData
     public float range;
     public float weight;
     public int weaponLevel;
+    public itemSlotType slotType;
     public WeaponData_Entity data;
 
     public WeaponData(WeaponData_Entity newData)
@@ -208,6 +209,11 @@ public class WeaponData : ItemData
         weight = newData.weight;
         price = newData.price;//
         weaponLevel = newData.weaponLevel;//
+        if (!Enum.TryParse(newData.slotType, true, out slotType))
+        {
+            Debug.Log($"[WeaponData] 슬롯 파싱 실패: {newData.slotType}, 기본값 Main 사용");
+            slotType = itemSlotType.Main;
+        }
     }
 }
 

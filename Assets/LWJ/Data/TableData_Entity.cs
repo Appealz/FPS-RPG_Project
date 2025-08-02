@@ -17,6 +17,7 @@ public class WeaponData_Entity
     public int weaponLevel;
     public string weaponType;
     public string path;
+    public string slotType;
 }
 
 [Serializable]

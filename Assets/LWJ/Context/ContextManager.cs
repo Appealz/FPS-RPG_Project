@@ -10,13 +10,17 @@ public class ContextManager : DontDestroySingleton<ContextManager>
     string playClassName = "rifler";
 
     Dictionary<itemSlotType, int> normalItemDictionary = new Dictionary<itemSlotType, int>();
+    List<int> normalItemList = new List<int>();
 
     protected override void DoAwake()
     {
         base.DoAwake();
         normalItemDictionary[itemSlotType.Main] = 1001;
         normalItemDictionary[itemSlotType.Revolver] = 1016;
-        normalItemDictionary[itemSlotType.Knife] = 1017;
+        //normalItemDictionary[itemSlotType.Knife] = 1017;
+
+        normalItemList.Add(1001);
+        normalItemList.Add(1016);
     }
 
     public void StartGameSetUp(PlayerSaveData newData)
@@ -37,7 +41,7 @@ public class ContextManager : DontDestroySingleton<ContextManager>
 
     public PlayGameContext TestPlayGameContext()
     {
-        PlayGameContext testGameContext = new PlayGameContext(new ClassData(normalItemDictionary, 3), 3);
+        PlayGameContext testGameContext = new PlayGameContext(new ClassData(normalItemDictionary, 3, normalItemList), 3);
         return testGameContext;
     }
 }

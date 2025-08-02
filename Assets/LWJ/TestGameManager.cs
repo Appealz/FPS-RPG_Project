@@ -7,15 +7,15 @@ public class TestGameManager : MonoBehaviour
 {
     Player player;
 
-    private void Awake()
+    private async void Awake()
     {
         //for (int i = 1001; i < 1015; i++)
         //{
         //    WeaponManager.Instance.CreateWeapon(i);
         //}
-        WeaponManager.Instance.CreateItemData().Forget();
-        player = GetComponent<Player>();
-        
+        await WeaponManager.Instance.CreateItemData();
+        player = FindAnyObjectByType<Player>();
+        player.Init();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
