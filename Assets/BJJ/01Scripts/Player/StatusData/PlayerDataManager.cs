@@ -34,6 +34,7 @@ public class PlayerDataManager : MonoBehaviour
         EventBus_CurrencyCheck.Subscribe(CurrencyCheckHandler);
         EventBus_CurrencyQuery.Subscribe(CurrencyQueryHandler);
         EventBus_ArmorQueryEvent.Subscribe(ArmorQueryHandler);
+        EventBus_InvenData.Subscribe(PlayerInvenListQueryHandler);
     }
 
     private void OnDisable()
@@ -45,6 +46,7 @@ public class PlayerDataManager : MonoBehaviour
         EventBus_CurrencyCheck.UnSubscribe(CurrencyCheckHandler);
         EventBus_CurrencyQuery.UnSubscribe(CurrencyQueryHandler);
         EventBus_ArmorQueryEvent.UnSubscribe(ArmorQueryHandler);
+        EventBus_InvenData.UnSubscribe(PlayerInvenListQueryHandler);
     }
 
     // todo 이벤트 버스 구현 후 이벤트 버스로 이벤트를 받는 핸들러 구현 필요
@@ -127,5 +129,10 @@ public class PlayerDataManager : MonoBehaviour
     private void ArmorQueryHandler(ArmorQueryEvent evt)
     {
         evt.OnEquipArmorEvent?.Invoke(statManager.armorManager.GetEquipArmorData());
+    }
+
+    private void PlayerInvenListQueryHandler(InvenDataEvent evt)
+    {
+        evt.onInvenItemListEvent?.Invoke(inventory.GetEquippedItems());
     }
 }

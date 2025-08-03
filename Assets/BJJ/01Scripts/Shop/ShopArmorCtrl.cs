@@ -11,7 +11,7 @@ public class ShopArmorCtrl
     public void Init()
     {
         //todo 데이터 매니저에서 리스트로 가져올 예정
-
+        armorList.Capacity = 3;
     }
 
     public void BuyArmor(GameObject player, int index)
@@ -22,7 +22,7 @@ public class ShopArmorCtrl
 
     public void RepairArmor()
     {
-        //
+        //equipItem.GetItemCurrentData().currentMagazine = equipItem.GetItemCurrentData().durability;
     }
 
     public void ArmorUpdate()
@@ -42,6 +42,9 @@ public class ShopArmorCtrl
 
     public int ArmorPrice(int index)
     {
+        if (index < 0 || armorList.Count <= index)
+            return -1;
+
         return armorList[index].price;
     }
 

@@ -52,9 +52,10 @@ public class ShopPlayerInvenBlock : MonoBehaviour
     public void BlockUpdate(IItem newItem)
     {
         block.BlockUpdate(newItem);
-
         if (newItem == null)
+        {
             return;
+        }
 
         weaponCurAmmoText.text = $"{newItem.GetItemCurrentData().currentMagazine} / {newItem.GetItemCurrentData().maxAmmo}";
         refillPriceText.text = "100";

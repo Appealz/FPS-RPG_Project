@@ -91,6 +91,7 @@ public class GameManager : DestroySingleton<GameManager>
         foreach (Player p in players)
         {
             PlayerScanManager.Instance.RegisterTarget(p);
+            p.Init();
         }
 
         EnemyTotalManager.Instance.InitEnemyManager();

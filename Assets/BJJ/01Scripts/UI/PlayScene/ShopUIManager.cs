@@ -25,9 +25,9 @@ public interface IShopUI
 public class ShopUIManager : MonoBehaviour, IShopUI
 {
     private Transform canvas;
-    private List<ShopItemBlock> shopBuyBlocks = new List<ShopItemBlock>();
-    private List<ShopPlayerInvenBlock> shopPlayerInvenBlocks = new List<ShopPlayerInvenBlock>();
-    private List<ShopArmorBlock> shopArmorBlocks = new List<ShopArmorBlock>();
+    [SerializeField] private List<ShopItemBlock> shopBuyBlocks = new List<ShopItemBlock>();
+    [SerializeField] private List<ShopPlayerInvenBlock> shopPlayerInvenBlocks = new List<ShopPlayerInvenBlock>();
+    [SerializeField] private List<ShopArmorBlock> shopArmorBlocks = new List<ShopArmorBlock>();
 
     private TextMeshProUGUI healkitBuyPriceText;
     private TextMeshProUGUI healkitFullBuyPriceText;
@@ -55,7 +55,7 @@ public class ShopUIManager : MonoBehaviour, IShopUI
             shopBuyBlocks = buyListRoot.GetComponentsInChildren<ShopItemBlock>().ToList();
             for (int i = 0; i < shopBuyBlocks.Count; i++)
             {
-                shopBuyBlocks[i].InitBlock(i, OnWeaponBuyEvent);
+                shopBuyBlocks[i].InitBlock(i, OnWeaponBuyEventHandler);
             }
         }
         var playerInven = MyUtility.GetChildrenTrans(canvas, "PlayerInvenShow");
@@ -66,7 +66,7 @@ public class ShopUIManager : MonoBehaviour, IShopUI
             shopPlayerInvenBlocks = playerInven.GetComponentsInChildren<ShopPlayerInvenBlock>().ToList();
             for(int i = 0; i < shopPlayerInvenBlocks.Count; i++)
             {
-                shopPlayerInvenBlocks[i].BlockInit(i, OnWeaponSellEvent, OnWeaponAmmoRefillEvent);
+                shopPlayerInvenBlocks[i].BlockInit(i, OnWeaponSellEvent, OnWeaponAmmoRefillEventHandler);
             }
         }
 
@@ -78,7 +78,7 @@ public class ShopUIManager : MonoBehaviour, IShopUI
             shopArmorBlocks = armorUI.GetComponentsInChildren<ShopArmorBlock>().ToList();
             for(int i = 0; i < shopArmorBlocks.Count; i++)
             {
-                shopArmorBlocks[i].BlockInit(i, OnArmorBuyEvent);
+                shopArmorBlocks[i].BlockInit(i, OnArmorBuyEventHandler);
             }
         }
 
@@ -123,16 +123,23 @@ public class ShopUIManager : MonoBehaviour, IShopUI
     public void ShopOnOff(bool isOn)
     {
         canvas.gameObject.SetActive(isOn);
+        Cursor.visible = isOn;
+        if(Cursor.visible)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+            Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void ShopItemUpdate(List<IItem> showSellList, List<IItem> playerInven)
     {
-        for(int i = 0; i < showSellList.Count; i++)
+        for(int i = 0; i < shopBuyBlocks.Count; i++)
         {
             shopBuyBlocks[i].BlockUpdate(showSellList[i]);
         }
 
-        for (int i = 0; i< playerInven.Count; i++)
+        for (int i = 0; i< shopPlayerInvenBlocks.Count; i++)
         {
             shopPlayerInvenBlocks[i].BlockUpdate(playerInven[i]);
         }
@@ -148,6 +155,26 @@ public class ShopUIManager : MonoBehaviour, IShopUI
         {
             curHealkitCountText.text = $"{query.curCount} / {query.maxCount}";
         }));
+    }
+
+    private void OnWeaponBuyEventHandler(int index)
+    {
+        OnWeaponBuyEvent?.Invoke(index);
+    }
+
+    private void OnWeaponSellEventHandler(int index)
+    {
+        OnWeaponSellEvent?.Invoke(index);
+    }
+
+    private void OnWeaponAmmoRefillEventHandler(AmmoRefillType type, int index)
+    {
+        OnWeaponAmmoRefillEvent?.Invoke(type, index);
+    }
+
+    private void OnArmorBuyEventHandler(ShopArmorBtnType type, int index)
+    {
+        OnArmorBuyEvent?.Invoke(type, index);
     }
 
     public void ArmorUpdate()

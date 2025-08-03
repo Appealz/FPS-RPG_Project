@@ -11,16 +11,36 @@ public class ShopItemCtrl
     
     public void Init()
     {
-        // PlayerInventory 연결
+        selectedItemList = new List<IItem>();
+        for (int i = 0; i < 3; i++)
+        {
+            selectedItemList.Add(null);
+        }
+
+        playerCurItems = new List<IItem>();
+        for (int i = 0; i < 2; i++)
+        {
+            playerCurItems.Add(null);
+        }
     }
 
     public void UpdateList()
     {
         // todo Random 리스트 만들기
-        selectedItemList = new List<IItem>();
-        selectedItemList.Capacity = 3;
-        playerCurItems = new List<IItem>();
-        playerCurItems.Capacity = 2;
+
+        EventBus_InvenData.Publish(new InvenDataEvent((query) =>
+        {
+            for (int i = 0; i < query.Count; i++)
+            {
+                if(DataManager.Instance.GetWeaponData(query[i].itemID, out var data))
+                {
+                    if(data.weaponType == "Main")
+                    {
+                        playerCurItems[i] = query[i];
+                    }
+                }
+            }
+        }));
 
         EventBus_ShopItemUpdate.Publish(new ShopItemUpdateEvent(selectedItemList, playerCurItems.ToList()));
     }

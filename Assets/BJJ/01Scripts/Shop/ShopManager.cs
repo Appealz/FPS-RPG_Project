@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -62,6 +63,7 @@ public class ShopManager : DestroySingleton<ShopManager>
                 EventBus_Item.Publish(new ItemChangedEvent(buyItem, player, ItemEventType.add, buyItem.itemID));
                 EventBus_Currency.Publish(new CurrencyChangeEvent(player, CurrencyChangeEventType.Remove, buyItem.GetItemCurrentData().price));
                 _shopItemCtrl.RemoveShopItem(evt.index);
+                ShopUpdate();
             }));
             return;
         }
@@ -85,16 +87,43 @@ public class ShopManager : DestroySingleton<ShopManager>
     {
         if(_shopItemCtrl.SelectPlayerItem(index, out IItem item))
         {
-            // EventBus << Ammo Add
-            // EventBus_Currency.Publish(RemoveMoney)
+            if (item.GetItemCurrentData().currentMagazine >= item.GetItemCurrentData().maxAmmo)
+                return;
+
+            EventBus_CurrencyCheck.Publish(new CurrencyCheckEvent(player, 100, (canBuy) =>
+            {
+                if(!canBuy)
+                {
+                    Debug.Log("ShopManager.cs - BuyAmmo() - Ammo Can't Buy");
+                    return;
+                }
+
+                _shopItemCtrl.AmmoRefill(index);
+                EventBus_Currency.Publish(new CurrencyChangeEvent(player, CurrencyChangeEventType.Remove, 100));
+            }));
         }
     }
     private void BuyFullAmmo(int index)
     {
         if (_shopItemCtrl.SelectPlayerItem(index, out IItem item))
         {
-            // EventBus << Ammo Add
-            // EventBus_Currency.Publish(RemoveMoney)
+            if (item.GetItemCurrentData().currentMagazine >= item.GetItemCurrentData().maxAmmo)
+                return;
+
+            var count = item.GetItemCurrentData().maxAmmo - item.GetItemCurrentData().currentMagazine;
+            int price = count * 100;
+
+            EventBus_CurrencyCheck.Publish(new CurrencyCheckEvent(player, price, (canBuy) =>
+            {
+                if (!canBuy)
+                {
+                    Debug.Log("ShopManager.cs - BuyAmmo() - Ammo Can't Buy");
+                    return;
+                }
+
+                _shopItemCtrl.AmmoFullRefill(index);
+                EventBus_Currency.Publish(new CurrencyChangeEvent(player, CurrencyChangeEventType.Remove, price));
+            }));
         }
     }
 
@@ -104,7 +133,7 @@ public class ShopManager : DestroySingleton<ShopManager>
         {
             EventBus_Item.Publish(new ItemChangedEvent(item, player, ItemEventType.remove, item.itemID));
             EventBus_Currency.Publish(new CurrencyChangeEvent(player, CurrencyChangeEventType.Add, item.GetItemCurrentData().price));
-            // UI 이벤트 송신
+            ShopUpdate();
         }else
             Debug.Log($"ShopManager.cs - SellItemHandler() - {evt.index} is Can't Select Item");
     }
@@ -137,9 +166,27 @@ public class ShopManager : DestroySingleton<ShopManager>
 
     private void RepairArmor()
     {
-        // todo 플레이어가 장착중인 아머의 수리비를 가져와서 체크하고
-        // 가능하다면 수리 매서드를 호출 시키고 (이벤트 버스로)
-        // 비용 소모
+        EventBus_ArmorQueryEvent.Publish(new ArmorQueryEvent((query) =>
+        {
+            if(!query.isEquipArmor)
+            {
+                Debug.Log("ShopManager.cs - RepairArmor() - Player Don't Have Armor");
+                return;
+            }
+
+            EventBus_CurrencyCheck.Publish(new CurrencyCheckEvent(player, _armorCtrl.RepairPrice(), (canBuy) =>
+            {
+                if(!canBuy)
+                {
+                    Debug.Log($"ShopManager.cs - SellItemHandler() - Can't Repair");
+                    return;
+                }
+
+                _armorCtrl.RepairArmor();
+                EventBus_Currency.Publish(new CurrencyChangeEvent(player, CurrencyChangeEventType.Remove, _armorCtrl.RepairPrice()));
+                ShopUpdate();
+            }));
+        }));
     }
 
     private void BuyHealkitHandler(HealkitBuyEvent evt)
@@ -166,6 +213,8 @@ public class ShopManager : DestroySingleton<ShopManager>
             }
 
             _healkitCtrl.BuyHealkit();
+            EventBus_Currency.Publish(new CurrencyChangeEvent(player, CurrencyChangeEventType.Remove, _healkitCtrl.healkitPrice));
+            ShopUpdate();
         }));
     }
 
@@ -181,7 +230,10 @@ public class ShopManager : DestroySingleton<ShopManager>
                 Debug.Log("ShopManager.cs - BuyHealkit() - Can MaxBuy Healkit");
                 return;
             }
+
             _healkitCtrl.BuyHealKitFull();
+            EventBus_Currency.Publish(new CurrencyChangeEvent(player, CurrencyChangeEventType.Remove, _healkitCtrl.maxBuyPrice));
+            ShopUpdate();
         }));
     }
 

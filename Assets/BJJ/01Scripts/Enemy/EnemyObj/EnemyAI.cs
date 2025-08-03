@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public interface IEnemyAI
@@ -21,7 +22,16 @@ public class EnemyAI : MonoBehaviour, IEnemyAI
     public void AIUpdate()
     {
         if (context.curTarget == null || !context.curTarget.IsAlive)
-            context.SetTarget(PlayerScanManager.Instance.FindNearst(transform.position));
+        {
+            var t = PlayerScanManager.Instance.FindNearst(transform.position);
+
+            if(t == null)
+            {
+                fsm.SetState(StateGroup.Enemy, StateType.Idle);
+                return;
+            }
+            context.SetTarget(t);
+        }
 
         if ((context.curTarget.GetTransform().position - transform.position).sqrMagnitude > context.attackRange * context.attackRange)
             fsm.SetState(StateGroup.Enemy, StateType.Move);

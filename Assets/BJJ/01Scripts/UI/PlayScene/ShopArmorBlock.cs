@@ -14,20 +14,20 @@ public class ShopArmorBlock : MonoBehaviour
 {
     private ArmorData_Entity data;
     private TextMeshProUGUI armorNameText;
-    private TextMeshProUGUI armorDurabilityText;
+    [SerializeField] private TextMeshProUGUI armorDurabilityText;
     private TextMeshProUGUI armorPrice;
     private Button blockBtn;
     private TextMeshProUGUI btnText;
-    private ShopArmorBtnType type;
+    [SerializeField] private ShopArmorBtnType type;
 
     public void BlockInit(int index, Action<ShopArmorBtnType ,int> onArmorBuyEvent)
     {
         int armorId = 2001 + index;
+        data = null;
 
         if(!DataManager.Instance.GetArmorData(armorId, out data))
         {
             Debug.Log($"{gameObject.name}_ShopArmorBlock.cs - BlockInit() - Error ID {armorId}");
-            return;
         }
 
         if (!MyUtility.GetChildrenTrans(transform, "ArmorNameText").TryGetComponent<TextMeshProUGUI>(out armorNameText))
@@ -35,7 +35,10 @@ public class ShopArmorBlock : MonoBehaviour
             Debug.Log($"{gameObject.name}_ShopArmorBlock.cs - BlockInit() - ArmorNameText Can't Find");
         }
         else
-            armorNameText.text = data.name;
+        {
+            if(data != null)
+                armorNameText.text = data.name;
+        }
 
         if (!MyUtility.GetChildrenTrans(transform, "ArmorDurabilityText").TryGetComponent<TextMeshProUGUI>(out armorDurabilityText))
         {
@@ -49,7 +52,10 @@ public class ShopArmorBlock : MonoBehaviour
             Debug.Log($"{gameObject.name}_ShopArmorBlock.cs - BlockInit() - ArmorDurabilityText Can't Find");
         }
         else
-            armorPrice.text = data.price.ToString();
+        {
+            if(data != null)
+                armorPrice.text = data.price.ToString();
+        }
 
         if (!MyUtility.GetChildrenTrans(transform, "BlockBtn").TryGetComponent<Button>(out blockBtn))
         {
@@ -76,25 +82,36 @@ public class ShopArmorBlock : MonoBehaviour
     {
         EventBus_ArmorQueryEvent.Publish(new ArmorQueryEvent((evt) =>
         {
-            if(evt.isEquipArmor && evt.curArmor.itemID == data.id)
+            if(!evt.isEquipArmor)
             {
-                type = ShopArmorBtnType.Repair;
-                armorDurabilityText.gameObject.SetActive(true);
-                armorDurabilityText.text = $"{evt.curDurability} / {data.durability}";
-                btnText.text = "수리";
-                // 가격 변동
-                int price = Mathf.RoundToInt((evt.curDurability / data.durability) * data.price);
-                armorPrice.text = $"{price}";
+                SellArmorState();
+                return;
             }
-            else
+            if(evt.curArmor.itemID != data.id)
             {
-                type = ShopArmorBtnType.Buy;
-                if(armorDurabilityText.gameObject.activeSelf)
-                    armorDurabilityText.gameObject.SetActive(false);
+                SellArmorState();
+                return;
+            }
 
-                armorPrice.text = data.price.ToString();
-                btnText.text = "구매";
-            }
+            type = ShopArmorBtnType.Repair;
+            armorDurabilityText.gameObject.SetActive(true);
+            armorDurabilityText.text = $"{evt.curDurability} / {data.durability}";
+            btnText.text = "수리";
+            // 가격 변동
+            int price = Mathf.RoundToInt((evt.curDurability / data.durability) * data.price);
+            armorPrice.text = $"{price}";
         }));
+    }
+
+    private void SellArmorState()
+    {
+        type = ShopArmorBtnType.Buy;
+        if (armorDurabilityText.gameObject.activeSelf)
+            armorDurabilityText.gameObject.SetActive(false);
+
+        if (data != null)
+            armorPrice.text = data.price.ToString();
+
+        btnText.text = "구매";
     }
 }

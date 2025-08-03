@@ -36,6 +36,7 @@ public class ArmorManager
     /// </summary>
     public void SetArmor(IItem newArmor) // todo 방탄복이 만들어지면 해당 방탄복을 받는 구조로 만들예정
     {
+        isEquipArmor = true;
         curArmorData = newArmor;
         var data = curArmorData.GetItemCurrentData();
         curArmor = data.durability;
