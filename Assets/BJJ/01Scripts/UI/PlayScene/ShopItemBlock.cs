@@ -74,8 +74,19 @@ public class ShopItemBlock : MonoBehaviour
         weaponNameText.text = data.name;
         weaponLevelText.text = data.level.ToString();
         weaponDamageText.text = data.damage.ToString();
-        weaponAttackSpeedText.text = data.firerRate.ToString();
+        weaponAttackSpeedText.text = ASTransToRPM(data.firerRate).ToString();
         weaponMaxAmmoText.text = data.maxAmmo.ToString();
         weaponPriceText.text = data.price.ToString();
+    }
+
+    /// <summary>
+    /// 무기의 공격속도를 분당발사속도로 변환하는 함수
+    /// </summary>
+    /// <param name="attackSpeed"> 분당 발사 속도입니다.</param>
+    /// <returns></returns>
+    private int ASTransToRPM(float attackSpeed)
+    {
+        float temp = 60f / attackSpeed;
+        return Mathf.RoundToInt(temp);
     }
 }

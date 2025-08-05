@@ -16,7 +16,7 @@ public class RoundData
 }
 
 [Serializable]
-public struct SpawnUnit
+public class SpawnUnit
 {
     public int id;
     public string Name;

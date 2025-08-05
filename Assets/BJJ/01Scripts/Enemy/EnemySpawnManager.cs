@@ -15,10 +15,13 @@ public class EnemySpawnManager : MonoBehaviour
     private RoundData roundData;
     private Dictionary<int, SpawnUnit> countMap;
     private Dictionary<int, SpawnUnit> dataMap;
+    private List<Vector3> spawnPoints;
 
     public void InitSpawnManager()
     {
         SetEnemyAddressable();
+
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint").Where(obj => obj != null).Select(obj => obj.transform.position).ToList();
     }
 
     private async void SetEnemyAddressable()
@@ -101,7 +104,7 @@ public class EnemySpawnManager : MonoBehaviour
                 enemy.InitEnemy(data);
                 if(obj.TryGetComponent<NavMeshAgent>(out var agent))
                 {
-                    if(NavMesh.SamplePosition(Vector3.zero, out var hit, 1f, NavMesh.AllAreas))
+                    if(NavMesh.SamplePosition(GetRandomSpawnPoint(), out var hit, 1f, NavMesh.AllAreas))
                     {
                         agent.Warp(hit.position);
                     }
@@ -115,5 +118,14 @@ public class EnemySpawnManager : MonoBehaviour
         }
         Debug.Log($"EnemySpawnManager.cs - EnemySpawn() - Can't Find EnemyData {id}");
         return false;
+    }
+
+    private Vector3 GetRandomSpawnPoint()
+    {
+        if(spawnPoints.Count <= 0)
+            return Vector3.zero;
+
+        int index = Random.Range(0, spawnPoints.Count);
+        return spawnPoints[index];
     }
 }

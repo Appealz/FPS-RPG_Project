@@ -11,7 +11,15 @@ public class ShopArmorCtrl
     public void Init()
     {
         //todo 데이터 매니저에서 리스트로 가져올 예정
-        armorList.Capacity = 3;
+       for (int i = 1; i <= 3; i++)
+        {
+            if (DataManager.Instance.GetArmorData(2000 + i, out var data))
+            {
+                armorList.Add(data);
+            }
+            else
+                armorList.Add(null);
+        }
     }
 
     public void BuyArmor(GameObject player, int index)

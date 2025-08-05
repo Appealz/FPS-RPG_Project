@@ -20,15 +20,23 @@ public class ShopHealkitCtrl
 
     public void Init()
     {
-        // todo 플레이어 인벤토리의 힐킷칸 연결
-        // 플레이어의 특전 등에 의해서 가격이 변동되는걸 여기서 반영해서 캐싱해둠
-
-        if(curPlayerHealkit == null)
+        EventBus_InvenData.Publish(new InvenDataEvent((query) =>
         {
-            Debug.Log("ShopHealkitCtrl.cs - Init() - curPlayerHealkit can't Reference");
-            return;
-        }    
-        healkitPrice = curPlayerHealkit.GetItemCurrentData().price;
+            foreach(var item in query)
+            {
+                if (item is Healkit healkit)
+                    curPlayerHealkit = healkit;
+            }
+
+            if (curPlayerHealkit == null)
+            {
+                Debug.Log("ShopHealkitCtrl.cs - Init() - curPlayerHealkit can't Reference");
+                return;
+            }
+            else
+                healkitPrice = curPlayerHealkit.GetItemCurrentData().price;
+        }));
+        
     }
 
     public void BuyHealkit()
