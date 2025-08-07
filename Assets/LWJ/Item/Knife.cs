@@ -5,14 +5,11 @@ public class Knife : MonoBehaviour, IMeleeWeapon , IPoolLabel
     private Pool ownerPool;
     public bool useable => throw new System.NotImplementedException();
 
-    public AnimationClip useClip => throw new System.NotImplementedException();    
-
-    public AnimationClip reloadClip => throw new System.NotImplementedException();
-
     public AnimEventData useAnimData => throw new System.NotImplementedException();
 
     public int itemID => throw new System.NotImplementedException();
 
+    private CurrentData currentData;
     public void Attack()
     {
         
@@ -25,13 +22,13 @@ public class Knife : MonoBehaviour, IMeleeWeapon , IPoolLabel
     }
 
     public CurrentData GetItemCurrentData()
-    {
-        throw new System.NotImplementedException();
+    {        
+        return currentData;
     }
 
     public void InitData(ItemData newData)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void InitWeaponData(WeaponData_Entity newData)

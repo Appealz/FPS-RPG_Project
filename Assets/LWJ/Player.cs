@@ -11,6 +11,8 @@ public class Player : MonoBehaviour,ITargetable
     PlayerDataManager dataManager;
     IPlayerSkill playerSkill;
 
+    PlayerWeaponHolder weaponHolder;
+
     [SerializeField]
     ClassSkillData skillData;
 
@@ -52,6 +54,8 @@ public class Player : MonoBehaviour,ITargetable
         {
 
         }
+
+        weaponHolder = FindAnyObjectByType<PlayerWeaponHolder>();
    
     }
 
@@ -93,6 +97,8 @@ public class Player : MonoBehaviour,ITargetable
         #endregion
 
         playerMove.Init();
+
+        dataManager.inventory.SetHolder(weaponHolder.transform);
     }
 
     private void OnDisable()

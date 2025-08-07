@@ -12,10 +12,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class WeaponManager : DestroySingleton<WeaponManager>
 {
     private Dictionary<int, Pool> weaponPoolDic = new Dictionary<int, Pool>();
-
-    Dictionary<int, GameObject> weapons = new Dictionary<int, GameObject>();
-    Dictionary<int, GameObject> playerWeapon = new Dictionary<int, GameObject>();
-
     Dictionary<int, ItemData> itemDatas = new Dictionary<int, ItemData>();
 
     [SerializeField]
@@ -72,6 +68,7 @@ public class WeaponManager : DestroySingleton<WeaponManager>
         Pool newPool = poolObj.AddComponent<Pool>();
         newPool.InitPool(label, 1);
         weaponPoolDic[id] = newPool;
+        poolObj.SetActive(false);
     }
 
     public ItemData GetItemData(int weaponID)
@@ -81,19 +78,11 @@ public class WeaponManager : DestroySingleton<WeaponManager>
             Debug.LogError($"[WeaponManager] weaponPoolDic에 ID {weaponID}에 대한 풀이 없습니다.");
             return null;
         }
-
         return item;
-
-        //weaponPoolDic.TryGetValue(weaponID, out var item);
-        //item.TryGetComponent<IItem>(out IItem newItemData);
-        //return newItemData;
     }
 
     public GameObject EquipWeapon(int weaponID)
     {
-        //weapons.TryGetValue(weaponID, out GameObject weapon);
-        //return weapon;
-
         if (weaponPoolDic.TryGetValue(weaponID, out Pool pool))
         {
             GameObject weapon = pool.GetObjFromPool();
@@ -146,114 +135,5 @@ public class WeaponManager : DestroySingleton<WeaponManager>
         returnWeapon.transform.localPosition = Vector3.zero;
         returnWeapon.SetActive(false);
     }
-
-    public GameObject FindGetPool(int weaponID)
-    {
-        if(weaponPoolDic.TryGetValue(weaponID, out var pool))
-        {
-            return pool.GetObjFromPool();
-        }
-
-        Debug.Log("무기 풀 없음");
-        return null;
-    }
-
-    public void FindReturnPool(GameObject obj)
-    {
-        if(obj.TryGetComponent<IItem>(out IItem item))
-        {
-            int id = item.itemID;
-            if (weaponPoolDic.TryGetValue(id, out var pool))
-            {
-                pool.ReturnToPool(obj);
-            }
-            else
-            {
-                Debug.Log("무기 풀 없음");
-            }
-
-        }
-        else
-        {
-            Debug.Log("IItem 참조 실패");
-        }        
-    }
 }
 
-//public class WeaponData
-//{
-//    public int id;
-//    public string name;
-//    public float damagePerShot;
-//    public float fireRate;
-//    public int ammoPerReload;
-//    public int maxAmmo;
-//    public float range;
-//    public float weight;
-//    public int price;
-//    public int weaponLevel;
-
-//    public WeaponData(WeaponData_Entity newData)
-//    {
-//        id = newData.id;
-//        name = newData.name;
-//        damagePerShot = newData.damagePerShot;
-//        fireRate = newData.fireRate;
-//        ammoPerReload = newData.ammoPerReload;
-//        maxAmmo = newData.maxAmmo;
-//        range = newData.range;
-//        weight = newData.weight;
-//        price = newData.price;
-//        weaponLevel = newData.weaponLevel;            
-//    }
-//}
-
-//public interface IWeaponData
-//{
-
-//}
-
-//public class MeleeWeaponData : IWeaponData
-//{
-//    public int id;
-//    public string name;
-//    public float damage;
-//    public float attackRate;
-//    public float range;
-
-//    public MeleeWeaponData(WeaponData_Entity newData)
-//    {
-//        id = newData.id;
-//        name = newData.name;
-//        damage = newData.damagePerShot;
-//        attackRate = newData.fireRate;
-//        range = newData.range;
-//    }
-//}
-//public class RangeWeaponData : IWeaponData
-//{
-//    public int id;
-//    public string name;
-//    public float damagePerShot;
-//    public float fireRate;
-//    public int ammoPerReload;
-//    public int maxAmmo;
-//    public float range;
-//    public float weight;
-//    public int price;
-//    public int weaponLevel;
-
-//    public RangeWeaponData(WeaponData_Entity newData)
-//    {
-//        id = newData.id;
-//        name = newData.name;
-//        damagePerShot = newData.damagePerShot;
-//        fireRate = newData.fireRate;
-//        ammoPerReload = newData.ammoPerReload;
-//        maxAmmo = newData.maxAmmo;
-//        range = newData.range;
-//        weight = newData.weight;
-//        price = newData.price;
-//        weaponLevel = newData.weaponLevel;
-//    }
-//}

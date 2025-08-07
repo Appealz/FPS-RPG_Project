@@ -7,7 +7,6 @@ public class PlayerDataManager : MonoBehaviour
 {
     public StatManager statManager { get; private set; }
     public PlayerInventory inventory { get; private set; }
-
     public CurrencyManager currencyManager { get; private set; }
 
     /// <summary>

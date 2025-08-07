@@ -242,8 +242,8 @@ public class ItemClipChangedEvent
     public ItemClipChangedEvent(IItem changeItem)
     {
         currentEquipItem = changeItem;
-        useClip = changeItem.useClip;
-        reloadClip = changeItem.reloadClip;
+        //useClip = changeItem.useClip;
+        //reloadClip = changeItem.reloadClip;
     }
 }
 #endregion

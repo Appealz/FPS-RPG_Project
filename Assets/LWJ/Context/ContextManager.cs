@@ -17,10 +17,11 @@ public class ContextManager : DontDestroySingleton<ContextManager>
         base.DoAwake();
         normalItemDictionary[itemSlotType.Main] = 1001;
         normalItemDictionary[itemSlotType.Revolver] = 1016;
-        //normalItemDictionary[itemSlotType.Knife] = 1017;
+        normalItemDictionary[itemSlotType.Knife] = 1017;
 
         normalItemList.Add(1001);
         normalItemList.Add(1016);
+        normalItemList.Add(1017);
     }
 
     public void StartGameSetUp(PlayerSaveData newData)

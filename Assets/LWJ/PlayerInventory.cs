@@ -17,12 +17,10 @@ public enum itemSlotType
 public class PlayerInventory
 {
     private GameObject owner;
-    //private List<IItem> items = new List<IItem>();
-    private Dictionary<itemSlotType, int> items = new();
-    private IItem currentItem;
-    private int currentIndex;
+    //private List<IItem> items = new List<IItem>();    
     private Dictionary<itemSlotType, IItem> itemDictionary = new();
-    private Dictionary<itemSlotType, ItemData> itemSlotData = new();
+
+    private Transform weaponHolder;
 
     public PlayerInventory(GameObject newOwner, List<int> newItemList)
     {
@@ -36,29 +34,11 @@ public class PlayerInventory
             else
             {
                 AddItem(newItemID);
-            }                
+            }
         }
-
-        //if (newItemDictionary == null)
-        //{
-        //    items = new Dictionary<itemSlotType, int>();
-        //}
-        //else
-        //{
-        //    items = newItemDictionary;
-        //    foreach(var item in newItemDictionary)
-        //    {
-        //        itemSlotData[item.Key] = WeaponManager.Instance.GetItemData(item.Value);
-        //    }
-        //}
-        
-        //Debug.Log("[PlayerInventory] »ý¼ºµÊ. Àü´ÞµÈ ¾ÆÀÌÅÛ ½½·Ô ¼ö: " + items.Count);
-
-        //foreach (var pair in items)
-        //{
-        //    Debug.Log($"[PlayerInventory] ½½·Ô: {pair.Key}, ¾ÆÀÌÅÛID: {pair.Value}");
-        //}
     }
+    
+
 
     private async UniTaskVoid InitWeaponLoad(int itemID)
     {
@@ -76,6 +56,15 @@ public class PlayerInventory
             return;
         }
 
+        if (weaponHolder != null)
+        {
+            weaponObj.transform.SetParent(weaponHolder, false);
+            weaponObj.transform.localPosition = Vector3.zero;
+            weaponObj.transform.localRotation = Quaternion.identity;
+            weaponObj.transform.localScale = Vector3.one;
+            weaponObj.SetActive(false);
+        }
+
         DataManager.Instance.GetWeaponData(itemID, out WeaponData_Entity saveWeaponData);
         WeaponData newItemData = new WeaponData(saveWeaponData);
         item.InitData(newItemData);
@@ -83,12 +72,19 @@ public class PlayerInventory
         itemDictionary[newItemData.slotType] = item;
     }
 
+    public void SetHolder(Transform holder)
+    {
+        weaponHolder = holder;
+    }
+
     // 1,2,3,4,5 Å°¿Í ¹ÙÀÎµù
     public void EquipItem(int index)
     {
         itemSlotType indexToSlot = (itemSlotType)index;
         if (!itemDictionary.TryGetValue((itemSlotType)index, out var item))
+        {
             return;
+        }           
 
         //if (!items.ContainsKey((itemSlotType)index)) 
         //    return;
@@ -97,6 +93,7 @@ public class PlayerInventory
         EventBus_Item.Publish(new ItemChangedEvent(itemDictionary[indexToSlot], owner, ItemEventType.equip, itemDictionary[indexToSlot].itemID));
     }
 
+    // ¾ÆÀÌÅÛ µî·Ï(È¹µæ)
     public void AddItem(int id)
     {
         var item = WeaponManager.Instance.GetItemInterface(id);
@@ -123,40 +120,7 @@ public class PlayerInventory
         else
         {
             Debug.LogWarning($"{baseSlot} ½½·Ô¿¡ ÀÌ¹Ì ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÕ´Ï´Ù.");
-        }
-
-        //if (id >= 1001 && id <= 1015)
-        //{
-        //    if (!items.ContainsKey(itemSlotType.Main))
-        //    {
-        //        items[(int)itemSlotType.Main] = id;
-        //        Debug.Log($"Main ½½·Ô¿¡ ÀåÂø: {id}");
-        //    }
-        //    else if (!items.ContainsKey(itemSlotType.Sub))
-        //    {
-        //        items[itemSlotType.Sub] = id;
-        //        Debug.Log($"Sub ½½·Ô¿¡ ÀåÂø: {id}");
-        //    }
-        //    else
-        //    {
-        //        Debug.LogWarning("Main/Sub ½½·ÔÀÌ ¸ðµÎ °¡µæ Ã¡½À´Ï´Ù. ¾ÆÀÌÅÛ È¹µæ ½ÇÆÐ.");
-        //    }
-        //}
-        //else if (id == 1016)
-        //{
-        //    items[itemSlotType.Revolver] = id;
-        //}
-        //else if (id == 1017)
-        //{
-        //    items[(itemSlotType.Knife)] = id;
-        //}
-        //else if (id == 3001)
-        //{
-        //    items[(itemSlotType.HealKit)] = id;
-        //}
-        //else
-        //    return;
-            
+        }            
     }
 
     public void RemoveItem(int removeItem)

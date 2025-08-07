@@ -17,7 +17,6 @@ public interface IRangeWeapon : IWeapon
     void StartReload();
     void Reload();
     void CancelReload();
-
 }
 
 public interface IDroppable

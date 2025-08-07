@@ -10,9 +10,6 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable , IPoolLabel
     // 아이템자체가 발동가능한지 여부.
     public bool useable => currentAmmo > 0 && !isAttacking;
 
-    public AnimationClip useClip => null;
-    public AnimationClip reloadClip => null;
-
     public AnimEventData reloadAnimData => null;
 
     public AnimEventData useAnimData => null;
@@ -114,16 +111,6 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable , IPoolLabel
     }
 
     // todo: 탄창 증가 메소드구현
-
-    public void InitWeaponData(WeaponData_Entity newData)
-    {
-        myData = newData;
-        currentAmmo = newData.maxAmmo;
-        damage = newData.damagePerShot;
-        attackRate = newData.fireRate;
-
-        Debug.Log($"데이터 주입 성공 : {newData.name}, {newData.id}, {newData.fireRate}, {newData.ammoPerReload}, {newData.range}");
-    }
 
     public void Drop(Vector3 dropDir, float dropForce)
     {

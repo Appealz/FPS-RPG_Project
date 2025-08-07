@@ -55,11 +55,17 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
         isItemUseReady = true;
         isUse = false;
     }
-    public void Equip(int itemID)
+    //public void Equip(int itemID)
+    //{
+    //    GameObject obj = WeaponManager.Instance.EquipWeapon(itemID);
+    //    obj.TryGetComponent<IItem>(out currentItem);
+    //    weaponHolder.AttachWeapon(currentItem);
+    //    EventBus_ItemClip.Publish(new ItemClipChangedEvent(currentItem));
+    //}
+
+    public void Equip(IItem item)
     {
-        GameObject obj = WeaponManager.Instance.EquipWeapon(itemID);
-        obj.TryGetComponent<IItem>(out currentItem);
-        weaponHolder.AttachWeapon(itemID);
+        weaponHolder.AttachWeapon(currentItem);
         EventBus_ItemClip.Publish(new ItemClipChangedEvent(currentItem));
     }
 
@@ -121,9 +127,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
             EventBus_Item.Publish(new ItemChangedEvent(currentItem, gameObject, ItemEventType.remove, currentItem.itemID));
         }
         else
-            return;
-
-        
+            return;        
     }
 
     public void SetEnable(bool isOn)
@@ -134,7 +138,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
 
     public void SetReloadEnable(bool isOn)
     {
-        isReload = isOn;    
+        isReload = isOn;
     }
 
 
@@ -142,7 +146,8 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     {
         if (newEvent.eventType != ItemEventType.equip || newEvent.sender != gameObject)
             return;
-        Equip(newEvent.itemID);
+        Equip(newEvent.changeItem);
+        currentItem = newEvent.changeItem;
     }
 
     public void InputUse()
