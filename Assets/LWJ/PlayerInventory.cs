@@ -111,7 +111,14 @@ public class PlayerInventory
             baseSlot = weaponData.slotType;
         }
 
-        if(!itemDictionary.ContainsKey(baseSlot))
+        // Main슬롯에 아이템이 존재한다면 Sub에 추가.
+        if (baseSlot == itemSlotType.Main && itemDictionary.ContainsKey(itemSlotType.Main))
+        {
+            Debug.Log($"Main 슬롯이 이미 차 있으므로 Sub 슬롯에 추가 시도: {id}");
+            baseSlot = itemSlotType.Sub;
+        }
+
+        if (!itemDictionary.ContainsKey(baseSlot))
         {
             itemDictionary[baseSlot] = item;
             Debug.Log($"{baseSlot} 슬롯에 아이템 추가됨 : {id}");

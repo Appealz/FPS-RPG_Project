@@ -1,44 +1,53 @@
 using UnityEngine;
 
-public class Knife : MonoBehaviour, IMeleeWeapon , IPoolLabel
+public class Knife : MonoBehaviour, IMeleeWeapon
 {
-    private Pool ownerPool;
+    
     public bool useable => throw new System.NotImplementedException();
 
-    public AnimEventData useAnimData => throw new System.NotImplementedException();
+    public AnimEventData useAnimData => null;
 
-    public int itemID => throw new System.NotImplementedException();
+    public int itemID => myData.id;
 
     private CurrentData currentData;
+
+    private WeaponData_Entity myData;
     public void Attack()
     {
         
     }
 
-    public void Create(Pool onwerPool)
+
+    float damage;
+    float attackRate;
+    public void InitData(ItemData newData)
     {
-        this.ownerPool = onwerPool;
-        gameObject.SetActive(false);
+        if (newData is WeaponData weaponData)
+        {            
+            damage = weaponData.damagePerShot;
+            attackRate = weaponData.fireRate;
+            myData = weaponData.data;
+
+            Debug.Log($"데이터 주입 성공 : {weaponData.name}, {weaponData.itemID}, {weaponData.fireRate}, {weaponData.ammoPerReload}, {weaponData.range}");
+
+            currentData = new CurrentData
+            {
+                name = weaponData.name,
+                damage = weaponData.damagePerShot,
+                firerRate = weaponData.fireRate,
+                ammoPerReload = weaponData.ammoPerReload,
+                maxAmmo = weaponData.maxAmmo,
+                currentMagazine = weaponData.maxAmmo,
+                price = weaponData.price,
+                level = weaponData.weaponLevel,
+            };
+        }
     }
+
 
     public CurrentData GetItemCurrentData()
     {        
         return currentData;
-    }
-
-    public void InitData(ItemData newData)
-    {
-        
-    }
-
-    public void InitWeaponData(WeaponData_Entity newData)
-    {
-        
-    }
-
-    public void ReturnToPool()
-    {
-        ownerPool.ReturnToPool(gameObject);
     }
 
     public void Use() => Attack();   

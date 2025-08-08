@@ -16,10 +16,12 @@ public class ContextManager : DontDestroySingleton<ContextManager>
     {
         base.DoAwake();
         normalItemDictionary[itemSlotType.Main] = 1001;
+        normalItemDictionary[itemSlotType.Sub] = 1006;
         normalItemDictionary[itemSlotType.Revolver] = 1016;
         normalItemDictionary[itemSlotType.Knife] = 1017;
 
         normalItemList.Add(1001);
+        normalItemList.Add(1006);
         normalItemList.Add(1016);
         normalItemList.Add(1017);
     }

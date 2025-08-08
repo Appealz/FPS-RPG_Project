@@ -3,13 +3,10 @@ using System;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable
+public class ShotGun : MonoBehaviour, IRangeWeapon, IDroppable, IPoolLabel
 {
     public bool useable => currentAmmo > 0 && !isAttacking;
 
-    public AnimationClip useClip => null;
-
-    public AnimationClip reloadClip => null;
 
     public AnimEventData reloadAnimData => throw new NotImplementedException();
 

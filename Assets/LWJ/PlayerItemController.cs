@@ -28,10 +28,10 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
     {
         if (!TryGetComponent<IPlayerAnimHandle>(out animHandle))
             Debug.Log("animHandle is not ref");
-        if(testWeapon.TryGetComponent<IItem>(out currentItem))
-        {
-            Debug.Log($"{currentItem}");
-        }
+        //if(testWeapon.TryGetComponent<IItem>(out currentItem))
+        //{
+        //    Debug.Log($"{currentItem}");
+        //}
     }
 
     private void OnEnable()
@@ -65,6 +65,7 @@ public class PlayerItemController : MonoBehaviour,IItemCtrl
 
     public void Equip(IItem item)
     {
+        currentItem = item;
         weaponHolder.AttachWeapon(currentItem);
         EventBus_ItemClip.Publish(new ItemClipChangedEvent(currentItem));
     }

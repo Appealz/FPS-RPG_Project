@@ -57,6 +57,9 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable , IPoolLabel
 
     public void Use() => Attack();
 
+    bool showDebugRay = true;    
+    [SerializeField] private float debugRayDuration = 0.2f; // 화면에 남아있는 시간
+    [SerializeField] private float maxFireDistance = 100f;
     public void Attack()
     {
         // 총알 미구현으로 임시 주석처리.
@@ -72,9 +75,17 @@ public class Rifle : MonoBehaviour, IRangeWeapon, IDroppable , IPoolLabel
         Debug.Log($"rifle 공격");
 
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+        float drawDistance = maxFireDistance;
+
         if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
             Debug.Log("조준한 대상: " + hit.collider.name);
+        }
+
+        if (showDebugRay)
+        {
+            Debug.DrawRay(ray.origin, ray.direction * drawDistance, Color.cyan, debugRayDuration);
         }
 
         FireDelay().Forget();

@@ -24,23 +24,53 @@ public class WeaponManager : DestroySingleton<WeaponManager>
         // 주입받은 메인슬롯의 무기 레벨        
         //ClassData selectClassData = ContextManager.Instance.GetPlayGameContext().playClassData;
 
-        // Test
-        ClassData selectClassData = ContextManager.Instance.TestPlayGameContext().playClassData;
-        int playerMainWeaponID = selectClassData.GetEquippedItemID(itemSlotType.Main);
-        DataManager.Instance.GetWeaponData(playerMainWeaponID, out WeaponData_Entity saveWeaponData);
-        //int weaponLevel = saveWeaponData.weaponLevel;
-        //List<WeaponData_Entity> weaponIDList = DataManager.Instance.GetWeaponList();
-        //foreach (var weapon in weaponIDList)
-        //{
-        //    if (weapon.weaponLevel >= weaponLevel)
-        //    {
-        //        itemDatas[weapon.id] = new WeaponData(weapon);
-        //        await CreateWeaponPool(weapon.id);
-        //    }
-        //}
+        //// Test
+        //ClassData selectClassData = ContextManager.Instance.TestPlayGameContext().playClassData;
+        //int playerMainWeaponID = selectClassData.GetEquippedItemID(itemSlotType.Main);
+        //DataManager.Instance.GetWeaponData(playerMainWeaponID, out WeaponData_Entity saveWeaponData);
+        ////int weaponLevel = saveWeaponData.weaponLevel;
+        ////List<WeaponData_Entity> weaponIDList = DataManager.Instance.GetWeaponList();
+        ////foreach (var weapon in weaponIDList)
+        ////{
+        ////    if (weapon.weaponLevel >= weaponLevel)
+        ////    {
+        ////        itemDatas[weapon.id] = new WeaponData(weapon);
+        ////        await CreateWeaponPool(weapon.id);
+        ////    }
+        ////}
 
-        itemDatas[saveWeaponData.id] = new WeaponData(saveWeaponData);
-        await CreateWeaponPool(saveWeaponData.id);
+        //itemDatas[saveWeaponData.id] = new WeaponData(saveWeaponData);
+        //await CreateWeaponPool(saveWeaponData.id);
+
+        var ctx = ContextManager.Instance.GetPlayGameContext()
+          ?? ContextManager.Instance.TestPlayGameContext();
+
+        var classData = ctx.playClassData;
+        foreach (itemSlotType slot in System.Enum.GetValues(typeof(itemSlotType)))
+        {
+            // 정책: 권총/칼은 풀 생성 제외
+            if (slot == itemSlotType.Revolver || slot == itemSlotType.Knife)
+                continue;
+
+            int id = classData.GetEquippedItemID(slot);
+            if (id <= 0) continue;                 // 미설정/무효 ID 스킵
+            if (weaponPoolDic.ContainsKey(id))     // 이미 풀 있음
+                continue;
+
+            // ItemData 캐시 없으면 생성
+            if (!itemDatas.ContainsKey(id))
+            {
+                if (!DataManager.Instance.GetWeaponData(id, out WeaponData_Entity ent) || ent == null)
+                {
+                    Debug.LogError($"[WeaponManager] 무기 데이터 없음: id={id}, slot={slot}");
+                    continue;
+                }
+                itemDatas[id] = new WeaponData(ent);
+            }
+
+            // 풀 생성
+            await CreateWeaponPool(id);
+        }
     }
 
     private async UniTask CreateWeaponPool(int id)
