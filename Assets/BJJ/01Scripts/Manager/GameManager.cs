@@ -87,11 +87,11 @@ public class GameManager : DestroySingleton<GameManager>
         // Player Setting
         isPause = false;
 
-        Player[] players = FindObjectsByType<Player>(FindObjectsSortMode.None);
-        foreach (Player p in players)
+        Player player = FindAnyObjectByType<Player>();
+        if (player != null)
         {
-            PlayerScanManager.Instance.RegisterTarget(p);
-            p.Init();
+            PlayerScanManager.Instance.RegisterTarget(player);
+            player.Init();
         }
 
         EnemyTotalManager.Instance.InitEnemyManager();
