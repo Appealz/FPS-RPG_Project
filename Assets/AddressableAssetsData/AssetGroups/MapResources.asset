@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MapResources
+  m_EditorClassIdentifier: 
+  m_GroupName: MapResources
+  m_GUID: 629525f585f5d434bbf37dab0d4f4bb1
+  m_SerializeEntries:
+  - m_GUID: 01fd6d8578da5054c80273c1d59d2cf9
+    m_Address: Road_set_v1_b_bend_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 231f567299ef5844f8dca0461bf7a80b
+    m_Address: Hangar_v2_basic.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 28b2b68147fce3c4187add1104d6ccd8
+    m_Address: Concrete_fence_v1_column.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32c4edf4f02ad254092a6e1ba94f5b4e
+    m_Address: Concrete_fence_v2_S_half.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32f01941b7ab75d4791c8d0d65d80086
+    m_Address: Road_set_v1_s_tile_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36667f34d4b750c4695e409fb89b51f8
+    m_Address: Road_block_v1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36b4cee33c5a95b4fa7f0ae6bdb49564
+    m_Address: Concrete_fence_v1_wall_set_v2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61c787ad40ab08f409a57210cd8e416b
+    m_Address: Hangar_v2_3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 721671003a026be4fb47107988831b38
+    m_Address: Dumpsters_v1_garbadge.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ec728fea85097b43ad9358333759bfa
+    m_Address: Road_set_v1_s_floor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 95c00f442e3cf3643b2062e8e0d0bbd6
+    m_Address: Hangar_v1_full.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8abb1b13231473488647947343cc82d
+    m_Address: TransparentWall.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d803e729730d97a4e89edf13b602b3f4
+    m_Address: Road_set_v1_b_floor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f5c94d7d7f024eb43b7dd5258c0608d0
+    m_Address: Concrete_fence_v1_wall_set_v1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fee6e1da33beae9409089ab8a832464f
+    m_Address: Concrete_fence_v2_S.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f647fb91619094a48b019769a9ebff13, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 49635d7350470864daa29f46838c4e90, type: 2}

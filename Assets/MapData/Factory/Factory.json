@@ -1,0 +1,2363 @@
+{
+    "MapName": "Factory",
+    "MapDescript": "위험한 로봇들이 생산되는 공장",
+    "Root": {
+        "name": "Root",
+        "Tag": "Untagged",
+        "layer": 0,
+        "Resources": "",
+        "Position": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "Rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "Scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "hasColl": false,
+        "Coll": {
+            "type": "",
+            "isTrigger": false,
+            "size": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "center": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "radius": 0.0
+        },
+        "childrens": [
+            {
+                "name": "Road_set_v1_s_tile_1",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_tile_1.prefab",
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_tile_1 (3)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_tile_1.prefab",
+                "Position": {
+                    "x": -10.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_tile_1 (4)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_tile_1.prefab",
+                "Position": {
+                    "x": -20.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_floor",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_floor.prefab",
+                "Position": {
+                    "x": -20.0,
+                    "y": 0.0,
+                    "z": 10.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_tile_1 (1)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_tile_1.prefab",
+                "Position": {
+                    "x": 10.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_tile_1 (2)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_tile_1.prefab",
+                "Position": {
+                    "x": 20.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": [
+                    {
+                        "name": "Road_block_v1",
+                        "Tag": "Obstacle",
+                        "layer": 8,
+                        "Resources": "Road_block_v1.prefab",
+                        "Position": {
+                            "x": 0.0,
+                            "y": 0.5,
+                            "z": -2.0
+                        },
+                        "Rotation": {
+                            "x": 0.0,
+                            "y": 90.0,
+                            "z": 0.0
+                        },
+                        "Scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        },
+                        "hasColl": true,
+                        "Coll": {
+                            "type": "MeshCollider",
+                            "isTrigger": false,
+                            "size": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "center": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "radius": 0.0
+                        },
+                        "childrens": []
+                    },
+                    {
+                        "name": "Road_block_v1 (1)",
+                        "Tag": "Obstacle",
+                        "layer": 8,
+                        "Resources": "Road_block_v1.prefab",
+                        "Position": {
+                            "x": 4.0,
+                            "y": 0.5,
+                            "z": 2.0
+                        },
+                        "Rotation": {
+                            "x": 0.0,
+                            "y": 90.0,
+                            "z": 0.0
+                        },
+                        "Scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        },
+                        "hasColl": true,
+                        "Coll": {
+                            "type": "MeshCollider",
+                            "isTrigger": false,
+                            "size": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "center": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "radius": 0.0
+                        },
+                        "childrens": []
+                    }
+                ]
+            },
+            {
+                "name": "Road_set_v1_s_tile_1 (9)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_tile_1.prefab",
+                "Position": {
+                    "x": 30.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": [
+                    {
+                        "name": "SpawnPoint1",
+                        "Tag": "SpawnPoint",
+                        "layer": 0,
+                        "Resources": "",
+                        "Position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "Rotation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "Scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        },
+                        "hasColl": false,
+                        "Coll": {
+                            "type": "",
+                            "isTrigger": false,
+                            "size": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "center": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "radius": 0.0
+                        },
+                        "childrens": []
+                    },
+                    {
+                        "name": "TransparentWall",
+                        "Tag": "Obstacle",
+                        "layer": 9,
+                        "Resources": "TransparentWall.prefab",
+                        "Position": {
+                            "x": -5.0,
+                            "y": 1.5,
+                            "z": 0.0
+                        },
+                        "Rotation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "Scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        },
+                        "hasColl": true,
+                        "Coll": {
+                            "type": "BoxCollider",
+                            "isTrigger": false,
+                            "size": {
+                                "x": 1.0,
+                                "y": 3.0,
+                                "z": 10.0
+                            },
+                            "center": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "radius": 0.0
+                        },
+                        "childrens": []
+                    }
+                ]
+            },
+            {
+                "name": "Road_set_v1_b_bend_1",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_b_bend_1.prefab",
+                "Position": {
+                    "x": -35.0,
+                    "y": 0.0,
+                    "z": 5.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_floor (1)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_floor.prefab",
+                "Position": {
+                    "x": -10.0,
+                    "y": 0.0,
+                    "z": 10.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_floor (2)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_floor.prefab",
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 10.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_floor (5)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_floor.prefab",
+                "Position": {
+                    "x": -40.0,
+                    "y": 0.0,
+                    "z": 60.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_floor (3)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_floor.prefab",
+                "Position": {
+                    "x": 10.0,
+                    "y": 0.0,
+                    "z": 10.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_floor (4)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_floor.prefab",
+                "Position": {
+                    "x": 20.0,
+                    "y": 0.0,
+                    "z": 10.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_b_floor",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_b_floor.prefab",
+                "Position": {
+                    "x": 15.0,
+                    "y": 0.0,
+                    "z": 25.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_b_floor (3)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_b_floor.prefab",
+                "Position": {
+                    "x": 15.0,
+                    "y": 0.0,
+                    "z": 45.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_b_floor (6)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_b_floor.prefab",
+                "Position": {
+                    "x": 15.0,
+                    "y": 0.0,
+                    "z": 65.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_b_floor (2)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_b_floor.prefab",
+                "Position": {
+                    "x": -5.0,
+                    "y": 0.0,
+                    "z": 25.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_b_floor (4)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_b_floor.prefab",
+                "Position": {
+                    "x": -5.0,
+                    "y": 0.0,
+                    "z": 45.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_b_floor (7)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_b_floor.prefab",
+                "Position": {
+                    "x": -5.0,
+                    "y": 0.0,
+                    "z": 65.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_b_floor (1)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_b_floor.prefab",
+                "Position": {
+                    "x": -25.0,
+                    "y": 0.0,
+                    "z": 25.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_b_floor (5)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_b_floor.prefab",
+                "Position": {
+                    "x": -25.0,
+                    "y": 0.0,
+                    "z": 45.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_b_floor (8)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_b_floor.prefab",
+                "Position": {
+                    "x": -25.0,
+                    "y": 0.0,
+                    "z": 65.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_tile_1 (5)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_tile_1.prefab",
+                "Position": {
+                    "x": -40.0,
+                    "y": 0.0,
+                    "z": 20.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_tile_1 (7)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_tile_1.prefab",
+                "Position": {
+                    "x": -40.0,
+                    "y": 0.0,
+                    "z": 50.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_tile_1 (6)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_tile_1.prefab",
+                "Position": {
+                    "x": -40.0,
+                    "y": 0.0,
+                    "z": 30.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Road_set_v1_s_tile_1 (8)",
+                "Tag": "Walkable",
+                "layer": 8,
+                "Resources": "Road_set_v1_s_tile_1.prefab",
+                "Position": {
+                    "x": -40.0,
+                    "y": 0.0,
+                    "z": 40.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Hangar_v1_full",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Hangar_v1_full.prefab",
+                "Position": {
+                    "x": -20.0,
+                    "y": 2.5,
+                    "z": 15.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": 22.0,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (1)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": 16.5,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (2)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": 11.0,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (3)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": 5.5,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (4)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": 0.0,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (5)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": -5.5,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (6)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": -11.0,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (7)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": -16.5,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (8)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": -22.0,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (9)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": -27.5,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (10)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": -33.0,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S (11)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S.prefab",
+                "Position": {
+                    "x": -38.5,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v2_S_half",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v2_S_half.prefab",
+                "Position": {
+                    "x": -42.79999923706055,
+                    "y": 1.2000000476837159,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_column",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_column.prefab",
+                "Position": {
+                    "x": -44.5,
+                    "y": 1.5,
+                    "z": -5.199999809265137
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973248958587648,
+                        "z": 0.7262563705444336
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v1",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v1.prefab",
+                "Position": {
+                    "x": -44.5,
+                    "y": 1.5,
+                    "z": -0.20000000298023225
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 9.367879867553711
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": 2.384185791015625e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v1 (1)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v1.prefab",
+                "Position": {
+                    "x": -44.5,
+                    "y": 1.5,
+                    "z": 9.100000381469727
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 9.367879867553711
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": 2.384185791015625e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v1 (2)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v1.prefab",
+                "Position": {
+                    "x": 25.0,
+                    "y": 1.5,
+                    "z": 9.100000381469727
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 9.367879867553711
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": 2.384185791015625e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v1 (3)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v1.prefab",
+                "Position": {
+                    "x": 25.0,
+                    "y": 1.5,
+                    "z": 55.79999923706055
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 9.367879867553711
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": 2.384185791015625e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v2",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v2.prefab",
+                "Position": {
+                    "x": -44.5,
+                    "y": 1.5,
+                    "z": 23.100000381469728
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 18.681243896484376
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": -4.76837158203125e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v2 (2)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v2.prefab",
+                "Position": {
+                    "x": 25.0,
+                    "y": 1.5,
+                    "z": 23.100000381469728
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 18.681243896484376
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": -4.76837158203125e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v2 (1)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v2.prefab",
+                "Position": {
+                    "x": -44.5,
+                    "y": 1.5,
+                    "z": 41.79999923706055
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 18.681243896484376
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": -4.76837158203125e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v2 (4)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v2.prefab",
+                "Position": {
+                    "x": -44.5,
+                    "y": 1.5,
+                    "z": 60.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 18.681243896484376
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": -4.76837158203125e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v2 (5)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v2.prefab",
+                "Position": {
+                    "x": -35.0,
+                    "y": 1.5,
+                    "z": 60.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 18.681243896484376
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": -4.76837158203125e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v2 (6)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v2.prefab",
+                "Position": {
+                    "x": -16.5,
+                    "y": 1.5,
+                    "z": 60.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 18.681243896484376
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": -4.76837158203125e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v2 (7)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v2.prefab",
+                "Position": {
+                    "x": 2.0,
+                    "y": 1.5,
+                    "z": 60.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 18.681243896484376
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": -4.76837158203125e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v2 (8)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v2.prefab",
+                "Position": {
+                    "x": 20.5,
+                    "y": 1.5,
+                    "z": 60.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 18.681243896484376
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": -4.76837158203125e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Dumpsters_v1_garbadge",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Dumpsters_v1_garbadge.prefab",
+                "Position": {
+                    "x": 22.0,
+                    "y": 0.800000011920929,
+                    "z": 10.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 270.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 4.936722755432129,
+                        "y": 1.6233630180358887,
+                        "z": 1.7630844116210938
+                    },
+                    "center": {
+                        "x": -1.1920928955078126e-7,
+                        "y": 0.0051097869873046879,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Concrete_fence_v1_wall_set_v2 (3)",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Concrete_fence_v1_wall_set_v2.prefab",
+                "Position": {
+                    "x": 25.0,
+                    "y": 1.5,
+                    "z": 41.79999923706055
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.7198400497436523,
+                        "y": 3.2973251342773439,
+                        "z": 18.681243896484376
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": -5.960464477539063e-8,
+                        "z": -4.76837158203125e-7
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Hangar_v2_3",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Hangar_v2_3.prefab",
+                "Position": {
+                    "x": -7.599999904632568,
+                    "y": 0.0,
+                    "z": 42.0
+                },
+                "Rotation": {
+                    "x": 0.0000025044780613825425,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "Hangar_v2_basic",
+                "Tag": "Obstacle",
+                "layer": 8,
+                "Resources": "Hangar_v2_basic.prefab",
+                "Position": {
+                    "x": -26.549999237060548,
+                    "y": 5.699999809265137,
+                    "z": 45.08000183105469
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            }
+        ]
+    }
+}
