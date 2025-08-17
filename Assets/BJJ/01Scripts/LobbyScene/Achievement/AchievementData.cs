@@ -7,7 +7,7 @@ public enum AchievementType
 { 
     EnemyKill,
     TotalLevel,
-    // classLevel
+    classLevel,
     ClearCount,
     HealAmount,
     CustomScript,

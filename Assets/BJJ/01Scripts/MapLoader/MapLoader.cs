@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.AI;
 
 public class MapLoader : DestroySingleton<MapLoader>
 {
@@ -22,6 +24,7 @@ public class MapLoader : DestroySingleton<MapLoader>
 
         var root = await CreatMapObjectFromDataAsync(mapData.Root, null);
         prefabCache.Clear();
+        BakeNavMesh(root);
     }
 
     // 재귀 함수를 이용하여 맵 오브젝트를 생성할 예정
@@ -65,7 +68,13 @@ public class MapLoader : DestroySingleton<MapLoader>
         obj.transform.localEulerAngles = data.Rotation;
         obj.transform.localScale = data.Scale;
         if(data.Tag != "Untagged")
+        {
             obj.tag = data.Tag;
+            foreach(Transform child in obj.transform)
+            {
+                child.gameObject.tag = obj.tag;
+            }
+        }
         obj.layer = data.layer;
 
         if(data.hasColl && data.Coll != null)
@@ -115,6 +124,94 @@ public class MapLoader : DestroySingleton<MapLoader>
             default:
 
                 break;
+        }
+    }
+
+    private void BakeNavMesh(GameObject root)
+    {
+        NavMeshSurface surface = root.AddComponent<NavMeshSurface>();
+
+        int AREA_WALKABLE = NavMesh.GetAreaFromName("Walkable");
+        int AREA_OBSTACLE = NavMesh.GetAreaFromName("Not Walkable");
+        var sources = new List<NavMeshBuildSource>();
+        var markups = new List<NavMeshBuildMarkup>();
+
+        bool hasBounds = false;
+        Bounds bound = default;
+
+        void Encapsuleate(Bounds b)
+        {
+            if(!hasBounds)
+            {
+                bound = b;
+                hasBounds = true;
+            }else bound.Encapsulate(b);
+        }
+
+        // 오브젝트 수집
+        foreach(var coll in root.GetComponentsInChildren<Collider>())
+        {
+            var go = coll.gameObject;
+            if(go.CompareTag("Walkable") || go.CompareTag("Obstacle"))
+            {
+                var src = new NavMeshBuildSource();
+                src.area = go.CompareTag("Walkable") ? AREA_WALKABLE : AREA_OBSTACLE;
+                Matrix4x4 m = go.transform.localToWorldMatrix;
+
+                switch(coll)
+                {
+                    case BoxCollider box:
+                        src.shape = NavMeshBuildSourceShape.Box;
+                        src.size = box.size;
+                        src.transform = m * Matrix4x4.TRS(box.center, Quaternion.identity, Vector3.one);
+                        Encapsuleate(box.bounds);
+                        break;
+                    case CapsuleCollider capsule:
+                        src.shape = NavMeshBuildSourceShape.Capsule;
+                        src.size = new Vector3(capsule.radius * 2f, capsule.height, capsule.radius * 2f);
+                        Quaternion rot = Quaternion.identity;
+                        switch(capsule.direction)
+                        {
+                            case 0:
+                                rot = Quaternion.Euler(0,0,90); break;
+                            case 1:
+                                rot = Quaternion.Euler(90, 0, 0); break;
+                        }
+                        src.transform = m * Matrix4x4.TRS(capsule.center, rot, Vector3.one);
+                        Encapsuleate(capsule.bounds);
+                        break;
+                    case SphereCollider sphere:
+                        src.shape = NavMeshBuildSourceShape.Sphere;
+                        src.size = Vector3.one * sphere.radius * 2f;
+                        src.transform = m * Matrix4x4.TRS(sphere.center, Quaternion.identity, Vector3.one);
+                        Encapsuleate(sphere.bounds);
+                        break;
+                    case MeshCollider mesh:
+                        if(mesh.sharedMesh != null)
+                        {
+                            src.shape = NavMeshBuildSourceShape.Mesh;
+                            src.sourceObject = mesh.sharedMesh;
+                            src.transform = m;
+                        }
+                        break;
+                }
+                sources.Add(src);
+            }
+        }
+
+        if (!hasBounds)
+        {
+            bound = new Bounds(root.transform.position, new Vector3(50, 50, 50));
+        }
+        else
+            bound.Expand(1.0f);
+
+        var setting = NavMesh.GetSettingsByID(0);
+        var data = NavMeshBuilder.BuildNavMeshData(setting, sources, bound, root.transform.position, root.transform.rotation);
+
+        if(data != null)
+        {
+            NavMesh.AddNavMeshData(data);
         }
     }
 }
