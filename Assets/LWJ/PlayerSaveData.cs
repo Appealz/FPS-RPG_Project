@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -9,8 +10,15 @@ public class PlayerSaveData
     // 아이템리스트는 해금여부
     // public Dictionary<int, bool> unlockedItems;
     public int achievementID;
+    public Dictionary<int, AchivementProgress> achivements;
     public Dictionary<string, ClassData> classDatas;
 }
 
-// Save Load 받아오고
-// 
+public class AchivementProgress
+{
+    public int achivementID;
+    public bool unlocked;
+    public string unlockedTime;
+
+    // 필요시 조건별 진행도 저장
+}

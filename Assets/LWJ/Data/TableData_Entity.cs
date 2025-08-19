@@ -75,11 +75,12 @@ public class PerkData_Entity
     public string description;
 }
 
+[Serializable]
 public class AchievementsData_Entity
 {
     public int id;
     public string name;
-    public string description;
+    public string description;    
 }
 
 public class LevelEXPData_Entity

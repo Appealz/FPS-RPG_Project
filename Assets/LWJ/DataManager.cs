@@ -26,7 +26,7 @@ public class DataManager : DontDestroySingleton<DataManager>
         base.DoAwake();
         originalData = Resources.Load<TableData>("TableData");
         LoadData();
-    }
+    }    
 
     private void LoadData()
     {

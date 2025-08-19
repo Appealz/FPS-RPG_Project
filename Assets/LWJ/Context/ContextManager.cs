@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Difficulty
+{
+    Easy,
+    Normal,
+    Hard
+}
+
 public class ContextManager : DontDestroySingleton<ContextManager>
 {    
     PlayGameContext playGameContext;
