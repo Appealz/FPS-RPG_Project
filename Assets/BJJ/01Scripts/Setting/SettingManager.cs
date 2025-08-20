@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SettingManager : DontDestroySingleton<SettingManager>
 {
+    private SettingData SettingData;
     public bool IsInit { get; private set; }
 
     // 키 세팅 매니저
@@ -21,6 +22,7 @@ public class SettingManager : DontDestroySingleton<SettingManager>
 
         IsInit = true;
         // todo 세팅 데이터 호출 / 적용
+        AudioManager.Instance.InitAudioManager(SettingData.AudioSetting);
     }
 
     public void LobbyStart()
