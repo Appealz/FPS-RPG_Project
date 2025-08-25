@@ -14,6 +14,8 @@ public class UIAudioManager
     {
         audioMixer = mixer;
         stkParent = new GameObject("UISFXPool").transform;
+        stkParent.parent = AudioManager.Instance.transform;
+        CreateSource();
     }
 
     private void CreateSource(int addSize = 10)

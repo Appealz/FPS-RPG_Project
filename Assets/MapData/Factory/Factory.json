@@ -420,7 +420,7 @@
                     },
                     {
                         "name": "TransparentWall",
-                        "Tag": "Obstacle",
+                        "Tag": "Untagged",
                         "layer": 9,
                         "Resources": "TransparentWall.prefab",
                         "Position": {
@@ -714,6 +714,158 @@
                         "x": 0.0,
                         "y": 0.0,
                         "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "SpawnPoint1 (1)",
+                "Tag": "SpawnPoint",
+                "layer": 0,
+                "Resources": "",
+                "Position": {
+                    "x": -2.9700000286102297,
+                    "y": 0.0,
+                    "z": 54.2400016784668
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "TransparentWall (1)",
+                "Tag": "Untagged",
+                "layer": 9,
+                "Resources": "TransparentWall.prefab",
+                "Position": {
+                    "x": 7.0,
+                    "y": 1.5,
+                    "z": 47.040000915527347
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 1.0,
+                        "y": 3.0,
+                        "z": 10.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "TransparentWall (2)",
+                "Tag": "Untagged",
+                "layer": 9,
+                "Resources": "TransparentWall.prefab",
+                "Position": {
+                    "x": 17.0,
+                    "y": 1.5,
+                    "z": 47.040000915527347
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 1.0,
+                        "y": 3.0,
+                        "z": 10.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "TransparentWall (3)",
+                "Tag": "Walkable",
+                "layer": 9,
+                "Resources": "TransparentWall.prefab",
+                "Position": {
+                    "x": 27.0,
+                    "y": 1.5,
+                    "z": 47.040000915527347
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 90.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": true,
+                "Coll": {
+                    "type": "BoxCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 1.0,
+                        "y": 3.0,
+                        "z": 10.0
                     },
                     "center": {
                         "x": 0.0,
@@ -2343,6 +2495,44 @@
                 "hasColl": true,
                 "Coll": {
                     "type": "MeshCollider",
+                    "isTrigger": false,
+                    "size": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "center": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "radius": 0.0
+                },
+                "childrens": []
+            },
+            {
+                "name": "PlayerStartPoint",
+                "Tag": "PlayerSpawn",
+                "layer": 0,
+                "Resources": "",
+                "Position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "Scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "hasColl": false,
+                "Coll": {
+                    "type": "",
                     "isTrigger": false,
                     "size": {
                         "x": 0.0,

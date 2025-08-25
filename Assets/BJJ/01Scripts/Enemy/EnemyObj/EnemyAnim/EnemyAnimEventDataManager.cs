@@ -14,7 +14,6 @@ public static class EnemyAnimEventDataManager
         foreach(var data in datas)
         {
             animEventDataMap[data.name] = data;
-            Debug.Log("test");
         }
     }
 

@@ -12,6 +12,7 @@ public class BGMAudioManager
         var go = new GameObject("BGMAudio");
         audioSource = go.AddComponent<AudioSource>();
         go.transform.parent = AudioManager.Instance.transform;
+        audioSource.outputAudioMixerGroup = audioMixer;
     }
 
     public void PlayBGM(AudioClip clip)

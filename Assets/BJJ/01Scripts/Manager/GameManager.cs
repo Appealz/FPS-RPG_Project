@@ -31,7 +31,15 @@ public class GameManager : DestroySingleton<GameManager>
     private RoundManager roundManager;
     protected override void DoAwake()
     {
-        
+        // test Code
+        if(!AudioManager.Instance.IsInit)
+        {
+            var audioSetting = new AudioSetting();
+            audioSetting.MasterVolume = 1.0f;
+            audioSetting.SFXVolume = 1.0f;
+            audioSetting.BGMVolume = 1.0f;
+            AudioManager.Instance.InitAudioManager(audioSetting);
+        }
     }
 
     private void Start()

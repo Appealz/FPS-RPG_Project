@@ -94,29 +94,55 @@ public class MapLoader : DestroySingleton<MapLoader>
     {
         if (data == null) return;
 
+        bool hasColl = false;
+
+        if (obj.TryGetComponent<Collider>(out Collider collider))
+        {
+            hasColl = true;
+        }
+
         switch (data.type)
         {
             case "BoxCollider":
-                var box = obj.AddComponent<BoxCollider>();
+                BoxCollider box;
+                if (!hasColl)
+                    box = obj.AddComponent<BoxCollider>();
+                else
+                    box = collider as BoxCollider;
+
                 box.isTrigger = data.isTrigger;
                 box.size = data.size;
                 box.center = data.center;
                 break;
             case "SphereCollider":
-                var sphere = obj.AddComponent<SphereCollider>();
+                SphereCollider sphere;
+
+                if (!hasColl)
+                    sphere = obj.AddComponent<SphereCollider>();
+                else
+                    sphere = collider as SphereCollider;
+
                 sphere.isTrigger = data.isTrigger;
                 sphere.center = data.center;
                 sphere.radius = data.radius;
                 break;
             case "CapsuleCollider":
-                var capsule = obj.AddComponent<CapsuleCollider>();
+                CapsuleCollider capsule;
+                if (!hasColl)
+                    capsule = obj.AddComponent<CapsuleCollider>();
+                else
+                    capsule = collider as CapsuleCollider;
+
                 capsule.isTrigger = data.isTrigger;
                 capsule.center = data.center;
                 capsule.height = data.size.y;
                 capsule.radius = data.radius;
                 break;
             case "MeshCollider":
-                var mesh = obj.AddComponent<MeshCollider>();
+                MeshCollider mesh;
+                if (!hasColl) mesh = obj.AddComponent<MeshCollider>();
+                else mesh = collider as MeshCollider;
+
                 mesh.isTrigger = data.isTrigger;
                 if (obj.TryGetComponent<MeshFilter>(out var mf))
                     mesh.sharedMesh = mf.sharedMesh;

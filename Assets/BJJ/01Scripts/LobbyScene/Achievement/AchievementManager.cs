@@ -2,9 +2,23 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class AchieveCheckEvent
+{
+    public AchievementType type;
+    public int customID;
+    public int value;
+
+    public AchieveCheckEvent(AchievementType type, int value, int customID)
+    {
+        this.type = type;
+        this.value = value;
+        this.customID = customID;
+    }
+}
 
 public static class AchievementManager
 {
+    // 업적 뷰 모델에서 playerData의 업적 리스트를 가져다 확인할 예정
     private static AchievementStat playerData;
     private static Dictionary<AchievementType, List<int>> achievementType = new Dictionary<AchievementType, List<int>>();
 
@@ -15,18 +29,6 @@ public static class AchievementManager
         // 모든 업적들의 타입별로 딕셔너리에 분류해서 넣어둠
         // 그 과정에서 테이블이 업데이트 됬다던가 하는걸 체크해서 새로 데이터를 생성해두기도 함
     }
-
-    public static void LobbyStart()
-    {
-        // todo 로비씬 이벤트 버스 등록
-        // 뷰모델로 데이터를 넘기는 이벤트들을 등록할 예정
-    }
-
-    public static void LobbyEnd()
-    {
-        // todo 로비씬 이벤트 버스 해제
-    }
-
     public static void PlayStart()
     {
         // 플레이씬 이벤트 버스 등록
@@ -66,22 +68,35 @@ public static class AchievementManager
         }
     }
 
-    #region LobbyScene
-    #endregion
-
     #region PlayScene
-
-    private static void KillEventHandler()
+    
+    public static void AchieveCheckEventHandler(AchieveCheckEvent evt)
     {
-        playerData.enemyKill++;
-
-        if(achievementType.TryGetValue(AchievementType.EnemyKill, out var list))
+        if(evt.type != AchievementType.CustomScript)
         {
-            foreach (var achieveID in list)
+            switch(evt.type)
             {
-                AchieveCheck(achieveID);
+                case AchievementType.EnemyKill:
+                    playerData.enemyKill += evt.value;
+                    break;
+                case AchievementType.ClearCount:
+                    playerData.clearCount += evt.value;
+                    break;
+                case AchievementType.HealAmount:
+                    playerData.healAmount += evt.value;
+                    break;
+                    // 클래스들 단위로도...
+            }
+
+            if (achievementType.TryGetValue(evt.type, out var list))
+            {
+                foreach (var i in list)
+                {
+                    AchieveCheck(i);
+                }
             }
         }
+        // 만약 업적에 따로 추가적으로 기록해야하는 경우 업적 세이브 데이터에 영향을 직접 줄 예정
     }
 
     #endregion
