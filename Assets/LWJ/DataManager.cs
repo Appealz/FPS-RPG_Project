@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
-
 public class DataManager : DontDestroySingleton<DataManager>
 {
     private TableData originalData;
@@ -17,9 +15,10 @@ public class DataManager : DontDestroySingleton<DataManager>
     private Dictionary<int, PerkData_Entity> perkData = new();
     private Dictionary<int, AchievementsData_Entity> achievementsData = new();
     private Dictionary<int, LevelEXPData_Entity> levelExpData = new();
-    //private Dictionary<int, ClassStatsData_Entity> classStatsData = new();
+    private Dictionary<int, ClassStatsData_Entity> classStatsData = new();
     private Dictionary<int, EnemyData> enemyData = new();
     private Dictionary<int, ItemData> itemData = new();
+    private Dictionary<int, BaseClassData> baseClassData = new();
 
     protected override void DoAwake()
     {
@@ -66,8 +65,28 @@ public class DataManager : DontDestroySingleton<DataManager>
             //    levelExpData.Add(row.curLevel, row);
 
             // 추후 사용 시
-            // foreach (var row in originalData.ClassStatsData)
-            //     classStatsData.Add(row.id, row);
+            foreach (var row in originalData.ClassStatsData)
+                classStatsData.Add(row.id, row);
+            foreach (var classStat in classStatsData)
+            {
+                int classId = classStat.Key;
+
+                if (unitBaseStatsData.TryGetValue(classId, out var unitStats))
+                {
+                    if (classId != unitStats.id)
+                    {
+                        Debug.LogWarning($"[BaseClassData] ID 불일치: {classId}");
+                        continue;
+                    }
+
+                    baseClassData[classId] = new BaseClassData(unitStats, classStat.Value);
+                }
+                else
+                {
+                    Debug.LogWarning($"[BaseClassData 누락] id {classId}에 해당하는 UnitBaseStatsData 없음");
+                }
+            }
+
 
             foreach (var monsterData in monsterStatsData)
             {
@@ -147,6 +166,18 @@ public class DataManager : DontDestroySingleton<DataManager>
     public bool GetMonsterData(int id, out MonsterStats_Entity data)
     {
         return monsterStatsData.TryGetValue(id, out data);
+    }
+
+    // 기본 클래스 데이터(첫 계정 생성용)
+    public bool GetBaseClassData(int id, out BaseClassData data)
+    {
+        return baseClassData.TryGetValue(id, out data);
+    }
+
+    // 기본 클래스 데이터리스트
+    public List<BaseClassData> GetBaseClassList()
+    {
+        return baseClassData.Values.ToList();
     }
 }
 
@@ -247,4 +278,29 @@ public class ArmorData : ItemData
     }
 }
 
+public class BaseClassData
+{
+    public int id;
+    public string name;
 
+    public float maxHp;
+    public float moveSpeed;
+    public float damage;
+    public string description;
+
+    public int baseMainWeaponID;
+    public int baseRevolverID;
+    public int baseKnifeID;
+    public BaseClassData(UnitBaseStats_Entity unitStats, ClassStatsData_Entity classStats)
+    {
+        id = unitStats.id;
+        name = unitStats.name;
+        maxHp = unitStats.maxHp;
+        moveSpeed = unitStats.moveSpeed;
+        damage = unitStats.damage;
+        description = unitStats.description;
+        baseMainWeaponID = classStats.baseMainWeaponID;
+        baseRevolverID = classStats.baseRevolverID;
+        baseKnifeID = classStats.baseKnifeID;
+    }
+}

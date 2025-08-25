@@ -304,6 +304,27 @@ MonoBehaviour:
     attackSpeed: 1
     range: 5
     path: 
+  ClassStatsData:
+  - id: 5001
+    name: rilfer
+    baseMainWeaponID: 1001
+    baseRevolverID: 1016
+    baseKnifeID: 1017
+  - id: 5002
+    name: shotguner
+    baseMainWeaponID: 1006
+    baseRevolverID: 1016
+    baseKnifeID: 1017
+  - id: 5003
+    name: engineer
+    baseMainWeaponID: 1011
+    baseRevolverID: 1016
+    baseKnifeID: 1017
+  - id: 5004
+    name: survivor
+    baseMainWeaponID: 0
+    baseRevolverID: 1016
+    baseKnifeID: 1017
   PerkData:
   - id: 50011
     name: perk01

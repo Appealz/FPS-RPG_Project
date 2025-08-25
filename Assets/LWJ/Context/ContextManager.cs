@@ -19,6 +19,9 @@ public class ContextManager : DontDestroySingleton<ContextManager>
     Dictionary<itemSlotType, int> normalItemDictionary = new Dictionary<itemSlotType, int>();
     List<int> normalItemList = new List<int>();
 
+    PlayerSaveData setSaveData;
+    Difficulty setDiff;
+
     protected override void DoAwake()
     {
         base.DoAwake();
@@ -33,9 +36,40 @@ public class ContextManager : DontDestroySingleton<ContextManager>
         normalItemList.Add(1017);
     }
 
+    public void InitPlayGameContext()
+    {        
+        playGameContext = new PlayGameContext(new ClassData(), 3);
+    }
+
+    public void SetSaveData(PlayerSaveData newData)
+    {
+        if(newData == null)
+        {
+            setSaveData = CreateNewSaveData(DataManager.Instance.GetBaseClassList());
+        }
+        else
+        {
+            setSaveData = newData;
+        }
+    }
+
+    private PlayerSaveData CreateNewSaveData(List<BaseClassData> newClassDatas)
+    {
+        PlayerSaveData newData = new PlayerSaveData();
+
+        foreach(var classData in newClassDatas)
+        {
+            var newClass = new ClassData();
+            newClass.InitData(classData);
+            newData.classDatas[classData.name] = newClass;
+        }
+        return newData;
+    }
+
     public void StartGameSetUp(PlayerSaveData newData)
     {
-        playGameContext = new PlayGameContext(newData.classDatas[playClassName], playLevel);       
+
+        playGameContext = new PlayGameContext(newData.classDatas[playClassName], playLevel);
     }
     
 
@@ -51,7 +85,7 @@ public class ContextManager : DontDestroySingleton<ContextManager>
 
     public PlayGameContext TestPlayGameContext()
     {
-        PlayGameContext testGameContext = new PlayGameContext(new ClassData(normalItemDictionary, 3, normalItemList), 3);
+        PlayGameContext testGameContext = new PlayGameContext(new ClassData(), 3);
         return testGameContext;
     }
 }

@@ -61,11 +61,15 @@ public class MonsterStats_Entity
     public string path;
 }
 
-//[Serializable]
-//public class ClassStatsData_Entity
-//{
-
-//}
+[Serializable]
+public class ClassStatsData_Entity
+{
+    public int id;
+    public string name;
+    public int baseMainWeaponID;
+    public int baseRevolverID;
+    public int baseKnifeID;
+}
 
 [Serializable]
 public class PerkData_Entity

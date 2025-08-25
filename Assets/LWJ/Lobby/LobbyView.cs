@@ -35,6 +35,8 @@ public class LobbyView : MonoBehaviour
         viewModel.DifficultyVM.PropertyChanged += OnDifficultyChanged;
 
         difficultyLabel.text = viewModel.DifficultyVM.Difficulty.ToString();
+
+        ContextManager.Instance.SetSaveData(SaveLoadSystem.Load());
     }
 
     private void OnDifficultyChanged(object sender, PropertyChangedEventArgs e)
