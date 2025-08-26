@@ -7,7 +7,12 @@ using UnityEngine;
 public class SettingData
 {
     public AudioSetting AudioSetting { get; set; }
-    public KeySetting KeySetting { get; set; }
+    private float mouseSensitive;
+    public float MouseSensitive
+    {
+        get { return mouseSensitive; }
+        set { mouseSensitive = value; }
+    }
 }
 
 [Serializable]
@@ -39,17 +44,4 @@ public class AudioSetting
             Mathf.Clamp(bgmVolume, 0, 1f);
             OnChanged?.Invoke(); }
     }
-}
-
-[Serializable]
-public class KeyBindData
-{
-    public string ActionName;
-    public string BindingPath;
-}
-
-[Serializable]
-public class KeySetting
-{
-    public List<KeyBindData> Binds;
 }
