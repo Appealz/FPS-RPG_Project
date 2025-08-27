@@ -23,26 +23,41 @@ public class SettingManager : DontDestroySingleton<SettingManager>
 
         IsInit = true;
         // todo 세팅 데이터 호출 / 적용
+        settingData = new SettingData();
+        settingData.MouseSensitive = 0.1f;
+        settingData.AudioSetting = new AudioSetting();
+        settingData.AudioSetting.MasterVolume = 1.0f;
+        settingData.AudioSetting.BGMVolume = 1.0f;
+        settingData.AudioSetting.SFXVolume = 1.0f;
         AudioManager.Instance.InitAudioManager(settingData.AudioSetting);
-    }
-
-    public void LobbyStart()
-    {
-        // 로비씬용 이벤트 버스 등록
-    }
-
-    public void LobbyEnd()
-    {
-        // 로비씬용 이벤트 버스 해제
     }
 
     public void PlayStart()
     {
-        // todo 인게임용 이벤트 버스 등록
+        EventBus_SettingUI.Subscribe(SettingDataEventHandler);
     }
 
     public void PlayEnd()
     {
-        // todo 인게임용 이벤트 버스 해제
+        EventBus_SettingUI.UnSubscribe(SettingDataEventHandler);
+    }
+
+    private void SettingDataEventHandler(SettingUIEvent evt)
+    {
+        switch(evt.type)
+        {
+            case SettingUIType.Master:
+                settingData.AudioSetting.MasterVolume = evt.value;
+                break;
+            case SettingUIType.BGM:
+                settingData.AudioSetting.BGMVolume = evt.value;
+                break;
+            case SettingUIType.SFX:
+                settingData.AudioSetting.SFXVolume = evt.value;
+                break;
+            case SettingUIType.Mouse:
+                settingData.MouseSensitive = evt.value;
+                break;
+        }
     }
 }

@@ -32,14 +32,8 @@ public class GameManager : DestroySingleton<GameManager>
     protected override void DoAwake()
     {
         // test Code
-        if(!AudioManager.Instance.IsInit)
-        {
-            var audioSetting = new AudioSetting();
-            audioSetting.MasterVolume = 1.0f;
-            audioSetting.SFXVolume = 1.0f;
-            audioSetting.BGMVolume = 1.0f;
-            AudioManager.Instance.InitAudioManager(audioSetting);
-        }
+        if (!SettingManager.Instance.IsInit)
+            SettingManager.Instance.SettingInit();
     }
 
     private void Start()
@@ -55,6 +49,7 @@ public class GameManager : DestroySingleton<GameManager>
         roundManager.InitRoundManager();
         roundManager.OnRoundEnd += RoundEndHandler;
         ShopManager.Instance.InitShop();
+        SettingManager.Instance.PlayStart();
         TestUIManager.Instance.InitTestUI();
         await SetStaticObject();
     }
@@ -163,6 +158,6 @@ public class GameManager : DestroySingleton<GameManager>
     {
         roundManager.OnRoundEnd -= RoundEndHandler;
         roundManager.DisableRoundManager();
-        
+        SettingManager.Instance.PlayEnd();
     }
 }
