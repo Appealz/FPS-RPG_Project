@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public interface ISettingUIManager
 {
     event Action<SettingUIType,float> OnSettingDataChangeEvent;
+    void SettingUISetActive(bool isOn);
 }
 
 public enum SettingUIType
@@ -29,6 +30,8 @@ public class SettingUIManager : ISettingUIManager
     private TMP_InputField sfxInput;
     private Slider mouseSlider;
     private TMP_InputField mouseInput;
+
+    private Button optionCloseBtn;
 
     public event Action<SettingUIType, float> OnSettingDataChangeEvent;
 
@@ -100,11 +103,27 @@ public class SettingUIManager : ISettingUIManager
             mouseInput.text = SettingManager.Instance.SettingData.MouseSensitive.ToString();
             mouseInput.onEndEdit.AddListener((value) => InputFieldChange(SettingUIType.Mouse, value));
         }
+
+        if (!MyUtility.GetChildrenTrans(canvas, "SettingCloseBtn").TryGetComponent<Button>(out optionCloseBtn))
+            Debug.Log("SettingUIManager.cs - PlayScene_Can't SettingCloseBtn");
+        else
+            optionCloseBtn.onClick.AddListener(() => SettingUISetActive(false));
+
+            SettingUISetActive(false);
     }
 
     public void SettingUISetActive(bool isOn)
     {
         canvas.gameObject.SetActive(isOn);
+
+        // test Code
+        Cursor.visible = isOn;
+        if (Cursor.visible)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+            Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void SliderValueChange(SettingUIType type, float value)

@@ -9,12 +9,19 @@ public class SettingUIPresenter
     {
         settingUI = newSettingUI;
 
+        EventBus_SettingIsOn.Subscribe(SettingIsOn);
         settingUI.OnSettingDataChangeEvent += SettingDataChange;
     }
 
     public void OnDisable()
     {
+        EventBus_SettingIsOn.UnSubscribe(SettingIsOn);
         settingUI.OnSettingDataChangeEvent -= SettingDataChange;
+    }
+
+    private void SettingIsOn(SettingIsOnEvent evt)
+    {
+        settingUI.SettingUISetActive(evt.isOn);
     }
 
     private void SettingDataChange(SettingUIType type, float value)

@@ -22,8 +22,8 @@ public class PlayerDataManager : MonoBehaviour
             {StatType.AttackDamage, new StatValue(0) },
             {StatType.AttackSpeed, new StatValue(1f) }
         });
-        inventory = new PlayerInventory(gameObject, ContextManager.Instance.TestPlayGameContext().playClassData.GetEquippedItems());
-
+        inventory = new PlayerInventory(gameObject, ContextManager.Instance.TestPlayGameContext().playClassData.GetEquippedItems()); //ContextManager.Instance.TestPlayGameContext().playClassData.GetEquippedItems()
+        // testCode new List<int>() { 1016,1017}
         currencyManager = new CurrencyManager(gameObject);
 
         EventBus_Item.Subscribe(UpdateItemHandler);

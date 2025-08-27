@@ -55,6 +55,10 @@ public class TestUIManager : DestroySingleton<TestUIManager>
             EventBus_ShopIsOn.Publish(new ShopIsOnEvent(true));
             ShopManager.Instance.ShopUpdate();
         }
+        if (Keyboard.current.escapeKey.IsPressed())
+        {
+            EventBus_SettingIsOn.Publish(new SettingIsOnEvent(true));
+        }
     }
 
     private void OnDisable()
