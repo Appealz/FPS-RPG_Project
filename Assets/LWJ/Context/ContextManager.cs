@@ -65,6 +65,16 @@ public class ContextManager : DontDestroySingleton<ContextManager>
         }
         return newData;
     }
+    
+    public void SetSelectClass(string newClassName)
+    {
+        playClassName = newClassName;
+    }
+
+    public ClassData GetSelectedClassData()
+    {
+        return setSaveData.classDatas[playClassName];
+    }
 
     public void StartGameSetUp(PlayerSaveData newData)
     {

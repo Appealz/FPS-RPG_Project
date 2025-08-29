@@ -255,7 +255,7 @@ MonoBehaviour:
     damage: 5
     description: "\uAC00\uC7A5 \uAE30\uBCF8\uC801\uC778 \uB85C\uBD07\uC774\uB2E4."
   - id: 5001
-    name: rilfer
+    name: rifler
     maxHp: 0
     moveSpeed: 0
     damage: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
     path: 
   ClassStatsData:
   - id: 5001
-    name: rilfer
+    name: rifler
     baseMainWeaponID: 1001
     baseRevolverID: 1016
     baseKnifeID: 1017
