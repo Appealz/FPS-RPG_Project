@@ -4,23 +4,32 @@ public class ClassViewModel : ViewModelBase
 {
     ClassModel model;
 
+    private string selectedClass;
+    public string SelectedClass
+    {
+        get => selectedClass;
+        private set
+        {
+            if (selectedClass != value)
+            {
+                selectedClass = value;
+                OnPropertyChanged(nameof(SelectedClass));
+            }
+        }
+    }
+
     public ClassViewModel(ClassModel newModel)
     {
         model = newModel;
+        SelectedClass = model.SelectedClass;
         ContextManager.Instance.SetSelectClass(model.SelectedClass);
-    }
-
-    public string GetSelectedClassName()
-    {
-        return model.SelectedClass;
     }
 
     public void ChangeClass(int dir)
     {
         model.ChangeClass(dir);
-        ContextManager.Instance.SetSelectClass(model.SelectedClass);
-
-        OnPropertyChanged(nameof(GetSelectedClassName));
+        ContextManager.Instance.SetSelectClass(SelectedClass);
+        SelectedClass = model.SelectedClass;
     }
 
     public ClassData GetSelectedClassData()

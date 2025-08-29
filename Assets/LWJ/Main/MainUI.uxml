@@ -1,6 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <engine:VisualElement style="flex-grow: 1; width: 100%; height: 100%;">
-        <engine:VisualElement name="VisualElement" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgba(89, 0, 0, 0.32);" />
+        <engine:VisualElement name="VisualElement_Background" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgba(89, 0, 0, 0.32);" />
         <engine:VisualElement style="flex-grow: 1; position: absolute; bottom: 10%; left: 50%; background-position-x: center 0; translate: -50% 0; align-items: center; justify-content: center; width: 300px; height: 200px;">
             <engine:VisualElement style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: center;">
                 <engine:Button text="Button" name="LeftBtn" />
@@ -16,11 +16,19 @@
                 <engine:Button text="GameStart" name="GameStartBtn" />
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:VisualElement name="VisualElement" style="flex-grow: 1; position: absolute; top: 50%; bottom: auto; translate: -50% -50%; left: 50%; align-items: center; justify-content: center; display: flex; background-color: rgb(255, 255, 255); width: 600px; height: 800px;">
-            <engine:VisualElement style="flex-grow: 1; width: 50px; height: 50px;" />
-            <engine:VisualElement style="flex-grow: 1; width: 50px; height: 50px;" />
-            <engine:VisualElement style="flex-grow: 1; width: 50px; height: 50px;" />
-            <engine:Label text="Label" />
+        <engine:VisualElement name="VisualElement_Item" style="flex-grow: 1; position: absolute; top: 50%; bottom: auto; translate: -50% -50%; left: 50%; align-items: center; justify-content: center; display: flex; background-color: rgb(255, 255, 255); width: 600px; height: 800px; flex-direction: column;">
+            <engine:VisualElement name="Image" style="flex-grow: 1; width: 100%; height: 90%; position: absolute; top: 0;" />
+            <engine:VisualElement style="flex-grow: 1; width: auto; height: auto; flex-direction: row; justify-content: center; position: absolute; bottom: 0%; display: flex;">
+                <engine:Button text="Main" name="Main" />
+                <engine:Button text="Sub" name="Sub" />
+                <engine:Button text="Revolver" name="Revolver" />
+                <engine:Button text="Knife" name="Knife" />
+                <engine:Button text="Healkit" name="Healkit" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="VisualElement_Shop" style="flex-grow: 1; position: absolute; top: 50%; bottom: auto; translate: -50% -50%; left: 50%; align-items: center; justify-content: center; display: flex; background-color: rgb(255, 255, 255); width: 600px; height: 800px; flex-direction: column;">
+            <engine:VisualElement name="Image" style="flex-grow: 1; width: 100%; height: 90%; position: absolute; top: 0;" />
+            <engine:VisualElement style="flex-grow: 1; width: auto; height: auto; flex-direction: row; justify-content: center; position: absolute; bottom: 0%; display: flex;" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

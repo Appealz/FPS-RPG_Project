@@ -54,8 +54,10 @@ public class ClassData
 
     public int GetEquippedItemID(itemSlotType slotType)
     {
-        equippedItemDictionary.TryGetValue(slotType, out int id);
-        return id;
+        if (equippedItemDictionary.TryGetValue(slotType, out int id))
+            return id;
+
+        return -1;
     }
 
     public List<int> GetEquippedItems()

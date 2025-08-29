@@ -179,6 +179,11 @@ public class DataManager : DontDestroySingleton<DataManager>
     {
         return baseClassData.Values.ToList();
     }
+
+    public bool GetItemData(int id, out ItemData data)
+    {
+        return itemData.TryGetValue(id, out data);
+    }
 }
 
 public class EnemyData
@@ -210,6 +215,7 @@ public class ItemData
     public int itemID;
     public string name;
     public int price;
+    public string iconPath;
 }
 
 // 무기를 모든 직업이 다착용가능하지만 자기 직업 전용 무기에 특수효과 <<
@@ -231,7 +237,7 @@ public class WeaponData : ItemData
     {
         data = newData;
         itemID = newData.id;
-        name = newData.name;//
+        name = newData.name;//        
         damagePerShot = newData.damagePerShot;//
         fireRate = newData.fireRate;//
         ammoPerReload = newData.ammoPerReload;//

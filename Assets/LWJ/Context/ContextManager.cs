@@ -59,6 +59,7 @@ public class ContextManager : DontDestroySingleton<ContextManager>
 
         foreach(var classData in newClassDatas)
         {
+            Debug.Log($"[SaveData] 등록된 클래스: '{classData.name}'");
             var newClass = new ClassData();
             newClass.InitData(classData);
             newData.classDatas[classData.name] = newClass;
@@ -72,7 +73,7 @@ public class ContextManager : DontDestroySingleton<ContextManager>
     }
 
     public ClassData GetSelectedClassData()
-    {
+    {        
         return setSaveData.classDatas[playClassName];
     }
 

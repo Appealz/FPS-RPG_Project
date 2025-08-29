@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using System.IO;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -60,6 +61,27 @@ public static class PrefabLoad
         }
 
         return prefab.Result;
+    }
+}
+
+public static class SpriteLoad
+{
+    public static async UniTask<Sprite> LoadToSprite(int id)
+    {
+        string path = null;
+        DataManager.Instance.GetItemData(id, out ItemData item);
+        path = item.iconPath;
+
+        var sprite = Addressables.LoadAssetAsync<Sprite>(path);
+        await sprite.Task;
+
+        if (sprite.Status != UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
+        {
+            Debug.Log($"프리팹 로드 실패 - Address: {path}");
+            return null;
+        }
+
+        return sprite.Result;
     }
 }
 

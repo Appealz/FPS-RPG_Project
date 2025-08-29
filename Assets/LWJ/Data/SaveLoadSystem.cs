@@ -4,11 +4,11 @@ public static class SaveLoadSystem
 {
     public static PlayerSaveData Load()
     {
-        return new PlayerSaveData();
+        return null;
     }
 
     public static void Save(PlayerSaveData saveData)
     {
-
+        
     }
 }
