@@ -19,6 +19,7 @@ public class MarketManager
     public MarketManager()
     {
         // todo 플레이어의 계정 데이터에서 무기 해금 데이터를 가져옵니다.
+        
     }
 
     private void UnlockWeapon(MarketUnlockEvent evt)

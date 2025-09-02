@@ -41,6 +41,16 @@ public class SettingViewModel : ViewModelBase
         }
     }
 
+    public float MouseSensitive
+    {
+        get => settingData.MouseSensitive;
+        set
+        {
+            settingData.MouseSensitive = value;
+            OnPropertyChanged(nameof(MouseSensitive));
+        }
+    }
+
     public SettingViewModel(SettingData data)
     {
         settingData = data;

@@ -42,7 +42,7 @@ public class ShopItemCtrl
             }
         }));
 
-        EventBus_ShopItemUpdate.Publish(new ShopItemUpdateEvent(selectedItemList, playerCurItems.ToList()));
+        EventBus_ShopItemUpdate.Publish(new ShopItemUpdateEvent(selectedItemList, playerCurItems));
     }
 
     public bool SelectItem(int index, out IItem selectItem)

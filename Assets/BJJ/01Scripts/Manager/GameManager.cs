@@ -90,12 +90,17 @@ public class GameManager : DestroySingleton<GameManager>
         // Player Setting
         isPause = false;
 
+        // 플레이어를 시작점에서 스폰시키는 코드로 리펙토링 필요?
         Player player = FindAnyObjectByType<Player>();
         if (player != null)
         {
             PlayerScanManager.Instance.RegisterTarget(player);
             player.Init();
         }
+
+        GameObject startPos = GameObject.FindGameObjectWithTag("PlayerSpawn");
+        if(startPos != null)
+            player.transform.position = startPos.transform.position;
 
         EnemyTotalManager.Instance.InitEnemyManager();
 
@@ -139,9 +144,14 @@ public class GameManager : DestroySingleton<GameManager>
         ShopManager.Instance.ShopUpdate();
     }
 
+    /// <summary>
+    /// 추후에 일시정지용 Event가 만들어지면 변경될 예정
+    /// </summary>
+    /// <param name="value">추후에 일시정지 이벤트가 생기면 해당 이벤트로 파라미터 변경필요</param>
     private void PauseHandler(bool value)
     {
         isPause = value;
+        Time.timeScale = value == true ? 1f : 0f;
     }
 
     private void GameEndHandler()
