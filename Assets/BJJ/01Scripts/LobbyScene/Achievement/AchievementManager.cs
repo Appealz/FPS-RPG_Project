@@ -22,12 +22,13 @@ public static class AchievementManager
     private static AchievementStat playerData;
     private static Dictionary<AchievementType, List<int>> achievementType = new Dictionary<AchievementType, List<int>>();
 
+    private static bool isInit = false;
+    public static bool IsInit => isInit;
+
     public static void AchieveMentManagerInit()
     {
-        // todo 플레이어 계정에서 AchievementStat를 가져옴
-        // 테이블에서 업적 리스트에서
-        // 모든 업적들의 타입별로 딕셔너리에 분류해서 넣어둠
-        // 그 과정에서 테이블이 업데이트 됬다던가 하는걸 체크해서 새로 데이터를 생성해두기도 함
+        playerData = SaveLoadSystem.AccountData.achievementData;
+        isInit = true;
     }
     public static void PlayStart()
     {
@@ -52,15 +53,15 @@ public static class AchievementManager
         {
             case AchievementType.EnemyKill:
                 if (playerData.enemyKill >= data.targetValue)
-                    playerData.achievementData[id].isUnlocked = true;
+                    playerData.achievementData[id].unlocked = true;
                 break;
             case AchievementType.ClearCount:
                 if (playerData.clearCount >= data.targetValue)
-                    playerData.achievementData[id].isUnlocked = true;
+                    playerData.achievementData[id].unlocked = true;
                 break;
             case AchievementType.HealAmount:
                 if (playerData.healAmount >= data.targetValue)
-                    playerData.achievementData[id].isUnlocked = true;
+                    playerData.achievementData[id].unlocked = true;
                 break;
             case AchievementType.CustomScript:
                 // 추후에 생각해볼 예정
@@ -97,6 +98,8 @@ public static class AchievementManager
             }
         }
         // 만약 업적에 따로 추가적으로 기록해야하는 경우 업적 세이브 데이터에 영향을 직접 줄 예정
+
+        SaveLoadSystem.CheckDirty();
     }
 
     #endregion

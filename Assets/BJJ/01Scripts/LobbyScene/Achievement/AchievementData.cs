@@ -20,7 +20,7 @@ public class AchievementStat
     public int clearCount;
     public int healAmount;
 
-    public Dictionary<int, AchievementSaveData> achievementData;
+    public Dictionary<int, AchivementProgress> achievementData;
 }
 
 [Serializable]
@@ -30,11 +30,4 @@ public class AchievementData
     public AchievementType achievementType;
     public string achievementDescript;
     public int targetValue;
-}
-
-[Serializable]
-public class AchievementSaveData
-{
-    public int achievementID;
-    public bool isUnlocked;
 }

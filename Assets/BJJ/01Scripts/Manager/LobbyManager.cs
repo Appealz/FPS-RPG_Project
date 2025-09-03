@@ -13,13 +13,17 @@ public class LobbyManager : DestroySingleton<LobbyManager>
         // 계정을 로드 했는지 판단 => 로드 안되어 있으면 로드
         // 로드 했으면 패스
 
+        if (!SaveLoadSystem.IsInit) SaveLoadSystem.LoadData();
+
         if(!SettingManager.Instance.IsInit) SettingManager.Instance.SettingInit();
+
+        if (!AchievementManager.IsInit) AchievementManager.AchieveMentManagerInit();
     }
 
     private void Start()
     {
         // todo 여러 매니저들을 여기서 시작함
-        AchievementManager.AchieveMentManagerInit();
+        
         marketManager = new MarketManager();
         // todo UI 를 여기서 시작함
     }
