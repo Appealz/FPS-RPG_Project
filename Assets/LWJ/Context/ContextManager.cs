@@ -14,7 +14,7 @@ public class ContextManager : DontDestroySingleton<ContextManager>
     EndGameContext endGameContext;
 
     int playLevel = 1;
-    string playClassName = "rifler";
+    public string playClassName = "rifler";
 
     Dictionary<itemSlotType, int> normalItemDictionary = new Dictionary<itemSlotType, int>();
     List<int> normalItemList = new List<int>();
@@ -73,7 +73,7 @@ public class ContextManager : DontDestroySingleton<ContextManager>
     }
 
     public ClassData GetSelectedClassData()
-    {        
+    {
         return setSaveData.classDatas[playClassName];
     }
 

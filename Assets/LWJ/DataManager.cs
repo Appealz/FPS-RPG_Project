@@ -25,7 +25,7 @@ public class DataManager : DontDestroySingleton<DataManager>
         base.DoAwake();
         originalData = Resources.Load<TableData>("TableData");
         LoadData();
-    }    
+    }
 
     private void LoadData()
     {
@@ -77,8 +77,7 @@ public class DataManager : DontDestroySingleton<DataManager>
                     {
                         Debug.LogWarning($"[BaseClassData] ID 불일치: {classId}");
                         continue;
-                    }
-
+                    }                                        
                     baseClassData[classId] = new BaseClassData(unitStats, classStat.Value);
                 }
                 else
@@ -177,6 +176,8 @@ public class DataManager : DontDestroySingleton<DataManager>
     // 기본 클래스 데이터리스트
     public List<BaseClassData> GetBaseClassList()
     {
+        Debug.Log("기본 데이터 리스트 로드");
+        Debug.Log($"{baseClassData.Count}");
         return baseClassData.Values.ToList();
     }
 

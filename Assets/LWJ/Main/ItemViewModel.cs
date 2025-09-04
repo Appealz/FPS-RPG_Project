@@ -27,6 +27,6 @@ public class ItemViewModel : ViewModelBase
     {
         model.SelectSlot(slot);
         //SelectItem = await ResourceManager.Instance.LoadToSprite(model.SelectedItemID);
-        Debug.Log($"테스트{model.SlotType}");
+        Debug.Log($"테스트{model.SlotType} {ContextManager.Instance.playClassName}");
     }
 }

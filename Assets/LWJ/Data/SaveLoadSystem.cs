@@ -36,20 +36,40 @@ public static class SaveLoadSystem
 
     public static PlayerSaveData Load()
     {
-        if (isInit) return accountData;
+        Debug.Log($"[SaveLoadSystem] Load() 실행, isInit={isInit}");
+        if (isInit)            
+            return accountData;
+        
 
         string path = Path.Combine(Application.persistentDataPath, dataPath);
 
         if(File.Exists(path))
         {
+            Debug.Log("데이터 존재 로드합니다.");
             string data = File.ReadAllText(path);
             accountData = JsonConvert.DeserializeObject<PlayerSaveData>(data);
         }
         else
         {
+            Debug.Log("데이터 없음 신규 데이터 생성");
             NewAccountData();
         }
         isInit = true;
+
+        //if (accountData.classDatas == null)
+        //{
+        //    Debug.LogError("[Check] classDatas == null");
+        //}
+        //else
+        //{
+        //    Debug.Log($"[Check] classDatas Count = {accountData.classDatas.Count}");
+        //}
+
+        //foreach (var kvp in accountData.classDatas)
+        //{
+        //    Debug.Log($"[Check] classDatas key = '{kvp.Key}'");
+        //}
+
         return accountData;
     }
 
@@ -79,6 +99,8 @@ public static class SaveLoadSystem
     /// </summary>
     public static void NewAccountData()
     {
+        List<BaseClassData> baseClassDatas = DataManager.Instance.GetBaseClassList();
+
         accountData = new PlayerSaveData
         {
             currency = 0,
@@ -93,7 +115,16 @@ public static class SaveLoadSystem
             classDatas = new Dictionary<string, ClassData>()
             // todo 기본 데이터들을 집어넣음
         };
-        
+
+        foreach (var classData in baseClassDatas)
+        {
+            Debug.Log($"[SaveData] 등록된 클래스: '{classData.name}'");
+
+            var newClass = new ClassData();
+            newClass.InitData(classData);
+
+            accountData.classDatas[classData.name] = newClass;
+        }
         SaveData();
     }
 

@@ -261,7 +261,7 @@ MonoBehaviour:
     damage: 0
     description: 
   - id: 5002
-    name: shotguner
+    name: shotgunner
     maxHp: 0
     moveSpeed: 0
     damage: 0
@@ -311,7 +311,7 @@ MonoBehaviour:
     baseRevolverID: 1016
     baseKnifeID: 1017
   - id: 5002
-    name: shotguner
+    name: shotgunner
     baseMainWeaponID: 1006
     baseRevolverID: 1016
     baseKnifeID: 1017
