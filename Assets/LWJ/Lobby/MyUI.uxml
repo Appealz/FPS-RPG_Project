@@ -1,19 +1,19 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/MyUI.uss?fileID=7433441132597879392&amp;guid=f1d490ae58c575047a728db602835141&amp;type=3#MyUI" />
+    <Style src="project://database/Assets/LWJ/Lobby/MyUI.uss?fileID=7433441132597879392&amp;guid=f1d490ae58c575047a728db602835141&amp;type=3#MyUI" />
     <engine:VisualElement name="VisualElement_Root" picking-mode="Ignore" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;">
         <engine:VisualElement name="VisualElement_Background" picking-mode="Ignore" style="flex-grow: 1; width: 100%; height: 100%; position: absolute; max-width: initial; max-height: initial; min-width: auto; min-height: auto; background-color: rgba(0, 0, 0, 0.56);" />
-        <engine:VisualElement name="VisualElement_Title" picking-mode="Ignore" style="flex-grow: 1;">
-            <engine:Label text="Label" name="Title" picking-mode="Ignore" />
+        <engine:VisualElement name="VisualElement_Title" picking-mode="Ignore" style="flex-grow: 1; height: 50%;">
+            <engine:Label text="Label" name="Title" picking-mode="Ignore" style="align-items: center; align-self: center; justify-content: center; top: 0; translate: 0 50%; width: 50%; height: 50%; font-size: 50px; -unity-text-align: middle-center;" />
         </engine:VisualElement>
-        <engine:VisualElement name="VisualElement_Menu" picking-mode="Ignore" style="flex-grow: 1; align-items: center; justify-content: center;">
-            <engine:Button text="GameStart" name="GameStart" />
-            <engine:VisualElement name="VisualElement_Diff" picking-mode="Ignore" style="flex-grow: 0; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center; align-self: center; align-content: center; position: relative;">
-                <engine:Button name="Left" style="background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-2236324273849735119&amp;guid=4b562a8958774b24a8bc3042cd3fc6cb&amp;type=3#arrow-left@2x&quot;);" />
-                <engine:Label text="Difficulty" name="Difficulty" style="background-color: rgba(255, 255, 255, 0.54);" />
-                <engine:Button name="Right" style="background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&amp;guid=4b562a8958774b24a8bc3042cd3fc6cb&amp;type=3#arrow-right@2x&quot;);" />
+        <engine:VisualElement name="VisualElement_Menu" picking-mode="Ignore" style="flex-grow: 0; align-items: center; justify-content: flex-end; align-self: center; scale: 1 1; height: 50%; width: 100%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-shrink: 0; align-content: center;">
+            <engine:Button text="GameStart" name="GameStart" style="flex-grow: 1; flex-basis: 0; font-size: 30px; width: auto; height: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; position: absolute; top: 5%;" />
+            <engine:VisualElement name="VisualElement_Diff" picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center; align-self: center; align-content: center; position: absolute; flex-shrink: 0; flex-basis: 0; margin-top: 0; margin-bottom: 0; height: 20%; top: 30%; margin-right: 0; margin-left: 0;">
+                <engine:Button name="Left" style="background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-2236324273849735119&amp;guid=4b562a8958774b24a8bc3042cd3fc6cb&amp;type=3#arrow-left@2x&quot;); width: 30%; height: 100%;" />
+                <engine:Label text="Difficulty" name="Difficulty" style="background-color: rgba(255, 255, 255, 0.54); width: 100%; height: 100%; -unity-text-align: middle-center; font-size: 30px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;" />
+                <engine:Button name="Right" style="background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&amp;guid=4b562a8958774b24a8bc3042cd3fc6cb&amp;type=3#arrow-right@2x&quot;); width: 30%; height: 100%;" />
             </engine:VisualElement>
-            <engine:Button text="Option" name="Option" />
-            <engine:Button text="Exit" name="Exit" />
+            <engine:Button text="Option" name="Option" style="flex-grow: 1; flex-shrink: 0; flex-basis: 0; margin-top: 0; margin-bottom: 0; font-size: 30px; height: 20%; margin-right: 0; margin-left: 0; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; position: absolute; top: 55%;" />
+            <engine:Button text="Exit" name="Exit" style="flex-grow: 1; flex-basis: 0; font-size: 30px; height: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; position: absolute; top: 80%;" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

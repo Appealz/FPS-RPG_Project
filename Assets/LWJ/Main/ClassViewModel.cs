@@ -27,9 +27,9 @@ public class ClassViewModel : ViewModelBase
 
     public void ChangeClass(int dir)
     {
-        model.ChangeClass(dir);
-        ContextManager.Instance.SetSelectClass(SelectedClass);
+        model.ChangeClass(dir);        
         SelectedClass = model.SelectedClass;
+        ContextManager.Instance.SetSelectClass(SelectedClass);
     }
 
     public ClassData GetSelectedClassData()
