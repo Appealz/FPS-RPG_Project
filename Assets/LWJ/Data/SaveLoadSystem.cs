@@ -113,7 +113,6 @@ public static class SaveLoadSystem
                 achievementData = new Dictionary<int, AchivementProgress>(),
             },
             classDatas = new Dictionary<string, ClassData>()
-            // todo 기본 데이터들을 집어넣음
         };
 
         foreach (var classData in baseClassDatas)

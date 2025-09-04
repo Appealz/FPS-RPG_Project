@@ -4,17 +4,12 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Timeline;
 
-public class MapLoadingTest : MonoBehaviour
+public class MapLoadingTest : DestroySingleton<MapLoadingTest>
 {
     public string LoadMap;
     public MapData mapData;
 
-    async void Start()
-    {
-        await StartAsync();
-    }
-
-    private async Task StartAsync()
+    public async Task StartAsync()
     {
         await MapDataLoad();
 

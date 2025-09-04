@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.CompilerServices;
 using System;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -31,16 +33,30 @@ public class GameManager : DestroySingleton<GameManager>
     private RoundManager roundManager;
     protected override void DoAwake()
     {
-        // test Code
         if (!SettingManager.Instance.IsInit)
             SettingManager.Instance.SettingInit();
+
+        StartFlow().Forget();
     }
 
-    private void Start()
+    private async UniTaskVoid StartFlow()
     {
+        // 테스트 코드임
+        await MapLoadingTest.Instance.StartAsync();
+        //todo 컨텍스트에서 선택되어있는 맵 데이터를 맵 로더에 넣어서 맵로딩을 시키는 매서드로 수정해야함
         DontResetSetting().Forget();
         ResetSetting();
     }
+
+    /// <summary>
+    /// 로딩씬이 있으면 Start로 그 전까진 StartFlow에서 전부 시작
+    /// </summary>
+    /// <returns></returns>
+    //private void Start()
+    //{
+    //    DontResetSetting().Forget();
+    //    ResetSetting();
+    //}
 
     private async UniTaskVoid DontResetSetting()
     {

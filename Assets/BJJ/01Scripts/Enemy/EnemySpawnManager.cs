@@ -22,6 +22,7 @@ public class EnemySpawnManager : MonoBehaviour
         SetEnemyAddressable();
 
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint").Where(obj => obj != null).Select(obj => obj.transform.position).ToList();
+        Debug.Log("SpawnPoint " + spawnPoints.Count);
     }
 
     private async void SetEnemyAddressable()
