@@ -6,6 +6,7 @@ public class PlayGameContext
     public ClassData playClassData;
     public int playLevel;
     public Difficulty difficulty;
+    public string playMap;
     /// <summary>
     /// 직업 데이터, 재화, 플레이레벨
     /// </summary>
@@ -25,6 +26,11 @@ public class PlayGameContext
     public void SetClass(ClassData playClass)
     {
         this.playClassData = playClass;
+    }
+
+    public void SetMap(string newMap)
+    {
+        playMap = newMap;
     }
     
 }

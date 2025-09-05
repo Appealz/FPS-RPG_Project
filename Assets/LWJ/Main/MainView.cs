@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class MainView : MonoBehaviour
 {
     MainViewModel viewModel;
+    ItemView ItemView;
     Label classLabel;
     Button leftBtn;
     Button rightBtn;
@@ -20,6 +21,8 @@ public class MainView : MonoBehaviour
     private void Awake()
     {
         viewModel = new MainViewModel();
+        ItemView = GetComponent<ItemView>();
+        ItemView.BindViewModel(viewModel.itemVM);
         var root = GetComponent<UIDocument>().rootVisualElement;
         classLabel = root.Q<Label>("ClassLabel");
         leftBtn = root.Q<Button>("LeftBtn");

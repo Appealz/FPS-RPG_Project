@@ -56,19 +56,7 @@ public static class SaveLoadSystem
         }
         isInit = true;
 
-        //if (accountData.classDatas == null)
-        //{
-        //    Debug.LogError("[Check] classDatas == null");
-        //}
-        //else
-        //{
-        //    Debug.Log($"[Check] classDatas Count = {accountData.classDatas.Count}");
-        //}
 
-        //foreach (var kvp in accountData.classDatas)
-        //{
-        //    Debug.Log($"[Check] classDatas key = '{kvp.Key}'");
-        //}
 
         return accountData;
     }

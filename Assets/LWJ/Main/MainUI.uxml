@@ -16,14 +16,24 @@
                 <engine:Button text="GameStart" name="GameStartBtn" />
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:VisualElement name="VisualElement_Item" style="flex-grow: 1; position: absolute; top: 50%; bottom: auto; translate: -50% -50%; left: 50%; align-items: center; justify-content: center; display: none; background-color: rgb(255, 255, 255); width: 600px; height: 800px; flex-direction: column;">
-            <engine:VisualElement name="Image" style="flex-grow: 1; width: 100%; height: 90%; position: absolute; top: 0;" />
-            <engine:VisualElement style="flex-grow: 1; width: auto; height: auto; flex-direction: row; justify-content: center; position: absolute; bottom: 0; display: flex;">
-                <engine:Button text="Main" name="Main" />
-                <engine:Button text="Sub" name="Sub" />
-                <engine:Button text="Revolver" name="Revolver" />
-                <engine:Button text="Knife" name="Knife" />
-                <engine:Button text="Healkit" name="Healkit" />
+        <engine:VisualElement name="VisualElement_Item" style="flex-grow: 1; position: absolute; top: 50%; bottom: auto; translate: -50% -50%; left: 50%; align-items: center; justify-content: center; display: flex; background-color: rgb(255, 255, 255); width: 600px; height: 800px; flex-direction: column;">
+            <engine:VisualElement name="Image" style="flex-grow: 1; width: 100%; height: 50%; position: absolute; top: 0; align-self: center; flex-direction: row; justify-content: center;">
+                <engine:Button text="Button" name="PrevBtn" style="position: absolute; left: 0%; top: 50%;" />
+                <engine:Button text="Button" name="NextBtn" style="position: absolute; right: 0%; top: 50%;" />
+                <engine:Button text="Select" name="Button" style="position: absolute; right: auto; top: auto; bottom: 0; translate: 0 0; left: auto; align-items: center; justify-content: flex-start; align-self: center;" />
+            </engine:VisualElement>
+            <engine:VisualElement name="Description" style="flex-grow: 1; width: 100%; height: 40%; position: absolute; translate: 0 0%; top: 50%; left: auto; justify-content: center; align-self: flex-start;">
+                <engine:Label text="Name" name="Name" />
+                <engine:Label text="Damage" name="Damage" />
+                <engine:Label text="Description" name="Des_Tag" />
+                <engine:Label text=" " name="Des" />
+            </engine:VisualElement>
+            <engine:VisualElement style="flex-grow: 1; width: auto; height: 5%; flex-direction: row; justify-content: center; position: absolute; bottom: 2%; display: flex;">
+                <engine:Button text="Main" name="Main" style="width: 20%; font-size: 18px;" />
+                <engine:Button text="Sub" name="Sub" style="width: 20%; font-size: 18px;" />
+                <engine:Button text="Revolver" name="Revolver" style="width: 20%; font-size: 18px;" />
+                <engine:Button text="Knife" name="Knife" style="width: 20%; font-size: 18px;" />
+                <engine:Button text="Healkit" name="Healkit" style="width: 20%; font-size: 18px;" />
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="VisualElement_Shop" style="flex-grow: 1; position: absolute; top: 50%; bottom: auto; translate: -50% -50%; left: 50%; align-items: center; justify-content: center; display: none; background-color: rgb(255, 255, 255); width: 600px; height: 800px; flex-direction: column;">

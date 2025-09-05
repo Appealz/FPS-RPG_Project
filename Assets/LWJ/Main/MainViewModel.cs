@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class MainViewModel : ViewModelBase
 {
     public ClassViewModel classVM { get; }
+    public ItemViewModel itemVM { get; }
 
     private bool isOpenItemPopUp;
     public bool IsOpenItemPopUp
@@ -36,6 +38,7 @@ public class MainViewModel : ViewModelBase
     {
         ClassModel classModel = new ClassModel();
         classVM = new ClassViewModel(classModel);
+        itemVM = new ItemViewModel(new ItemModel());
     }
 
     public void StartGame()
@@ -48,9 +51,11 @@ public class MainViewModel : ViewModelBase
         IsOpenShopPopUp = true;
     }
 
-    public void OpenItem()
+    public async Task OpenItem()
     {
         IsOpenItemPopUp = true;
+        await itemVM.ShowItem(itemSlotType.Main);
+        itemVM.UpdateOwnItems();
     }
 
     public void ClosePopUp()

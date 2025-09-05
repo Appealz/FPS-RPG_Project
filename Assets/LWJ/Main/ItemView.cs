@@ -12,10 +12,21 @@ public class ItemView : MonoBehaviour
     Button revolverBtn;
     Button knifeBtn;
     Button healkitBtn;
+    Label nameLabel;
+    Label damageLabel;
+    Label descriptionLabel;
+    Button nextBtn;
+    Button prevBtn;
+
 
     private void Awake()
     {
-        viewModel = new ItemViewModel(new ItemModel());
+        
+    }
+
+    public void BindViewModel(ItemViewModel newModel)
+    {
+        viewModel = newModel;
 
         var root = GetComponent<UIDocument>().rootVisualElement;
         mainBtn = root.Q<Button>("Main");
@@ -23,8 +34,14 @@ public class ItemView : MonoBehaviour
         revolverBtn = root.Q<Button>("Revolver");
         knifeBtn = root.Q<Button>("Knife");
         healkitBtn = root.Q<Button>("Healkit");
+        nameLabel = root.Q<Label>("Name");
+        damageLabel = root.Q<Label>("Damage");
+        descriptionLabel = root.Q<Label>("Des");
+        nextBtn = root.Q<Button>("NextBtn");
+        prevBtn = root.Q<Button>("PrevBtn");
 
-        foreach(itemSlotType type in Enum.GetValues(typeof(itemSlotType)))
+
+        foreach (itemSlotType type in Enum.GetValues(typeof(itemSlotType)))
         {
             var btn = root.Q<Button>(type.ToString());
             if (btn != null)
@@ -35,15 +52,24 @@ public class ItemView : MonoBehaviour
         }
 
         viewModel.PropertyChanged += OnChangeItem;
+        prevBtn.clicked += () => viewModel.ShowNextItem(-1);
+        nextBtn.clicked += () => viewModel.ShowNextItem(1);
     }
 
     private void OnChangeItem(object sender, PropertyChangedEventArgs evt)
     {
-        if(evt.PropertyName == nameof(ItemViewModel.SelectItem))
+        //if(evt.PropertyName == nameof(ItemViewModel.SelectItem))
+        //{
+        //    Debug.Log($"{viewModel.SelectItem} 선택");
+
+        //}
+
+        if (evt.PropertyName == nameof(ItemViewModel.ItemName))
         {
-            Debug.Log($"{viewModel.SelectItem} 선택");
+            nameLabel.text = $"Name : {viewModel.ItemName}";
+            damageLabel.text = $"Damage : {viewModel.itemDamage}";
+            descriptionLabel.text = $"{viewModel.itemDescription}";
         }
     }
-
 
 }

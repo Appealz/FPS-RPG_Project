@@ -45,28 +45,14 @@ public class ContextManager : DontDestroySingleton<ContextManager>
     {
         if(newData == null)
         {
-            setSaveData = CreateNewSaveData(DataManager.Instance.GetBaseClassList());
+            Debug.Log("세이브 데이터 오류");
         }
         else
         {
             setSaveData = newData;
         }
     }
-
-    private PlayerSaveData CreateNewSaveData(List<BaseClassData> newClassDatas)
-    {
-        PlayerSaveData newData = new PlayerSaveData();
-
-        foreach(var classData in newClassDatas)
-        {
-            Debug.Log($"[SaveData] 등록된 클래스: '{classData.name}'");
-            var newClass = new ClassData();
-            newClass.InitData(classData);
-            newData.classDatas[classData.name] = newClass;
-        }
-        return newData;
-    }
-    
+        
     public void SetSelectClass(string newClassName)
     {
         playClassName = newClassName;
@@ -79,7 +65,6 @@ public class ContextManager : DontDestroySingleton<ContextManager>
 
     public void StartGameSetUp(PlayerSaveData newData)
     {
-
         playGameContext = new PlayGameContext(newData.classDatas[playClassName], playLevel);
     }
     
@@ -106,3 +91,25 @@ public class ContextManager : DontDestroySingleton<ContextManager>
 // + 난이도 정보
 // 컨텍스트매니저(로비)에서 어떤 직업을 선택했는지에 따라서 그 직업의 클래스만 가져오는 형태
 // 게임매니저(게임씬)에게 필요한 클래스 전달.
+
+public class SelectionForm
+{
+    public string className;
+    public Difficulty difficulty;
+    public string playMap;
+
+    public void SetClass(string newClass)
+    {
+        className = newClass;
+    }
+
+    public void SetDifficulty(Difficulty newDifficulty)
+    {
+        difficulty = newDifficulty;
+    }
+
+    public void SetMap(string newMap)
+    {
+        playMap = newMap;
+    }
+}
