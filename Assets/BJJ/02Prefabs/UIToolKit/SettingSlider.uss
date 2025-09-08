@@ -1,8 +1,17 @@
 .SettingSlider {
     font-size: 30px;
     color: rgb(255, 255, 255);
-    -unity-text-align: upper-center;
-    height : 50px;
+    -unity-text-align: middle-center;
+    height : 40px;
+}
+
+.SettingSlider .unity-label{
+    flex-grow : 0.2;
+    width : 150px;
+}
+
+.SettingSlider .unity-base-slider__drag-container{
+    height : 25px;
 }
 
 .SettingSlider .unity-base-slider__tracker {
@@ -10,21 +19,21 @@
     background-size: stretch;
     background-repeat: no-repeat no-repeat;
     background.color : rgb(255, 255, 255);
-    height: 30px;
+    height: 100%;
 }
 
 .SettingSlider .unity-base-slider__progress {
     background-image: url("project://database/Assets/Asset/Sci-Fi%20UI/_SciFi_GUISkin_/atlas.png?fileID=21300032&guid=56d84991286850f428b4e7df0cca7380&type=3#progress_bar");
     background-size: stretch;
     background-repeat: no-repeat;
-    height: 30px;
+    height: 100%;
 }
 
 .SettingSlider .unity-base-slider__dragger {
     background-size: contain;
     background-repeat: no-repeat;
     width: 40px;
-    height: 30px;
+    height: 90%;
     margin-top: auto;
     margin-bottom: auto; /* tracker 중앙에 오도록 */
 }

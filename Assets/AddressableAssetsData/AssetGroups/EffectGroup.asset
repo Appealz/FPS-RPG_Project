@@ -15,8 +15,26 @@ MonoBehaviour:
   m_GroupName: EffectGroup
   m_GUID: 5ac5b86a8d6c7de4eaf6619734dbab23
   m_SerializeEntries:
+  - m_GUID: 1a0fbabe50b23794c9d871f03505895e
+    m_Address: Assets/SpawnObject/HitEffect.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Effect
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3871ac1e6ca8aa547872120fde1662a6
     m_Address: Assets/SpawnObject/Explosion01.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Effect
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a82b7b7d86259dd4b8eefe4228bef17a
+    m_Address: Assets/SpawnObject/MuzzleFlash.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Effect
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9079de214a65894fb41d7ef2092f59a
+    m_Address: Assets/SpawnObject/FleshEffect.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Effect

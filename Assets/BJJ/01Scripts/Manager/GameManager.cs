@@ -43,20 +43,13 @@ public class GameManager : DestroySingleton<GameManager>
     {
         // 테스트 코드임
         await MapLoadingTest.Instance.StartAsync();
-        //todo 컨텍스트에서 선택되어있는 맵 데이터를 맵 로더에 넣어서 맵로딩을 시키는 매서드로 수정해야함
+    }
+
+    private void Start()
+    {
         DontResetSetting().Forget();
         ResetSetting();
     }
-
-    /// <summary>
-    /// 로딩씬이 있으면 Start로 그 전까진 StartFlow에서 전부 시작
-    /// </summary>
-    /// <returns></returns>
-    //private void Start()
-    //{
-    //    DontResetSetting().Forget();
-    //    ResetSetting();
-    //}
 
     private async UniTaskVoid DontResetSetting()
     {
@@ -66,7 +59,7 @@ public class GameManager : DestroySingleton<GameManager>
         roundManager.OnRoundEnd += RoundEndHandler;
         ShopManager.Instance.InitShop();
         SettingManager.Instance.PlayStart();
-        TestUIManager.Instance.InitTestUI();
+        UIManager.Instance.InitPlayUI();
         await SetStaticObject();
     }
 
@@ -184,6 +177,6 @@ public class GameManager : DestroySingleton<GameManager>
     {
         roundManager.OnRoundEnd -= RoundEndHandler;
         roundManager.DisableRoundManager();
-        SettingManager.Instance.PlayEnd();
+        //SettingManager.Instance.PlayEnd();
     }
 }

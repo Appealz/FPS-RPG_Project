@@ -17,13 +17,14 @@ public class DamageInfo
 {
     public GameObject sender;
     public GameObject receiver;
+    public Vector3 hitPos;
     public DamageType type;
     public float damage;
     public HPCalculateType calculateType;
     public IHpEffectCalculator effectCalculator;
     public Buff buff;
 
-    public DamageInfo (GameObject newSender, GameObject newReceiver, float newDamage, Buff newBuff, DamageType type,HPCalculateType calculateType = HPCalculateType.None,IHpEffectCalculator effectCalculator = null)
+    public DamageInfo (GameObject newSender, GameObject newReceiver, float newDamage, Buff newBuff, DamageType type, Vector3 hitPos, HPCalculateType calculateType = HPCalculateType.None, IHpEffectCalculator effectCalculator = null)
     {
         sender = newSender;
         receiver = newReceiver;
@@ -32,6 +33,17 @@ public class DamageInfo
         this.type = type;
         this.calculateType = calculateType;
         this.effectCalculator = effectCalculator;
+        this.hitPos = hitPos;
+    }
+
+    public DamageInfo(GameObject newSender, GameObject newReceiver, float newDamage, Buff newBuff, DamageType type, HPCalculateType calculateType = HPCalculateType.None, IHpEffectCalculator effectCalculator = null)
+    {
+        sender = newSender; receiver = newReceiver;
+        damage = newDamage; buff = newBuff;
+        this.type = type;
+        this.calculateType = calculateType;
+        this.effectCalculator = effectCalculator;
+        this.hitPos = Vector3.zero;
     }
 }
 

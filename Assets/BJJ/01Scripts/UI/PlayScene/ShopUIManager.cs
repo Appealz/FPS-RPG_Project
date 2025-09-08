@@ -13,8 +13,6 @@ public interface IShopUI
     event Action<ShopArmorBtnType, int> OnArmorBuyEvent;
     event Action<HealkitBuyType> OnHealkitBuyEvent;
 
-    void Init(Transform canvas);
-
     void ShopOnOff(bool isOn);
 
     void ShopItemUpdate(List<IItem> showSellList, List<IItem> playerInven);
@@ -22,7 +20,8 @@ public interface IShopUI
     void HealkitFullBuyPriceUpdate();
 }
 
-public class ShopUIManager : MonoBehaviour, IShopUI
+[Serializable]
+public class ShopUIManager : IShopUI
 {
     private Transform canvas;
     [SerializeField] private List<ShopItemBlock> shopBuyBlocks = new List<ShopItemBlock>();
@@ -43,7 +42,7 @@ public class ShopUIManager : MonoBehaviour, IShopUI
     public event Action<ShopArmorBtnType,int> OnArmorBuyEvent;
     public event Action<HealkitBuyType> OnHealkitBuyEvent;
 
-    public void Init(Transform newCanvas)
+    public ShopUIManager(Transform newCanvas)
     {
         canvas = newCanvas;
 

@@ -15,7 +15,7 @@ public class TestUIManager : DestroySingleton<TestUIManager>
             return shopUICanvas;
         }
     }
-    private IShopUI shopUI;
+    [SerializeField] private ShopUIManager shopUI;
     private ShopUIPresenter shopUIPresenter;
 
     private Transform settingCanvas;
@@ -29,18 +29,13 @@ public class TestUIManager : DestroySingleton<TestUIManager>
         }
     }
 
-    private ISettingUIManager settingUI;
-    private SettingUIPresenter settingUIPresenter;
+    [SerializeField] private SettingUIManager settingUI;
+     private SettingUIPresenter settingUIPresenter;
 
     public void InitTestUI()
     {
-        if (!TryGetComponent<IShopUI>(out shopUI))
-            Debug.Log("TestUIManager.cs - InitTestUI() - IShopUI Can't Find");
-        else
-        {
-            shopUI.Init(ShopUICanvas);
-            shopUIPresenter = new ShopUIPresenter(shopUI);
-        }
+        shopUI = new ShopUIManager(ShopUICanvas);
+        shopUIPresenter = new ShopUIPresenter(shopUI);
 
         settingUI = new SettingUIManager(SettingCanvas);
         settingUIPresenter = new SettingUIPresenter(settingUI);

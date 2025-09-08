@@ -19,7 +19,6 @@ public class ShopManager : DestroySingleton<ShopManager>
         _armorCtrl.Init();
         _healkitCtrl.Init();
 
-        return;
         player = FindAnyObjectByType<Player>().gameObject;
 
         EventBus_ShopBuyWeapon.Subscribe(BuyItemHandler);

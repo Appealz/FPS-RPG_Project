@@ -85,9 +85,15 @@ public class EnemyRangeAttackWeapon : IEnemyWeapon, IAttackPointInjectable
     public void OnAttack(float range, float damage)
     {
         AudioManager.Instance.PlaySFXPlay("pistol_fire", attackPoint.position, true);
+        var flash = PoolManager.Instance.GetPool("MuzzleFlash").GetObjFromPool();
+        flash.transform.position = attackPoint.position;
+        flash.transform.parent = attackPoint;
+        if (flash.TryGetComponent<IEffectObject>(out IEffectObject efx))
+            efx.EffectStart();
+
         if (Physics.Raycast(attackPoint.position, attackPoint.forward, out var hit, range, LayerMask.GetMask("Player")))
         {
-            EventBus_Damage.Publish(new DamageInfo(owner, hit.collider.gameObject, damage, null, DamageType.Damage));
+            EventBus_Damage.Publish(new DamageInfo(owner, hit.collider.gameObject, damage, null, DamageType.Damage, hit.point));
         }
     }
 
