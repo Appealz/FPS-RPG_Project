@@ -8,6 +8,9 @@ public class UIManager : DestroySingleton<UIManager>
     private SettingUIManager settingUIManager;
     private SettingUIPresenter settingUIPresenter;
 
+    private PauseManager pauseManager;
+    private PausePresenter pausePresenter;
+
     public void InitPlayUI()
     {
         // 플레이어 관련 UI들 세팅 필요
@@ -30,6 +33,16 @@ public class UIManager : DestroySingleton<UIManager>
             settingUIManager = new SettingUIManager(settingCanvas);
             settingUIPresenter = new SettingUIPresenter(settingUIManager);
         }
+
+        var pauseCanvas = MyUtility.GetChildrenTrans(transform, "PauseCanvas");
+        if(pauseCanvas == null)
+            Debug.Log("UIManager.cs - InitPlayUI() - PauseCanvas Can't Find");
+        else
+        {
+            pauseManager = new PauseManager(pauseCanvas);
+            pausePresenter = new PausePresenter(pauseManager);
+        }
+
     }
 
     private void OnDisable()

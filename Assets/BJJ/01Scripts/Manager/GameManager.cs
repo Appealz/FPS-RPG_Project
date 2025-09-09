@@ -60,6 +60,10 @@ public class GameManager : DestroySingleton<GameManager>
         ShopManager.Instance.InitShop();
         SettingManager.Instance.PlayStart();
         UIManager.Instance.InitPlayUI();
+
+        EventBus_Pause.Subscribe(PauseHandler);
+        EventBus_ExitEvent.Subscribe(GameEndHandler);
+
         await SetStaticObject();
     }
 
@@ -157,13 +161,20 @@ public class GameManager : DestroySingleton<GameManager>
     /// 추후에 일시정지용 Event가 만들어지면 변경될 예정
     /// </summary>
     /// <param name="value">추후에 일시정지 이벤트가 생기면 해당 이벤트로 파라미터 변경필요</param>
-    private void PauseHandler(bool value)
+    private void PauseHandler(PauseEvent evt)
     {
-        isPause = value;
-        Time.timeScale = value == true ? 1f : 0f;
+        isPause = evt.isOn;
+        Time.timeScale = isPause == true ? 1f : 0f;
     }
 
+    // 로비씬으로 넘어가는걸 로딩씬을 거쳐서 할지 그냥 바로 넘어갈지 고민을 해봐야할듯
     private void GameEndHandler()
+    {
+        OnGameEnd?.Invoke();
+
+    }
+
+    private void GameEndHandler(ExitEvent evt)
     {
         OnGameEnd?.Invoke();
     }
@@ -177,6 +188,8 @@ public class GameManager : DestroySingleton<GameManager>
     {
         roundManager.OnRoundEnd -= RoundEndHandler;
         roundManager.DisableRoundManager();
+        EventBus_Pause.UnSubscribe(PauseHandler);
+        EventBus_ExitEvent.UnSubscribe(GameEndHandler);
         //SettingManager.Instance.PlayEnd();
     }
 }
