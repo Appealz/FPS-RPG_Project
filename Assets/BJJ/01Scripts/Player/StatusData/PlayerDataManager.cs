@@ -32,6 +32,7 @@ public class PlayerDataManager : MonoBehaviour
         EventBus_Currency.Subscribe(CurrecyChangeHandler);
         EventBus_CurrencyCheck.Subscribe(CurrencyCheckHandler);
         EventBus_CurrencyQuery.Subscribe(CurrencyQueryHandler);
+        EventBus_PlayerHPQuery.Subscribe(HPQueryHandler);
         EventBus_ArmorQueryEvent.Subscribe(ArmorQueryHandler);
         EventBus_InvenData.Subscribe(PlayerInvenListQueryHandler);
     }
@@ -44,11 +45,31 @@ public class PlayerDataManager : MonoBehaviour
         EventBus_Currency.UnSubscribe(CurrecyChangeHandler);
         EventBus_CurrencyCheck.UnSubscribe(CurrencyCheckHandler);
         EventBus_CurrencyQuery.UnSubscribe(CurrencyQueryHandler);
+        EventBus_PlayerHPQuery.UnSubscribe(HPQueryHandler);
         EventBus_ArmorQueryEvent.UnSubscribe(ArmorQueryHandler);
         EventBus_InvenData.UnSubscribe(PlayerInvenListQueryHandler);
     }
 
     // todo 이벤트 버스 구현 후 이벤트 버스로 이벤트를 받는 핸들러 구현 필요
+
+    public void ApplyDamage(float damage)
+    {
+        statManager.ApplyDamage(damage);
+        int curArmor, maxArmor;
+
+        if(statManager.armorManager.GetEquipArmorData().isEquipArmor)
+        {
+            curArmor = statManager.armorManager.GetArmor();
+            maxArmor = Mathf.RoundToInt(statManager.armorManager.GetEquipArmorData().curArmor.GetItemCurrentData().durability);
+        }
+        else
+        {
+            curArmor = 0;
+            maxArmor = 0;
+        }
+
+        EventBus_PlayerHPChangeEvent.Publish(new PlayerHPChangeEvent(statManager.CurHP, statManager.GetStatInt(StatType.HP), curArmor,maxArmor));
+    }
 
     private void UpdateItemHandler(ItemChangedEvent newItemEvent)
     {
@@ -123,6 +144,12 @@ public class PlayerDataManager : MonoBehaviour
         if(evt.receiver != gameObject) return;
 
         evt.onResult(currencyManager.GetGold());
+    }
+
+    private void HPQueryHandler(PlayerHPQuery hpQuery)
+    {
+        hpQuery.GetPlayerCurHP = () => statManager.CurHP;
+        hpQuery.GetPlayerMaxHP = () => statManager.GetStatInt(StatType.HP);
     }
 
     private void ArmorQueryHandler(ArmorQueryEvent evt)

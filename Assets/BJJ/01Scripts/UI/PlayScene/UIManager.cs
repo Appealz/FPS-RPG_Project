@@ -11,6 +11,9 @@ public class UIManager : DestroySingleton<UIManager>
     private PauseManager pauseManager;
     private PausePresenter pausePresenter;
 
+    private PlayerHPUIManager playerHPUIManager;
+    private PlayerHPUIPresenter playerHPUIPresenter;
+
     public void InitPlayUI()
     {
         // 플레이어 관련 UI들 세팅 필요
@@ -43,11 +46,21 @@ public class UIManager : DestroySingleton<UIManager>
             pausePresenter = new PausePresenter(pauseManager);
         }
 
+        var hpCanvas = MyUtility.GetChildrenTrans(transform, "PlayerHPCanvas");
+        if (hpCanvas == null)
+            Debug.Log("UIManager.cs - InitPlayUI() - PlayerHPCanvas Can't Find");
+        else
+        {
+            playerHPUIManager = new PlayerHPUIManager(hpCanvas);
+            playerHPUIPresenter = new PlayerHPUIPresenter(playerHPUIManager);
+        }
     }
 
     private void OnDisable()
     {
         shopUIPresenter?.DisableUI();
         settingUIPresenter?.OnDisable();
+        pausePresenter?.OnDisable();
+        playerHPUIPresenter?.OnDisable();
     }
 }

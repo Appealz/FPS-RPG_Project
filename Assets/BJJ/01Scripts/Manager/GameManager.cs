@@ -43,12 +43,14 @@ public class GameManager : DestroySingleton<GameManager>
     {
         // 테스트 코드임
         await MapLoadingTest.Instance.StartAsync();
+        DontResetSetting().Forget();
+        ResetSetting();
     }
 
     private void Start()
     {
-        DontResetSetting().Forget();
-        ResetSetting();
+        //DontResetSetting().Forget();
+        //ResetSetting();
     }
 
     private async UniTaskVoid DontResetSetting()
@@ -58,8 +60,7 @@ public class GameManager : DestroySingleton<GameManager>
         roundManager.InitRoundManager();
         roundManager.OnRoundEnd += RoundEndHandler;
         ShopManager.Instance.InitShop();
-        SettingManager.Instance.PlayStart();
-        UIManager.Instance.InitPlayUI();
+        SettingManager.Instance.PlayStart();;
 
         EventBus_Pause.Subscribe(PauseHandler);
         EventBus_ExitEvent.Subscribe(GameEndHandler);
@@ -116,6 +117,7 @@ public class GameManager : DestroySingleton<GameManager>
             player.transform.position = startPos.transform.position;
 
         EnemyTotalManager.Instance.InitEnemyManager();
+        UIManager.Instance.InitPlayUI();
 
         roundManager.StartRound();
     }

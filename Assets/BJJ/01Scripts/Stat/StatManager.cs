@@ -133,14 +133,15 @@ public class StatManager
     private void DamageResult(float absorb)
     {
         curHP -= armorManager.ApplyDamage(CurHPModifierCalculate(DamageType.Damage, absorb));
+
+
+
         if (curHP <= 0)
         {
             curHP = 0;
             Debug.Log("DieEvent");
             // todo 荤噶贸府
         }
-
-        // todo UI贸府
     }
 
     public void ApplyHeal(float heal)

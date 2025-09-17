@@ -18,6 +18,7 @@ public class EquipArmorData
 public class ArmorManager
 {
     // 방탄복 인터페이스 만들어지면 여기서 참조할 예정
+    private ArmorData data;
     private bool isEquipArmor;
     private IItem curArmorData;
     private float curArmor;
@@ -40,7 +41,7 @@ public class ArmorManager
         curArmorData = newArmor;
         var data = curArmorData.GetItemCurrentData();
         curArmor = data.durability;
-        // todo UI 업데이트
+        EventBus_PlayerArmorChangeEvent.Publish(new PlayerArmorChangeEvent(GetArmor(), Mathf.RoundToInt(data.durability)));
     }
 
     /// <summary>
@@ -50,7 +51,7 @@ public class ArmorManager
     {
         // todo 방탄복이 만들어지면 curArmor를 현재 가지고 있는 방탄복의 최대 수치까지 수리할 예정
         curArmor = curArmorData.GetItemCurrentData().durability;
-        // todo UI 업데이트
+        EventBus_PlayerArmorChangeEvent.Publish(new PlayerArmorChangeEvent(GetArmor(), Mathf.RoundToInt(data.durability)));
     }
 
     public int GetArmor() => Mathf.RoundToInt(curArmor);
@@ -63,7 +64,6 @@ public class ArmorManager
         if(curArmor <= 0)
         {
             curArmor = 0;
-            // todo 방탄복 UI 꺼버릴 예정
         }
 
         return Mathf.Max(0, absorb);
